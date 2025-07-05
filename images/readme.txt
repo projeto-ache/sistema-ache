@@ -1,0 +1,1 @@
+Organização de todas as imagens sutilizadas para o desenvolvimento das páginas.

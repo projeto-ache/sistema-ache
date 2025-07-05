@@ -1,0 +1,248 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
+/* Variáveis para cores (opcional, mas boa prática) */
+:root {
+    --ache-red: #D50057; /* Cor vermelha do cabeçalho */
+    --light-red: #AC1D58; /* Cor do menu principal */
+    --text-color: #FFFFFF;
+    --dark-text-color: #333; /* Cor para texto em fundos claros */
+    --icon-color: #FFFFFF;
+}
+
+body {
+    font-family: "Noto Sans", sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+
+/* Style para menu */
+header{
+    display: flex;
+    background-color: var(--ache-red);
+    color: white;
+    height: 60px;
+}
+
+.menu-logo{
+    margin: auto;
+    margin-left: 50px;
+    font-size: 20px;
+    font-weight: 700;
+    align-items: center;
+}
+
+.menu-logo a{
+    color: white;
+    text-decoration: none;
+}
+
+.menu-content{
+    display: flex;
+    margin-right: 50px;
+    font-size: 16px;
+    font-weight: 500;
+    align-items: center;
+    text-align: center;
+    width: 500px;
+}
+
+.menu-content-mensagem{
+    margin-right: auto;
+}
+
+.menu-content-data{
+    margin: auto;
+}
+
+.menu-content-time{
+    margin-left: auto;
+}
+
+.second-menu{
+    background-color: var(--light-red);
+    height: 60px;
+    display: flex;
+    padding-left: 50px;
+    padding-right: 50px;
+    color: white;
+    align-items: center;
+    font-size: 16px;
+}
+
+.burger-icon button{
+    font-size: 30px;
+    background-color: #AC1D58;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.atalhos-iniciais{
+    width: 180px;
+    height: 60px;
+    align-items: center;
+    display: flex;
+    margin-left: 30px;
+}
+
+.atalhos-iniciais-pagina-inicial{
+    padding-right: 20px;
+    border-right: 1px solid white;
+}
+
+.atalhos-iniciais-pagina-inicial a{
+    cursor: pointer;
+}
+
+.atalhos-iniciais-pagina-inicial :hover{
+    border-bottom: 2px solid white;
+}
+
+.atalhos-iniciais-ajuda{
+    margin-left: auto;
+    cursor: pointer;
+}
+
+.atalhos-iniciais-ajuda :hover{
+    border-bottom: 2px solid white;
+}
+
+.atalhos-iniciais a{
+    text-decoration: none;
+    color: white;
+}
+
+.atalhos-pessoais{
+    margin-left: auto;
+}
+
+.atalhos-pessoais ul{
+    display: flex;
+    list-style-type: none;
+}
+
+.atalhos-pessoais ul li{
+    margin-left: 25px;
+}
+
+.atalhos-pessoais ul li :hover{
+    border-bottom: 2px solid white;
+}
+
+.atalhos-pessoais ul li a{
+    color: white;
+    font-size: 20px;
+}
+/* FIM - Style para menu */
+
+
+/* Style para página Index */
+
+.index-content {
+    width: 100%;
+    height: calc(100vh - 120px);
+    display: flex;
+}
+
+.left-main{
+    margin-left: 80px;
+    width: 200px;
+    border-right: 3px solid var(--light-red);
+}
+
+.left-main-new-project-content{
+    display: flex;
+    height: 35px;
+    margin-top: 15px;
+}
+
+.left-main-new-project-content button{
+    background-color: var(--ache-red);
+    border: none;
+    height: 35px;
+    padding: 0px;
+    align-items: center;
+    font-size: 16px;
+    color: white;
+    cursor: pointer;
+}
+
+.left-main-new-project-content button p{
+    margin: 0px;
+}
+
+.new-project-button button{
+    border-radius: 5px 0px 0px 5px;
+    padding: 0px 10px 0px 10px;
+    border-right: 1px solid white;
+    font-family: "Noto Sans", sans-serif;
+}
+
+.new-project-plus button{
+    border-radius: 0px 5px 5px 0px;
+    padding: 0px 10px 0px 10px;
+}
+
+.new-project-plus span{
+    font-size: 30px;
+    margin-top: 3px;
+}
+
+.favorites-title-content{
+    height: 35px;
+    margin-top: 15px;
+}
+
+.favorites-title-content button{
+    display: flex; 
+    align-items: center;
+    background-color: white;
+    border: none;
+    font-size: 16px;
+    font-family: "Noto Sans", sans-serif;
+    padding: 0px;
+    height: 35px;
+    gap: 20px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.favorites-title p{
+    margin: 0px;
+}
+
+.favorites-plus{
+    margin-top: 5px;
+}
+
+.favorites-plus span{
+    font-size: 30px;
+}   
+
+.favorites-atalhos-content{
+    margin-top: 15px;
+}
+
+.favorites-atalhos-ex1{
+    display: flex;
+    height: 40px;
+    align-items: center;
+    border-bottom: 1px solid black;
+    margin-bottom: 10px;
+    margin-right: 10px;
+}
+
+.favorites-atalhos-ex1 p{
+    margin: 0px;
+}
+
+.button-favorites-atalhos{
+    margin-left: auto;
+    width: 35px;
+    text-align: center;
+    border-left: 1px solid black;
+    color: var(--ache-red);
+}
+
+

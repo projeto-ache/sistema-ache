@@ -1,0 +1,1 @@
+Ao passar as pagina HTML para PHP, códigos como Menu, Hover, entre outros códigos utilizados em diversas páginas, colocamos estes códigos em "inputs" para diminuir o tamanho dos mesmos.
