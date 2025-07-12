@@ -16,6 +16,7 @@ body {
 }
 
 
+
 /* Style para menu */
 header{
     display: flex;
@@ -70,15 +71,16 @@ header{
     font-size: 16px;
 }
 
-.burger-icon button{
+.menu-burger-icon button{
     font-size: 30px;
     background-color: #AC1D58;
+    padding: 0px;
     color: white;
     border: none;
     cursor: pointer;
 }
 
-.atalhos-iniciais{
+.menu-atalhos-iniciais{
     width: 180px;
     height: 60px;
     align-items: center;
@@ -86,67 +88,70 @@ header{
     margin-left: 30px;
 }
 
-.atalhos-iniciais-pagina-inicial{
+.menu-atalhos-iniciais-pagina-inicial{
     padding-right: 20px;
     border-right: 1px solid white;
 }
 
-.atalhos-iniciais-pagina-inicial a{
+.menu-atalhos-iniciais-pagina-inicial a{
     cursor: pointer;
 }
 
-.atalhos-iniciais-pagina-inicial :hover{
+.menu-atalhos-iniciais-pagina-inicial :hover{
     border-bottom: 2px solid white;
 }
 
-.atalhos-iniciais-ajuda{
+.menu-atalhos-iniciais-ajuda{
     margin-left: auto;
     cursor: pointer;
 }
 
-.atalhos-iniciais-ajuda :hover{
+.menu-atalhos-iniciais-ajuda :hover{
     border-bottom: 2px solid white;
 }
 
-.atalhos-iniciais a{
+.menu-atalhos-iniciais a{
     text-decoration: none;
     color: white;
 }
 
-.atalhos-pessoais{
+.menu-atalhos-pessoais{
     margin-left: auto;
 }
 
-.atalhos-pessoais ul{
+.menu-atalhos-pessoais ul{
     display: flex;
     list-style-type: none;
 }
 
-.atalhos-pessoais ul li{
+.menu-atalhos-pessoais ul li{
     margin-left: 25px;
 }
 
-.atalhos-pessoais ul li :hover{
+.menu-atalhos-pessoais ul li :hover{
     border-bottom: 2px solid white;
 }
 
-.atalhos-pessoais ul li a{
+.menu-atalhos-pessoais ul li a{
     color: white;
     font-size: 20px;
 }
 /* FIM - Style para menu */
 
 
-/* Style para página Index */
 
+/* Style para página Index */
 .index-content {
     width: 100%;
     height: calc(100vh - 120px);
     display: flex;
 }
 
+
+
+/* Barra da esquerda (Onde o usuario cria seus projetos, exibe seus anexos e favoritos, e exibe todos os seus projetos e os que tambem foram atribuidos) */
 .left-main{
-    margin-left: 80px;
+    margin-left:50px;
     width: 200px;
     border-right: 3px solid var(--light-red);
 }
@@ -222,6 +227,7 @@ header{
 
 .favorites-atalhos-content{
     margin-top: 15px;
+    padding-bottom: 20px;
 }
 
 .favorites-atalhos-ex1{
@@ -237,12 +243,322 @@ header{
     margin: 0px;
 }
 
-.button-favorites-atalhos{
+.button-favorites-atalhos-content{
     margin-left: auto;
     width: 35px;
     text-align: center;
     border-left: 1px solid black;
+}
+
+.button-favorites-atalhos-content button{
+    cursor : pointer;
+    background-color: white;
+    width: 100%;
+    height: 30px;
+    border: none;
+    font-size: 16px;
     color: var(--ache-red);
+    padding: 0px;
+}
+
+.button-favorites-atalhos-hover{
+    display: none;
+    background-color: #f1f1f1;
+    width: 100%;
+    margin-top: 2px;
+    height: 30px;
+    font-size: 16px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+}
+
+.button-favorites-atalhos-content button:hover .button-favorites-atalhos {
+    display: none;
+}
+
+.button-favorites-atalhos-content button:hover .button-favorites-atalhos-hover {
+    display: flex;
+}
+
+/* FIM - Barra da esquerda (Onde o usuario cria seus projetos, exibe seus anexos e favoritos, e exibe todos os seus projetos e os que tambem foram atribuidos) */
+
+
+
+/* Barra da direita (Onde, apos o usuario selecionar a opcao ou projeto que deseja  visualizar, sera exibido todas as informacoes nesta parte). Obs. O conteudo desta parte (Barra da direita) sera bem flexivel, podendo exibir varios tipos diferentes de conteudo, seja de todos os projetos do usuario, informacoes sobre um projeto em especifico, calendario das tarefas dos projetos do usuario, etc. */
+.right-main{
+    display: flex;
+    background-color: #d8d8d8;
+    margin: 10px 0px 0px 10px;
+    width: calc(100% - 250px);
+    height: calc(100vh - 130px);
+    border-radius: 5px;
 }
 
 
+
+/* Barra da direita - tela de todos os projetos do usuario (contem todos os projetos criados e atribuídos pelo;para o usuario). */
+.right-main-user-projects{
+    display: flex;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.left-main-flexible-menu{
+    margin-left:15px;
+    width: 250px;
+}
+
+.left-main-new-project-content-flexible-menu{
+    display: flex;
+    height: 35px;
+    margin-top: 15px;
+}
+
+.left-main-new-project-content-flexible-menu button{
+    background-color: white;
+    border: none;
+    height: 35px;
+    padding: 0px;
+    align-items: center;
+    font-size: 16px;
+    color: black;
+    cursor: pointer;
+}
+
+.left-main-new-project-content-flexible-menu button p{
+    margin: 0px;
+}
+
+.new-project-button-flexible-menu button{
+    border-radius: 5px 0px 0px 5px;
+    padding: 0px 10px 0px 10px;
+    font-family: "Noto Sans", sans-serif;
+}
+
+.new-project-plus-flexible-menu button{
+    border-radius: 0px 5px 5px 0px;
+    padding: 0px 10px 0px 10px;
+}
+
+.new-project-plus-flexible-menu span{
+    font-size: 30px;
+    margin-top: 3px;
+}
+
+.favorites-atalhos-content-flexible-menu{
+    margin-top: 35px;
+    padding-bottom: 20px;
+}
+
+.main-favorites-atalhos-ex1-flexible-menu{
+    display: flex;
+    height: 40px;
+    align-items: center;
+    margin-bottom: 10px;
+    margin-right: 10px;
+}
+
+.main-favorites-atalhos-ex1-flexible-menu button{
+    cursor: pointer;
+    align-items: center;
+    background-color: transparent;
+    border: none;
+    font-size: 16px;
+    padding: 0px;
+}
+
+.favorites-atalhos-ex1-flexible-menu{
+    margin-bottom: 30px;
+    border-bottom: 1px solid black;
+}
+
+.favorites-atalhos-ex1-flexible-menu p{
+    margin: 0px;
+}
+
+.button-favorites-atalhos-content-flexible-menu{
+    margin-left: auto;
+    width: 35px;
+    text-align: center;
+    border-left: 1px solid black;
+}
+
+.button-favorites-atalhos-content-flexible-menu button{
+    cursor : pointer;
+    background-color: #d8d8d8;
+    width: 100%;
+    height: 30px;
+    border: none;
+    font-size: 16px;
+    color: var(--ache-red);
+    padding: 0px;
+}
+
+.button-favorites-atalhos-content-flexible-menu-att{
+    font-size: 13px;
+    color: var(--ache-red);
+    gap: 5px;
+    font-weight: 500;
+}
+
+.exibicao-selection-project-space{
+    background-color: white;
+    margin-left: 30px;
+    width: calc(100% - 290px);
+    height: calc(100vh - 200px);
+    overflow-y: auto;
+    align-self: center;
+    border-radius: 5px 0px 0px 5px;
+}
+
+.exibicao-selection-project-space-content{
+    margin: 15px 50px 0px 50px;
+/* Ajustar no Media Query */
+}
+
+.exibicao-selection-project-space-content p{
+    margin: 0px;
+}
+/* FIM - Barra da direita - tela de todos os projetos do usuario (contem todos os projetos criados e atribuídos pelo;para o usuario). */
+
+
+
+/* Barra da direita (Onde, apos o usuario selecionar a opcao ou projeto que deseja  visualizar, sera exibido todas as informacoes nesta parte). Obs. O conteudo desta parte (Barra da direita) sera bem flexivel, podendo exibir varios tipos diferentes de conteudo, seja de todos os projetos do usuario, informacoes sobre um projeto em especifico, calendario das tarefas dos projetos do usuario, etc. */
+.exibicao-selection-project-space-top{
+    display: flex;
+    align-items: center;
+}
+
+.exibicao-selection-project-space-top button{
+    background-color: transparent;
+    border: none;
+    margin-left: auto;
+    cursor: pointer;
+}
+
+.exibicao-selection-project-space-top-project-name{
+    font-size: 16px;
+    font-weight: 500
+}
+
+.exibicao-selection-project-space-top-project-kanbam{
+    background-color: #d8d8d8;
+    border-radius: 5px;
+    box-shadow: 2px 3px 5px black;
+}
+
+.exibicao-selection-project-space-top-project-kanbam-icon{
+    display: flex;
+    padding: 10px 10px 5px 10px;
+    gap: 10px;
+}
+
+.exibicao-selection-project-space-top-project-kanbam-p{
+    padding: 0px 0px 10px 0px;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.exibicao-selection-project-space-creator-space{
+    color: var(--ache-red);
+    font-size: 16px;
+    margin-top: 15px;
+}
+
+.exibicao-selection-project-space-workers-space{
+    color: var(--ache-red);
+    font-size: 16px;
+    margin-top: 30px;
+}
+
+.exibicao-selection-project-space-description-content{
+    margin-top: 30px;
+}
+
+.exibicao-selection-project-space-description-title{
+    font-size: 16px;
+    margin-top: 15px;
+    font-weight: 500;
+}
+
+.exibicao-selection-project-space-description-text{
+    margin-top: 10px;
+    font-size: 16px;
+}
+
+.exibicao-selection-project-space-tarefas-contents{
+    margin-top: 30px;
+}
+
+.exibicao-selection-project-space-tarefas-title{
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.exibicao-selection-project-space-tarefas-addnew-button{
+    margin-top: 15px;
+}
+
+.exibicao-selection-project-space-tarefas-addnew-button button{
+    display: flex;
+    background-color: var(--ache-red);
+    border: none;
+    color: white;
+    align-items: center;
+    border-radius: 5px;
+    padding: 0px;
+    cursor: pointer;
+}
+
+.exibicao-selection-project-space-tarefas-addnew-button-title{
+    font-size: 16px;
+    font-weight: 500;
+    padding: 0px 10px;
+}
+
+.exibicao-selection-project-space-tarefas-addnew-button-plus{
+    font-size: 30px;
+    font-weight: 500;
+    padding: 0px 10px;
+    border-left: 1px solid white;
+}
+
+.exibicao-selection-project-space-tarefas-exibir-tarefas{
+    margin-top: 30px;
+}
+
+.exibicao-selection-project-tarefa{
+    background-color: #d8d8d8;
+    padding: 10px;
+    margin-bottom: 30px;
+    border-radius: 5px;
+}
+
+.exibicao-selection-project-tarefa-top{
+    display: flex;
+    font-size: 16px;
+    font-weight: 500;
+    align-items: center;
+}
+
+.exibicao-selection-project-tarefa-top-text{
+    margin-left: 10px;
+}
+
+.exibicao-selection-project-tarefa-bottom{
+    margin-top: 15px;
+    display: flex;
+    color: var(--ache-red);
+    align-items: center;
+}
+
+.exibicao-selection-project-tarefa-bottom-right{
+    margin-left: auto;
+}
+
+.exibicao-selection-project-tarefa-bottom-right-img img{
+    border-radius: 50px;
+    border: 2px solid black;
+}
