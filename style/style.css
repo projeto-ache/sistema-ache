@@ -10,9 +10,12 @@
 }
 
 body {
-    font-family: "Noto Sans", sans-serif;
     margin: 0;
     padding: 0;
+}
+
+*{
+    font-family: "Noto Sans", sans-serif;
 }
 
 
@@ -414,6 +417,7 @@ header{
 }
 
 .exibicao-selection-project-space-content{
+    display: none;
     margin: 15px 50px 0px 50px;
 /* Ajustar no Media Query */
 }
@@ -562,3 +566,177 @@ header{
     border-radius: 50px;
     border: 2px solid black;
 }
+
+
+
+
+
+
+.exibicao-selection-project-space-kanbam-content{
+    margin: 15px 50px 0px 50px;
+}
+
+.exibicao-selection-project-space-kanbam-top{
+    display: flex;
+}
+
+.exibicao-selection-project-space-kanbam-top button{
+    background-color: #d8d8d8;
+    border-radius: 5px;
+    padding: 0px;
+    border: none;
+    margin-left: auto;
+    padding: 10px 10px 10px 10px;
+    cursor: pointer;
+}
+
+.exibicao-selection-project-space-kanbam-top-project-name{
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.exibicao-selection-project-space-kanbam-top-return-button{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.exibicao-selection-project-space-kanbam-top-return-button-text p{
+    font-size: 16px;
+    font-weight: 500;
+    margin: 0px;
+}
+
+
+
+.kanbam-board-content{
+    display: flex;
+    align-items: flex-start; /* Alinha as colunas no topo */
+    justify-content: space-between;
+    margin: 20px 0px;
+}
+
+.kanbam-collum{
+    background-color: #d8d8d8;
+    padding: 10px;
+    border-radius: 5px;
+    width:28%;
+}
+
+.kanbam-collum-top{
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 10px;
+}
+
+.kanbam-collum-top-text p{
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.kanbam-collum-new-tarefa-button-content{
+    margin-bottom: 25px;
+}
+
+.kanbam-collum-new-tarefa-button-content button{
+    display: flex;
+    margin: auto;
+    background-color: var(--ache-red);
+    border: none;
+    padding: 0px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.kanbam-collum-new-tarefa-button{
+    display: flex;
+    margin: auto;
+    align-items: center;
+}
+
+.kanbam-collum-new-tarefa-button p{
+    font-size: 16px;
+    font-weight: 500;
+    margin: 0px;
+    color: white;
+}
+
+.kanbam-collum-new-tarefa-button-text{
+    padding: 10px 10px;
+    border-right: 1px solid white;
+}
+
+.kanbam-collum-new-tarefa-button-plus{
+    padding: 0px 10px;
+}
+
+.kanbam-collum-new-tarefa-button-plus p{
+    font-size: 30px;
+}
+
+.kanbam-collum-todo-tarefa{
+    font-size: 16px;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    cursor: grab;
+    border-left: 5px solid;
+    border-left-color: #A020F0;
+    background-color: white;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.kanbam-collum-doing-tarefa{
+    font-size: 16px;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    cursor: grab;
+    border-left: 5px solid;
+    border-left-color: yellow;
+    background-color: white;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.kanbam-collum-done-tarefa{
+    font-size: 16px;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    cursor: grab;
+    border-left: 5px solid;
+    border-left-color: green;
+    background-color: white;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.kanbam-collum-todo-tarefa p{
+    margin: 0px;
+}
+
+.kanbam-collum-doing-tarefa p{
+    margin: 0px;
+}
+
+.kanbam-collum-done-tarefa p{
+    margin: 0px;
+}
+
+.kanbam-collum-new-tarefa-content{
+    padding-bottom: 50px;
+}
+
+/* Adicione este CSS à sua folha de estilo ou em uma tag <style> */
+/* Estilo para a tarefa que está sendo arrastada */
+.dragging {
+    opacity: 0.5; /* Deixa o card semi-transparente */
+    cursor: grabbing;
+}
+
+/* Estilo para a coluna que está recebendo a tarefa */
+.drag-over {
+    background-color: rgba(0, 0, 0, 0.1) !important; /* Destaque sutil */
+}
+
+
