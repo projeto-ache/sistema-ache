@@ -740,3 +740,281 @@ header{
 }
 
 
+
+
+
+
+
+
+
+
+
+
+/*teste calendario*/
+
+/* --- Estilos Específicos do Calendário --- */
+
+/* style.css - Adicione este código ao final do arquivo */
+
+/* --- Estilos Específicos do Calendário --- */
+
+.calendar-page {
+    background-color: white; /* Fundo branco para o conteúdo */
+    padding: 20px 60px;
+    margin: 10px;
+    width: calc(100% - 20px); /* Ocupa toda a área direita */
+    height: calc(100% - 20px); /* Ocupa toda a área direita */
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column; /* Organiza os elementos em coluna */
+    overflow-y: auto; /* Permite rolagem se necessário */
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #f0f0f0;
+}
+
+.calendar-header h2 {
+    font-size: 1.8em;
+    color: var(--dark-text-color);
+    margin: 0;
+}
+
+.calendar-nav-button {
+    background-color: var(--ache-red);
+    color: var(--text-color);
+    border: none;
+    border-radius: 50%; /* Botões redondos */
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    font-size: 1.5em;
+    line-height: 40px; /* Alinha o texto verticalmente */
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+.calendar-nav-button:hover {
+    background-color: var(--light-red);
+}
+
+.calendar-weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: var(--ache-red); /* Cor da Aché para os dias da semana */
+    text-align: center;
+    padding-bottom: 10px;
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+    flex-grow: 1; /* Faz a grid ocupar o espaço restante */
+}
+
+.calendar-day {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    min-height: 100px; /* Altura mínima para cada dia */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    font-size: 0.9em;
+    color: var(--dark-text-color);
+    transition: background-color 0.2s ease;
+}
+
+.calendar-day:not(.empty):hover {
+    background-color: #e9e9e9;
+    cursor: pointer;
+}
+
+.calendar-day.empty {
+    background-color: #f0f0f0; /* Dias do mês anterior/próximo */
+    color: #bbb;
+}
+
+.calendar-day .day-number {
+    font-weight: bold;
+    font-size: 1.2em;
+    margin-bottom: 5px;
+}
+
+.calendar-day.today .day-number {
+    color: white;
+    background-color: var(--ache-red);
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+}
+
+.task-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+
+.task-item {
+    background-color: var(--light-red);
+    color: white;
+    border-radius: 3px;
+    padding: 3px 6px;
+    font-size: 0.8em;
+    margin-top: 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.task-item-button {
+    background-color: var(--light-red);
+    color: white;
+    border-radius: 3px;
+    padding: 3px 6px;
+    font-size: 0.8em;
+    margin-top: 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border: none;         /* Remove a borda padrão do botão */
+    width: 100%;          /* Faz o botão ocupar a largura toda do dia */
+    text-align: left;     /* Alinha o texto à esquerda */
+    cursor: pointer;      /* Muda o cursor para uma "mãozinha" */
+    transition: background-color 0.2s ease;
+}
+
+.task-item-button:hover {
+    background-color: var(--ache-red); /* Escurece um pouco ao passar o mouse */
+}
+
+/* style.css - Adicione este código ao final do arquivo */
+
+/* --- Estilos do Modal --- */
+
+/* style-desenvolvimento.css */
+.calendario-popup {
+    display: none;
+    background-color: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    z-index: 1;
+    justify-content: center;
+    align-items: center;
+}
+
+.calendario-popup-content{
+    width: 50%;
+    height: 80%;
+    margin: auto;
+    overflow: auto;
+    border-radius: 5px;
+    z-index: 9999;
+    background-color: white;
+}
+
+.calendario-popoup-top{
+    display: flex;
+    align-items: center;
+}
+
+.calendario-popoup-top p{
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.calendario-popoup-top-left{
+    margin: 30px 30px 30px;
+}
+
+.calendario-popoup-top-title p{
+    margin: 0px;
+}
+
+.calendario-popoup-top-right{
+    margin-left: auto;
+    margin-right: 30px;
+}
+
+.calendario-popoup-top-right button{
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0px;
+}
+
+.calendario-popoup-top-close-btn p{
+    margin: 0px;
+}
+
+.calendario-popoup-midle{
+    display: flex;
+    padding-left: 30px;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.calendario-popoup-midle button{
+    background-color: var(--ache-red);
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 700;
+    color: white;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.calendario-popoup-midle button p{
+    margin: 0px;
+}
+
+.calendario-popup-down{
+    padding-left: 30px;
+}
+
+.calendario-popup-down-part{
+    display: flex;
+    gap: 10px;
+    font-size: 16px;
+    margin-bottom: 30px;
+}
+
+.calendario-popup-down-title p{
+    font-weight: 700;
+    margin: 0px;
+}
+
+.calendario-popup-down-answer p{
+    margin: 0px;
+}
+
+.close-button {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close-button:hover{
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
