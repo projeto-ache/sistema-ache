@@ -1,37 +1,166 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Cadastro - ACHE</title>
-  <link rel="stylesheet" href="/style/style-cadastro.css" />
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cadastro - ACHE</title>
+    <link rel="stylesheet" href="/style/style-cadastro.css" />
+  </head>
+  <body>
+    <div class="cadastro-box">
+      <h1 class="logo">ACHE</h1>
+      <p class="subtitulo">Crie sua conta</p>
 
-  <div class="cadastro-box">
-    <h1 class="logo">ACHE</h1>
-    <p class="subtitulo">Crie sua conta</p>
+      <form id="form-cadastro">
+        <label for="nome">Nome completo</label>
+        <input
+          type="text"
+          id="nome"
+          name="nome"
+          required
+          placeholder="Informe seu nome completo"
+        />
 
-    <form action="#" method="post">
-      <label for="nome">Nome completo</label>
-      <input type="text" id="nome" name="nome" required />
+        <label for="email">E-mail</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          required
+          placeholder="exemplo@gmail.com"
+        />
 
-      <label for="email">E-mail</label>
-      <input type="email" id="email" name="email" required />
+        <label for="senha">Senha</label>
+        <input
+          type="password"
+          id="senha"
+          name="senha"
+          required
+          minlength="6"
+          maxlength="20"
+          pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z\d]).{6,}$"
+          title="A senha deve ter pelo menos 6 caracteres, incluindo letra maiúscula, minúscula, número e caractere especial."
+          placeholder="Informe sua senha"
+        />
 
-      <label for="senha">Senha</label>
-      <input type="password" id="senha" name="senha" required />
+        <div class="requisitos-senha">
+          <p id="caracteres" class="invalid">❌ Pelo menos 6 caracteres</p>
+          <p id="minuscula" class="invalid">
+            ❌ Pelo menos uma letra minúscula
+          </p>
+          <p id="maiuscula" class="invalid">
+            ❌ Pelo menos uma letra maiúscula
+          </p>
+          <p id="numero" class="invalid">❌ Pelo menos um número</p>
+          <p id="especial" class="invalid">
+            ❌ Pelo menos um caractere especial
+          </p>
+        </div>
 
-      <label for="confirmar">Confirmar senha</label>
-      <input type="password" id="confirmar" name="confirmar" required />
+        <label for="confirmar">Confirmar senha</label>
+        <input
+          type="password"
+          id="confirmar"
+          name="confirmar"
+          required
+          minlength="6"
+          placeholder="Confirme sua senha"
+        />
 
-      <button type="submit">Cadastrar</button>
+        <p id="erro-senha" class="erro-senha"></p>
 
-      <div class="login-link">
-        <a href="login.html">Já tem uma conta? Faça login</a>
-      </div>
-    </form>
-  </div>
+        <button type="submit">Cadastrar</button>
 
-</body>
+        <div class="login-link">
+          <a href="/html-pages/login.html">Já tem uma conta? Faça login</a>
+        </div>
+      </form>
+    </div>
+
+    <!-- Validação da confirmação de senha -->
+    <script>
+      const form = document.getElementById("form-cadastro");
+      const senha = document.getElementById("senha");
+      const confirmar = document.getElementById("confirmar");
+      const erro = document.getElementById("erro-senha");
+
+      form.addEventListener("submit", function (e) {
+        e.preventDefault(); // sempre previne o envio padrão
+
+        // Verifica se as senhas coincidem
+        if (senha.value !== confirmar.value) {
+          erro.textContent = "As senhas não coincidem.";
+          erro.style.color = "red";
+          return;
+        }
+
+        erro.textContent = "";
+
+        // Coleta os dados do formulário
+        const nome = document.getElementById("nome").value;
+        const email = document.getElementById("email").value;
+
+        // Verifica se já existe cadastro com esse e-mail
+        const usuarios = JSON.parse(localStorage.getItem("usuarios") || "[]");
+        const usuarioExistente = usuarios.find((u) => u.email === email);
+
+        if (usuarioExistente) {
+          alert("Já existe um usuário cadastrado com esse e-mail.");
+          return;
+        }
+
+        // Cria novo usuário e salva no localStorage
+        const novoUsuario = { nome, email, senha: senha.value };
+        usuarios.push(novoUsuario);
+        localStorage.setItem("usuarios", JSON.stringify(usuarios));
+
+        alert("Cadastro realizado com sucesso!");
+        window.location.href = "/html-pages/login.html"; // redireciona pro login
+      });
+    </script>
+
+    <script>
+      const senhaInput = document.getElementById("senha");
+
+      const requisitos = {
+        caracteres: {
+          el: document.getElementById("caracteres"),
+          teste: (senha) => senha.length >= 6,
+          texto: "Pelo menos 6 caracteres"
+        },
+        minuscula: {
+          el: document.getElementById("minuscula"),
+          teste: (senha) => /[a-z]/.test(senha),
+          texto: "Pelo menos uma letra minúscula"
+        },
+        maiuscula: {
+          el: document.getElementById("maiuscula"),
+          teste: (senha) => /[A-Z]/.test(senha),
+          texto: "Pelo menos uma letra maiúscula"
+        },
+        numero: {
+          el: document.getElementById("numero"),
+          teste: (senha) => /\d/.test(senha),
+          texto: "Pelo menos um número"
+        },
+        especial: {
+          el: document.getElementById("especial"),
+          teste: (senha) => /[^A-Za-z0-9]/.test(senha),
+          texto: "Pelo menos um caractere especial"
+        }
+      };
+
+      senhaInput.addEventListener("input", function () {
+        const senha = senhaInput.value;
+
+        for (const chave in requisitos) {
+          const { el, teste, texto } = requisitos[chave];
+          const passou = teste(senha);
+
+          el.className = passou ? "valid" : "invalid";
+          el.innerText = `${passou ? "✔" : "❌"} ${texto}`;
+        }
+      });
+    </script>
+  </body>
 </html>

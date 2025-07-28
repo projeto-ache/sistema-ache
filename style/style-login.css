@@ -16,7 +16,7 @@ body {
   padding: 40px;
   border-radius: 12px;
   width: 320px;
-  box-shadow: 0 0 12px rgba(0,0,0,0.1);
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
 }
 
 /* Título da marca */
@@ -45,7 +45,7 @@ label {
 }
 
 /* Inputs */
-input[type="text"],
+input[type="email"],
 input[type="password"] {
   width: 100%;
   padding: 10px;
@@ -58,7 +58,7 @@ input[type="password"] {
 /* Link de esqueci a senha */
 .forgot-password {
   text-align: center;
-  margin-top: 15px;  /* adiciona espaço acima do link */
+  margin-top: 15px; /* adiciona espaço acima do link */
 }
 
 .forgot-password a {
@@ -70,7 +70,6 @@ input[type="password"] {
 .forgot-password a:hover {
   text-decoration: underline;
 }
-
 
 /* Botão */
 button {
