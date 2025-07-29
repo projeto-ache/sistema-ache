@@ -154,6 +154,7 @@ header{
 
 /* Barra da esquerda (Onde o usuario cria seus projetos, exibe seus anexos e favoritos, e exibe todos os seus projetos e os que tambem foram atribuidos) */
 .left-main{
+    display: none;
     margin-left:50px;
     width: 200px;
     border-right: 3px solid var(--light-red);
@@ -233,6 +234,11 @@ header{
     padding-bottom: 20px;
 }
 
+.user-atalhos-content{
+    margin-top: 15px;
+    padding-bottom: 20px;
+}
+
 .favorites-atalhos-ex1{
     display: flex;
     height: 40px;
@@ -240,6 +246,14 @@ header{
     border-bottom: 1px solid black;
     margin-bottom: 10px;
     margin-right: 10px;
+}
+
+.btn-menu-user-projects{
+    background-color: transparent;
+    border: none;
+    font-size: 16px;
+    padding: 0px;
+    cursor: pointer;
 }
 
 .favorites-atalhos-ex1 p{
@@ -293,8 +307,8 @@ header{
     display: flex;
     background-color: #d8d8d8;
     margin: 10px 0px 0px 10px;
-    width: calc(100% - 250px);
-    height: calc(100vh - 130px);
+    width: 100%;
+    
     border-radius: 5px;
 }
 
@@ -302,7 +316,7 @@ header{
 
 /* Barra da direita - tela de todos os projetos do usuario (contem todos os projetos criados e atribuídos pelo;para o usuario). */
 .right-main-user-projects{
-    display: flex;
+    display: none;
     width: 100%;
     height: 100%;
     overflow-y: auto;
@@ -407,6 +421,7 @@ header{
 }
 
 .exibicao-selection-project-space{
+    display: none;
     background-color: white;
     margin-left: 30px;
     width: calc(100% - 290px);
@@ -573,6 +588,7 @@ header{
 
 
 .exibicao-selection-project-space-kanbam-content{
+    display: none;
     margin: 15px 50px 0px 50px;
 }
 
