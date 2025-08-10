@@ -41,8 +41,13 @@
         );
 
         if (usuarioValido) {
+          // Salva flag de login
           localStorage.setItem("logado", "true");
+          // Salva todo o objeto do usuário
           localStorage.setItem("usuarioLogado", JSON.stringify(usuarioValido));
+          // Salva nome completo separadamente (se quiser)
+          localStorage.setItem("nomeCompleto", usuarioValido.nome);
+
           window.location.href = "index.html";
         } else {
           alert("E-mail ou senha inválidos.");

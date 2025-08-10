@@ -25,51 +25,107 @@
     <!-- Menu principal (Incuir com "include" quando alterar para PHP) -->
     <header>
       <div class="menu-logo">
-        <a href="#"
-          ><div class="menu-logo-texto">
+        <a href="#">
+          <div class="menu-logo-texto">
             <p>ACHE</p>
-          </div></a
-        >
+          </div>
+        </a>
       </div>
 
       <div class="menu-content">
         <div class="menu-content-mensagem">
-          <p>Bem-vindo, Arthur</p>
+          <p id="welcome-message">Bem-vindo</p>
         </div>
         <div class="menu-content-data">
-          <p>25/06/2025</p>
+          <p id="current-date"></p>
         </div>
         <div class="menu-content-time">
-          <p>12:25</p>
+          <p id="current-time"></p>
+        </div>
+
+        <!-- Botão de sair -->
+        <div class="menu-content-logout">
+          <button id="logoutBtn" class="logout-button">
+            Sair
+          </button>
         </div>
       </div>
+
+      <script>
+        document
+          .getElementById("logoutBtn")
+          .addEventListener("click", function () {
+            // Aqui você remove os dados de autenticação (localStorage/sessionStorage)
+            localStorage.removeItem("usuarioLogado");
+
+            // Redireciona para a página de login
+            window.location.href = "login.html";
+          });
+
+        // Busca o nome completo salvo no login
+        const usuario = JSON.parse(
+          localStorage.getItem("usuarioLogado") || "null"
+        );
+
+        if (!usuario) {
+          window.location.href = "login.html";
+        } else {
+          const primeiroNome = usuario.nome.split(" ")[0];
+          document.querySelector(
+            ".menu-content-mensagem p"
+          ).textContent = `Bem-vindo, ${primeiroNome}`;
+        }
+
+        // Data e hora automáticas
+        function atualizarDataHora() {
+          const agora = new Date();
+          document.querySelector(".menu-content-data p").textContent =
+            agora.toLocaleDateString("pt-BR");
+          document.querySelector(".menu-content-time p").textContent =
+            agora.toLocaleTimeString("pt-BR", {
+              hour: "2-digit",
+              minute: "2-digit"
+            });
+        }
+
+        atualizarDataHora();
+        setInterval(atualizarDataHora, 600);
+      </script>
     </header>
+
     <!-- FIM - Menu principal (Incuir com "include" quando alterar para PHP) -->
 
     <!-- FIM - Menu secundario (Incuir com "include" quando alterar para PHP) -->
     <div class="second-menu">
-        <div class="menu-burger-icon">
-            <button class="btn-exb-left-main">
-                <i class="fas fa-bars" alt="Fechar display de navegação"></i>
-            </button>
+      <div class="menu-burger-icon">
+        <button class="btn-exb-left-main">
+          <i class="fas fa-bars" alt="Fechar display de navegação"></i>
+        </button>
+      </div>
+      <div class="menu-atalhos-iniciais">
+        <div class="menu-atalhos-iniciais-pagina-inicial">
+          <a href="#">Página Inicial</a>
         </div>
-        <div class="menu-atalhos-iniciais">
-            <div class="menu-atalhos-iniciais-pagina-inicial">
-                <a href="#">Página Inicial</a>
-            </div>
-            <div class="menu-atalhos-iniciais-ajuda">
-                <a href="#">Ajuda</a>
-            </div>
+        <div class="menu-atalhos-iniciais-ajuda">
+          <a href="#">Ajuda</a>
         </div>
-        <div class="menu-atalhos-pessoais">
-            <ul class="nav-icons">
-                <li><a href="#"><i class="fas fa-calendar-alt"></i></a></li>
-                <li><a href="#"><i class="fas fa-bell"></i></a></li>
-                <li><a href="#"><i class="fas fa-cog"></i></a></li>
-                <li><a href="#"><i class="fas fa-user-circle"></i></a></li>
-            </ul>
-            
-        </div>
+      </div>
+      <div class="menu-atalhos-pessoais">
+        <ul class="nav-icons">
+          <li>
+            <a href="#"><i class="fas fa-calendar-alt"></i></a>
+          </li>
+          <li>
+            <a href="#"><i class="fas fa-bell"></i></a>
+          </li>
+          <li>
+            <a href="#"><i class="fas fa-cog"></i></a>
+          </li>
+          <li>
+            <a href="#"><i class="fas fa-user-circle"></i></a>
+          </li>
+        </ul>
+      </div>
     </div>
     <!-- FIM - Menu secundario (Incuir com "include" quando alterar para PHP) -->
 
@@ -92,131 +148,124 @@
         </div>
         <!-- FIM - Barra da esquerda - Botao para criar novo projeto -->
 
-            <!-- Barra da esquerda - Anexos e favoritos -->
-            <div class="left-main-favorites-content">
+        <!-- Barra da esquerda - Anexos e favoritos -->
+        <div class="left-main-favorites-content">
+          <div class="favorites-title-content">
+            <button class="btn-cls-favorites-atalhos">
+              <div class="favorites-title">
+                <p>Favoritos</p>
+              </div>
+              <div class="favorites-plus">
+                <span class="material-symbols-outlined">
+                  keyboard_arrow_down
+                </span>
+              </div>
+            </button>
+          </div>
 
-                <div class="favorites-title-content">
-                    <button class="btn-cls-favorites-atalhos">
-                        <div class="favorites-title">
-                            <p>Favoritos</p>
-                        </div>
-                        <div class="favorites-plus">
-                            <span class="material-symbols-outlined">
-                                keyboard_arrow_down
-                            </span>
-                        </div>
-                    </button>
+          <!-- Barra da esquerda - Anexos e favoritos - conteudo -->
+          <div class="favorites-atalhos-content">
+            <!-- Padrão para adicionar atalhos -->
+            <div class="favorites-atalhos-ex1">
+              <button class="btn-menu-user-projects">
+                <div class="title-favorites-atalhos">
+                  <p>Seus projetos</p>
                 </div>
-
-                <!-- Barra da esquerda - Anexos e favoritos - conteudo -->
-                <div class="favorites-atalhos-content">
-
-                    <!-- Padrão para adicionar atalhos -->
-                    <div class="favorites-atalhos-ex1">
-                        <button class="btn-menu-user-projects">
-                            <div class="title-favorites-atalhos">
-                                <p>Seus projetos</p>
-                            </div>
-                        </button>
-                        <div class="button-favorites-atalhos-content">
-                            <button><div class="button-favorites-atalhos">
-                                <p>1109</p>
-                            </div>
-                            <div class="button-favorites-atalhos-hover">
-                                <span class="material-symbols-outlined">
-                                    more_horiz
-                                </span>
-                            </div></button>
-                        </div>
-                    </div>
-                    <!-- FIM - Padrão para adicionar atalhos -->
-
-                    <!-- Padrão para adicionar atalhos -->
-                    <div class="favorites-atalhos-ex1">
-                        <button class="btn-menu-user-projects">
-                            <div class="title-favorites-atalhos">
-                                <p>Calendário</p>
-                            </div>
-                        </button>
-                       <div class="button-favorites-atalhos-content">
-                            <button><div class="button-favorites-atalhos">
-                                <p>101</p>
-                            </div>
-                            <div class="button-favorites-atalhos-hover">
-                                <span class="material-symbols-outlined">
-                                    more_horiz
-                                </span>
-                            </div></button>
-                        </div>
-                    </div>
-                    <!-- FIM - Padrão para adicionar atalhos -->
-
-                    <!-- Padrão para adicionar atalhos -->
-                    <div class="favorites-atalhos-ex1">
-                        <button class="btn-menu-user-projects">
-                            <div class="title-favorites-atalhos">
-                                <p>Atribuídos</p>
-                            </div>
-                        </button>
-                        <div class="button-favorites-atalhos-content">
-                            <button><div class="button-favorites-atalhos">
-                                <p>31</p>
-                            </div>
-                            <div class="button-favorites-atalhos-hover">
-                                <span class="material-symbols-outlined">
-                                    more_horiz
-                                </span>
-                            </div></button>
-                        </div>
-                    </div>
-                    <!-- FIM - Padrão para adicionar atalhos -->
-
-                </div>
-                <!-- Barra da esquerda - Anexos e favoritos - conteudo -->
-
+              </button>
+              <div class="button-favorites-atalhos-content">
+                <button>
+                  <div class="button-favorites-atalhos">
+                    <p>1109</p>
+                  </div>
+                  <div class="button-favorites-atalhos-hover">
+                    <span class="material-symbols-outlined"> more_horiz </span>
+                  </div>
+                </button>
+              </div>
             </div>
-            <!-- Barra da esquerda - Anexos e favoritos -->
+            <!-- FIM - Padrão para adicionar atalhos -->
 
+            <!-- Padrão para adicionar atalhos -->
+            <div class="favorites-atalhos-ex1">
+              <button class="btn-menu-user-projects">
+                <div class="title-favorites-atalhos">
+                  <p>Calendário</p>
+                </div>
+              </button>
+              <div class="button-favorites-atalhos-content">
+                <button>
+                  <div class="button-favorites-atalhos">
+                    <p>101</p>
+                  </div>
+                  <div class="button-favorites-atalhos-hover">
+                    <span class="material-symbols-outlined"> more_horiz </span>
+                  </div>
+                </button>
+              </div>
+            </div>
+            <!-- FIM - Padrão para adicionar atalhos -->
 
+            <!-- Padrão para adicionar atalhos -->
+            <div class="favorites-atalhos-ex1">
+              <button class="btn-menu-user-projects">
+                <div class="title-favorites-atalhos">
+                  <p>Atribuídos</p>
+                </div>
+              </button>
+              <div class="button-favorites-atalhos-content">
+                <button>
+                  <div class="button-favorites-atalhos">
+                    <p>31</p>
+                  </div>
+                  <div class="button-favorites-atalhos-hover">
+                    <span class="material-symbols-outlined"> more_horiz </span>
+                  </div>
+                </button>
+              </div>
+            </div>
+            <!-- FIM - Padrão para adicionar atalhos -->
+          </div>
+          <!-- Barra da esquerda - Anexos e favoritos - conteudo -->
+        </div>
+        <!-- Barra da esquerda - Anexos e favoritos -->
 
-            <!-- Barra lateral - Espaco do usuario (Contem todos os projetos do usuario) -->
-            <div class="user-projects-atalhos-content">
+        <!-- Barra lateral - Espaco do usuario (Contem todos os projetos do usuario) -->
+        <div class="user-projects-atalhos-content">
+          <div class="left-user-space-content">
+            <div class="favorites-title-content">
+              <button class="btn-cls-user-space-atalhos">
+                <div class="favorites-title">
+                  <p>Seu espaço</p>
+                </div>
+                <div class="favorites-plus">
+                  <span class="material-symbols-outlined">
+                    keyboard_arrow_down
+                  </span>
+                </div>
+              </button>
+            </div>
 
-                <div class="left-user-space-content">
-
-                    <div class="favorites-title-content">
-                        <button class="btn-cls-user-space-atalhos">
-                            <div class="favorites-title">
-                                <p>Seu espaço</p>
-                            </div>
-                            <div class="favorites-plus">
-                                <span class="material-symbols-outlined">
-                                    keyboard_arrow_down
-                                </span>
-                            </div>
-                        </button>
+            <!-- Barra lateral - Espaco do usuario - conteudo -->
+            <div class="user-atalhos-content">
+              <!-- Padrão para adicionar atalhos -->
+              <div class="favorites-atalhos-ex1">
+                <div class="title-favorites-atalhos">
+                  <p>1. Projeto ALPHA</p>
+                </div>
+                <div class="button-favorites-atalhos-content">
+                  <button>
+                    <div class="button-favorites-atalhos">
+                      <p>1109</p>
                     </div>
-
-                    <!-- Barra lateral - Espaco do usuario - conteudo -->
-                    <div class="user-atalhos-content">
-
-                        <!-- Padrão para adicionar atalhos -->
-                        <div class="favorites-atalhos-ex1">
-                            <div class="title-favorites-atalhos">
-                                <p>1. Projeto ALPHA</p>
-                            </div>
-                            <div class="button-favorites-atalhos-content">
-                                <button><div class="button-favorites-atalhos">
-                                    <p>1109</p>
-                                </div>
-                                <div class="button-favorites-atalhos-hover">
-                                    <span class="material-symbols-outlined">
-                                        more_horiz
-                                    </span>
-                                </div></button>
-                            </div>
-                        </div>
-                        <!-- FIM - Padrão para adicionar atalhos -->
+                    <div class="button-favorites-atalhos-hover">
+                      <span class="material-symbols-outlined">
+                        more_horiz
+                      </span>
+                    </div>
+                  </button>
+                </div>
+              </div>
+              <!-- FIM - Padrão para adicionar atalhos -->
 
               <!-- Padrão para adicionar atalhos -->
               <div class="favorites-atalhos-ex1">
@@ -302,19 +351,17 @@
               </div>
             </div>
 
-                    <!-- Barra da direita - tela de todos os projetos do usuario  - parte esquerda - menu dos projetos (Espaco onde seram exibidos caixas de atalho para mais informacoes dos projetos). -->
-                    <div class="left-main-favorites-content-flexible-menu">
-
-                        <div class="favorites-atalhos-content-flexible-menu">
-
-                            <!-- Padrão para adicionar os projetos -->
-                            <div class="favorites-atalhos-ex1-flexible-menu">
-                                <div class="main-favorites-atalhos-ex1-flexible-menu">
-                                    <button class="btn-exb-projeto">
-                                        <div class="title-favorites-atalhos-flexible-menu">
-                                            <p>1. Projeto ALPHA</p>
-                                        </div>
-                                    </button>
+            <!-- Barra da direita - tela de todos os projetos do usuario  - parte esquerda - menu dos projetos (Espaco onde seram exibidos caixas de atalho para mais informacoes dos projetos). -->
+            <div class="left-main-favorites-content-flexible-menu">
+              <div class="favorites-atalhos-content-flexible-menu">
+                <!-- Padrão para adicionar os projetos -->
+                <div class="favorites-atalhos-ex1-flexible-menu">
+                  <div class="main-favorites-atalhos-ex1-flexible-menu">
+                    <button class="btn-exb-projeto">
+                      <div class="title-favorites-atalhos-flexible-menu">
+                        <p>1. Projeto ALPHA</p>
+                      </div>
+                    </button>
 
                     <div class="button-favorites-atalhos-content-flexible-menu">
                       <button>
@@ -331,14 +378,14 @@
                 </div>
                 <!-- FIM - adrão para adicionar os projetos -->
 
-                            <!-- Padrão para adicionar os projetos -->
-                            <div class="favorites-atalhos-ex1-flexible-menu">
-                                <div class="main-favorites-atalhos-ex1-flexible-menu">
-                                    <button class="btn-exb-projeto">
-                                        <div class="title-favorites-atalhos-flexible-menu">
-                                            <p>2. Projeto BETA</p>
-                                        </div>
-                                    </button>
+                <!-- Padrão para adicionar os projetos -->
+                <div class="favorites-atalhos-ex1-flexible-menu">
+                  <div class="main-favorites-atalhos-ex1-flexible-menu">
+                    <button class="btn-exb-projeto">
+                      <div class="title-favorites-atalhos-flexible-menu">
+                        <p>2. Projeto BETA</p>
+                      </div>
+                    </button>
 
                     <div class="button-favorites-atalhos-content-flexible-menu">
                       <button>
@@ -355,14 +402,14 @@
                 </div>
                 <!-- FIM - Padrão para adicionar os projetos -->
 
-                            <!-- Padrão para adicionar os projetos -->
-                            <div class="favorites-atalhos-ex1-flexible-menu">
-                                <div class="main-favorites-atalhos-ex1-flexible-menu">
-                                    <button class="btn-exb-projeto">
-                                        <div class="title-favorites-atalhos-flexible-menu">
-                                            <p>3. Projeto CHARLIE</p>
-                                        </div>
-                                    </button>
+                <!-- Padrão para adicionar os projetos -->
+                <div class="favorites-atalhos-ex1-flexible-menu">
+                  <div class="main-favorites-atalhos-ex1-flexible-menu">
+                    <button class="btn-exb-projeto">
+                      <div class="title-favorites-atalhos-flexible-menu">
+                        <p>3. Projeto CHARLIE</p>
+                      </div>
+                    </button>
 
                     <div class="button-favorites-atalhos-content-flexible-menu">
                       <button>
@@ -379,14 +426,14 @@
                 </div>
                 <!-- FIMPadrão para adicionar os projetos -->
 
-                            <!-- Padrão para adicionar os projetos -->
-                            <div class="favorites-atalhos-ex1-flexible-menu">
-                                <div class="main-favorites-atalhos-ex1-flexible-menu">
-                                    <button class="btn-exb-projeto">
-                                        <div class="title-favorites-atalhos-flexible-menu">
-                                            <p>Projeto iniciativa</p>
-                                        </div>
-                                    </button>
+                <!-- Padrão para adicionar os projetos -->
+                <div class="favorites-atalhos-ex1-flexible-menu">
+                  <div class="main-favorites-atalhos-ex1-flexible-menu">
+                    <button class="btn-exb-projeto">
+                      <div class="title-favorites-atalhos-flexible-menu">
+                        <p>Projeto iniciativa</p>
+                      </div>
+                    </button>
 
                     <div class="button-favorites-atalhos-content-flexible-menu">
                       <button>
@@ -408,31 +455,49 @@
           </div>
           <!-- FIM - Barra da direita - tela de todos os projetos do usuario  - parte esquerda que exibe todos os projetos. -->
 
-                <!-- Barra da direita - tela de todos os projetos do usuario  - parte direita que exibe as 9informacoes do projeto selecionado. -->
-                <div class="exibicao-selection-project-space">
+          <!-- Barra da direita - tela de todos os projetos do usuario  - parte direita que exibe as 9informacoes do projeto selecionado. -->
+          <div class="exibicao-selection-project-space">
+            <div class="exibicao-selection-project-space-content">
+              <div class="exibicao-selection-project-space-top">
+                <div class="exibicao-selection-project-space-top-project-name">
+                  <p>1. Projeto ALPHA</p>
+                </div>
 
-                    <div class="exibicao-selection-project-space-content">
+                <button class="btn-kanbam">
+                  <div
+                    class="exibicao-selection-project-space-top-project-kanbam"
+                  >
+                    <div
+                      class="exibicao-selection-project-space-top-project-kanbam-icon"
+                    >
+                      <img
+                        src="\images\label-purple.png"
+                        alt=""
+                        width="35px"
+                        height="35px"
+                      />
+                      <img
+                        src="\images\label-green.png"
+                        alt=""
+                        width="35px"
+                        height="35px"
+                      />
+                      <img
+                        src="\images\label-yellow.png"
+                        alt=""
+                        width="35px"
+                        height="35px"
+                      />
+                    </div>
 
-                        <div class="exibicao-selection-project-space-top">
-                            <div class="exibicao-selection-project-space-top-project-name">
-                                <p>1. Projeto ALPHA</p>
-                            </div>
-                            
-                            <button class="btn-kanbam">
-                            <div class="exibicao-selection-project-space-top-project-kanbam">
-                                <div class="exibicao-selection-project-space-top-project-kanbam-icon">
-                                    <img src="\images\label-purple.png" alt="" width="35px" height="35px">
-                                    <img src="\images\label-green.png" alt="" width="35px" height="35px">
-                                    <img src="\images\label-yellow.png" alt="" width="35px" height="35px">
-                                </div>
-                                
-
-                                <div class="exibicao-selection-project-space-top-project-kanbam-p">
-                                    <p>Kanbam</p>
-                                </div>
-                            </div>
-                            </button>
-                        </div>
+                    <div
+                      class="exibicao-selection-project-space-top-project-kanbam-p"
+                    >
+                      <p>Kanbam</p>
+                    </div>
+                  </div>
+                </button>
+              </div>
 
               <div class="exibicao-selection-project-space-creator-space">
                 <p>Criador: arthurbergamaco.alves@gmail.com</p>
@@ -714,23 +779,36 @@
               </div>
             </div>
 
-                    <div class="exibicao-selection-project-space-kanbam-content">
-                        <div class="exibicao-selection-project-space-kanbam-top">
-                            <div class="exibicao-selection-project-space-kanbam-top-project-name">
-                                <p>1. Projeto ALPHA</p>
-                            </div>
-                            
-                            <button class="btn-gerenciamento">
-                                <div class="exibicao-selection-project-space-kanbam-top-return-button">
-                                    <div class="exibicao-selection-project-space-kanbam-top-return-button-img">
-                                        <img src="/images/return-icon.png" alt="" width="35px" height="35px">
-                                    </div>
-                                    <div class="exibicao-selection-project-space-kanbam-top-return-button-text">
-                                        <p>Gerênciamento</p>
-                                    </div>
-                                </div>
-                            </button>
-                        </div>
+            <div class="exibicao-selection-project-space-kanbam-content">
+              <div class="exibicao-selection-project-space-kanbam-top">
+                <div
+                  class="exibicao-selection-project-space-kanbam-top-project-name"
+                >
+                  <p>1. Projeto ALPHA</p>
+                </div>
+
+                <button class="btn-gerenciamento">
+                  <div
+                    class="exibicao-selection-project-space-kanbam-top-return-button"
+                  >
+                    <div
+                      class="exibicao-selection-project-space-kanbam-top-return-button-img"
+                    >
+                      <img
+                        src="/images/return-icon.png"
+                        alt=""
+                        width="35px"
+                        height="35px"
+                      />
+                    </div>
+                    <div
+                      class="exibicao-selection-project-space-kanbam-top-return-button-text"
+                    >
+                      <p>Gerênciamento</p>
+                    </div>
+                  </div>
+                </button>
+              </div>
 
               <div class="exibicao-selection-project-space-creator-space">
                 <p>Criador: arthurbergamaco.alves@gmail.com</p>
@@ -981,86 +1059,117 @@
             } else {
               return closest;
             }
-        }, { offset: Number.NEGATIVE_INFINITY }).element;
-    }
+          },
+          { offset: Number.NEGATIVE_INFINITY }
+        ).element;
+      }
 
+      // Toggle para exibir/esconder a área do projeto selecionado
+      document.querySelectorAll(".btn-exb-projeto").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          const exibicao = document.querySelector(
+            ".exibicao-selection-project-space"
+          );
+          const exibicaoContent = document.querySelector(
+            ".exibicao-selection-project-space-content"
+          );
+          if (exibicao.style.display === "block") {
+            exibicao.style.display = "none";
+            exibicaoContent.style.display = "none";
+          } else {
+            exibicao.style.display = "block";
+            exibicaoContent.style.display = "block";
+          }
+        });
+      });
 
+      // Toggle para exibir/esconder o kanbam
+      document
+        .querySelector(".btn-kanbam")
+        .addEventListener("click", function () {
+          const kanbam = document.querySelector(
+            ".exibicao-selection-project-space-kanbam-content"
+          );
+          const content = document.querySelector(
+            ".exibicao-selection-project-space-content"
+          );
+          if (kanbam.style.display === "block") {
+            kanbam.style.display = "none";
+            content.style.display = "block";
+          } else {
+            kanbam.style.display = "block";
+            content.style.display = "none";
+          }
+        });
 
+      // Toggle para exibir/esconder gerenciamento
+      document
+        .querySelector(".btn-gerenciamento")
+        .addEventListener("click", function () {
+          const kanbam = document.querySelector(
+            ".exibicao-selection-project-space-kanbam-content"
+          );
+          const content = document.querySelector(
+            ".exibicao-selection-project-space-content"
+          );
+          if (content.style.display === "block") {
+            content.style.display = "none";
+            kanbam.style.display = "block";
+          } else {
+            content.style.display = "block";
+            kanbam.style.display = "none";
+          }
+        });
 
-// Toggle para exibir/esconder a área do projeto selecionado
-document.querySelectorAll('.btn-exb-projeto').forEach(function(btn) {
-    btn.addEventListener('click', function() {
-        const exibicao = document.querySelector('.exibicao-selection-project-space');
-        const exibicaoContent = document.querySelector('.exibicao-selection-project-space-content');
-        if (exibicao.style.display === 'block') {
-            exibicao.style.display = 'none';
-            exibicaoContent.style.display = 'none';
-        } else {
-            exibicao.style.display = 'block';
-            exibicaoContent.style.display = 'block';
-        }
-    });
-});
+      // Toggle para exibir/esconder todos os projetos do usuário
+      document
+        .querySelectorAll(".btn-menu-user-projects")
+        .forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            const userProjects = document.querySelector(
+              ".right-main-user-projects"
+            );
+            userProjects.style.display =
+              userProjects.style.display === "flex" ? "none" : "flex";
+          });
+        });
 
-// Toggle para exibir/esconder o kanbam
-document.querySelector('.btn-kanbam').addEventListener('click', function() {
-    const kanbam = document.querySelector('.exibicao-selection-project-space-kanbam-content');
-    const content = document.querySelector('.exibicao-selection-project-space-content');
-    if (kanbam.style.display === 'block') {
-        kanbam.style.display = 'none';
-        content.style.display = 'block';
-    } else {
-        kanbam.style.display = 'block';
-        content.style.display = 'none';
-    }
-});
+      // Toggle para exibir/esconder o menu lateral esquerdo
+      document
+        .querySelector(".btn-exb-left-main")
+        .addEventListener("click", function () {
+          const leftMain = document.querySelector(".left-main");
+          const rightMain = document.querySelector(".right-main");
+          if (leftMain.style.display === "block") {
+            leftMain.style.display = "none";
+            rightMain.style.width = "100%";
+          } else {
+            leftMain.style.display = "block";
+            rightMain.style.width = "calc(100% - 250px)";
+          }
+        });
 
-// Toggle para exibir/esconder gerenciamento
-document.querySelector('.btn-gerenciamento').addEventListener('click', function() {
-    const kanbam = document.querySelector('.exibicao-selection-project-space-kanbam-content');
-    const content = document.querySelector('.exibicao-selection-project-space-content');
-    if (content.style.display === 'block') {
-        content.style.display = 'none';
-        kanbam.style.display = 'block';
-    } else {
-        content.style.display = 'block';
-        kanbam.style.display = 'none';
-    }
-});
+      // Toggle para exibir/esconder favoritos
+      document
+        .querySelector(".btn-cls-favorites-atalhos")
+        .addEventListener("click", function () {
+          const fav = document.querySelector(".favorites-atalhos-content");
+          fav.style.display =
+            fav.style.display === "none" || fav.style.display === ""
+              ? "block"
+              : "none";
+        });
 
-// Toggle para exibir/esconder todos os projetos do usuário
-document.querySelectorAll('.btn-menu-user-projects').forEach(function(btn) {
-    btn.addEventListener('click', function() {
-        const userProjects = document.querySelector('.right-main-user-projects');
-        userProjects.style.display = (userProjects.style.display === 'flex') ? 'none' : 'flex';
-    });
-});
-
-// Toggle para exibir/esconder o menu lateral esquerdo
-document.querySelector('.btn-exb-left-main').addEventListener('click', function() {
-    const leftMain = document.querySelector('.left-main');
-    const rightMain = document.querySelector('.right-main');
-    if (leftMain.style.display === 'block') {
-        leftMain.style.display = 'none';
-        rightMain.style.width = '100%';
-    } else {
-        leftMain.style.display = 'block';
-        rightMain.style.width = 'calc(100% - 250px)';
-    }
-});
-
-// Toggle para exibir/esconder favoritos
-document.querySelector('.btn-cls-favorites-atalhos').addEventListener('click', function() {
-    const fav = document.querySelector('.favorites-atalhos-content');
-    fav.style.display = (fav.style.display === 'none' || fav.style.display === '') ? 'block' : 'none';
-});
-
-// Toggle para exibir/esconder user space atalhos
-document.querySelector('.btn-cls-user-space-atalhos').addEventListener('click', function() {
-    const user = document.querySelector('.user-atalhos-content');
-    user.style.display = (user.style.display === 'none' || user.style.display === '') ? 'block' : 'none';
-});
-
-</script>
-</body>
+      // Toggle para exibir/esconder user space atalhos
+      document
+        .querySelector(".btn-cls-user-space-atalhos")
+        .addEventListener("click", function () {
+          const user = document.querySelector(".user-atalhos-content");
+          user.style.display =
+            user.style.display === "none" || user.style.display === ""
+              ? "block"
+              : "none";
+        });
+    </script>
+  </body>
 </html>

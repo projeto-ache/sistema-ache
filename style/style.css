@@ -1,770 +1,740 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap");
 
 /* Variáveis para cores (opcional, mas boa prática) */
 :root {
-    --ache-red: #D50057; /* Cor vermelha do cabeçalho */
-    --light-red: #AC1D58; /* Cor do menu principal */
-    --text-color: #FFFFFF;
-    --dark-text-color: #333; /* Cor para texto em fundos claros */
-    --icon-color: #FFFFFF;
+  --ache-red: #d50057; /* Cor vermelha do cabeçalho */
+  --light-red: #ac1d58; /* Cor do menu principal */
+  --text-color: #ffffff;
+  --dark-text-color: #333; /* Cor para texto em fundos claros */
+  --icon-color: #ffffff;
 }
 
 body {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
-*{
-    font-family: "Noto Sans", sans-serif;
+* {
+  font-family: "Noto Sans", sans-serif;
 }
-
-
 
 /* Style para menu */
-header{
-    display: flex;
-    background-color: var(--ache-red);
-    color: white;
-    height: 60px;
+header {
+  display: flex;
+  background-color: var(--ache-red);
+  color: white;
+  height: 60px;
 }
 
-.menu-logo{
-    margin: auto;
-    margin-left: 50px;
-    font-size: 20px;
-    font-weight: 700;
-    align-items: center;
+.menu-logo {
+  margin: auto;
+  margin-left: 50px;
+  font-size: 20px;
+  font-weight: 700;
+  align-items: center;
 }
 
-.menu-logo a{
-    color: white;
-    text-decoration: none;
+.menu-logo a {
+  color: white;
+  text-decoration: none;
 }
 
-.menu-content{
-    display: flex;
-    margin-right: 50px;
-    font-size: 16px;
-    font-weight: 500;
-    align-items: center;
-    text-align: center;
-    width: 500px;
+.menu-content {
+  display: flex;
+  margin-right: 50px;
+  font-size: 16px;
+  font-weight: 500;
+  align-items: center;
+  text-align: center;
+  width: 500px;
 }
 
-.menu-content-mensagem{
-    margin-right: auto;
+.menu-content-mensagem {
+  margin-right: auto;
 }
 
-.menu-content-data{
-    margin: auto;
+.menu-content-data {
+  margin: auto;
 }
 
-.menu-content-time{
-    margin-left: auto;
+.menu-content-time {
+  margin-left: auto;
 }
 
-.second-menu{
-    background-color: var(--light-red);
-    height: 60px;
-    display: flex;
-    padding-left: 50px;
-    padding-right: 50px;
-    color: white;
-    align-items: center;
-    font-size: 16px;
+.second-menu {
+  background-color: var(--light-red);
+  height: 60px;
+  display: flex;
+  padding-left: 50px;
+  padding-right: 50px;
+  color: white;
+  align-items: center;
+  font-size: 16px;
 }
 
-.menu-burger-icon button{
-    font-size: 30px;
-    background-color: #AC1D58;
-    padding: 0px;
-    color: white;
-    border: none;
-    cursor: pointer;
+.menu-burger-icon button {
+  font-size: 30px;
+  background-color: #ac1d58;
+  padding: 0px;
+  color: white;
+  border: none;
+  cursor: pointer;
 }
 
-.menu-atalhos-iniciais{
-    width: 180px;
-    height: 60px;
-    align-items: center;
-    display: flex;
-    margin-left: 30px;
+.menu-atalhos-iniciais {
+  width: 180px;
+  height: 60px;
+  align-items: center;
+  display: flex;
+  margin-left: 30px;
 }
 
-.menu-atalhos-iniciais-pagina-inicial{
-    padding-right: 20px;
-    border-right: 1px solid white;
+.menu-atalhos-iniciais-pagina-inicial {
+  padding-right: 20px;
+  border-right: 1px solid white;
 }
 
-.menu-atalhos-iniciais-pagina-inicial a{
-    cursor: pointer;
+.menu-atalhos-iniciais-pagina-inicial a {
+  cursor: pointer;
 }
 
-.menu-atalhos-iniciais-pagina-inicial :hover{
-    border-bottom: 2px solid white;
+.menu-atalhos-iniciais-pagina-inicial :hover {
+  border-bottom: 2px solid white;
 }
 
-.menu-atalhos-iniciais-ajuda{
-    margin-left: auto;
-    cursor: pointer;
+.menu-atalhos-iniciais-ajuda {
+  margin-left: auto;
+  cursor: pointer;
 }
 
-.menu-atalhos-iniciais-ajuda :hover{
-    border-bottom: 2px solid white;
+.menu-atalhos-iniciais-ajuda :hover {
+  border-bottom: 2px solid white;
 }
 
-.menu-atalhos-iniciais a{
-    text-decoration: none;
-    color: white;
+.menu-atalhos-iniciais a {
+  text-decoration: none;
+  color: white;
 }
 
-.menu-atalhos-pessoais{
-    margin-left: auto;
+.menu-atalhos-pessoais {
+  margin-left: auto;
 }
 
-.menu-atalhos-pessoais ul{
-    display: flex;
-    list-style-type: none;
+.menu-atalhos-pessoais ul {
+  display: flex;
+  list-style-type: none;
 }
 
-.menu-atalhos-pessoais ul li{
-    margin-left: 25px;
+.menu-atalhos-pessoais ul li {
+  margin-left: 25px;
 }
 
-.menu-atalhos-pessoais ul li :hover{
-    border-bottom: 2px solid white;
+.menu-atalhos-pessoais ul li :hover {
+  border-bottom: 2px solid white;
 }
 
-.menu-atalhos-pessoais ul li a{
-    color: white;
-    font-size: 20px;
+.menu-atalhos-pessoais ul li a {
+  color: white;
+  font-size: 20px;
 }
 /* FIM - Style para menu */
 
-
-
 /* Style para página Index */
 .index-content {
-    width: 100%;
-    height: calc(100vh - 120px);
-    display: flex;
+  width: 100%;
+  height: calc(100vh - 120px);
+  display: flex;
 }
-
-
 
 /* Barra da esquerda (Onde o usuario cria seus projetos, exibe seus anexos e favoritos, e exibe todos os seus projetos e os que tambem foram atribuidos) */
-.left-main{
-    display: none;
-    margin-left:50px;
-    width: 200px;
-    border-right: 3px solid var(--light-red);
+.left-main {
+  display: none;
+  margin-left: 50px;
+  width: 200px;
+  border-right: 3px solid var(--light-red);
 }
 
-.left-main-new-project-content{
-    display: flex;
-    height: 35px;
-    margin-top: 15px;
+.left-main-new-project-content {
+  display: flex;
+  height: 35px;
+  margin-top: 15px;
 }
 
-.left-main-new-project-content button{
-    background-color: var(--ache-red);
-    border: none;
-    height: 35px;
-    padding: 0px;
-    align-items: center;
-    font-size: 16px;
-    color: white;
-    cursor: pointer;
+.left-main-new-project-content button {
+  background-color: var(--ache-red);
+  border: none;
+  height: 35px;
+  padding: 0px;
+  align-items: center;
+  font-size: 16px;
+  color: white;
+  cursor: pointer;
 }
 
-.left-main-new-project-content button p{
-    margin: 0px;
+.left-main-new-project-content button p {
+  margin: 0px;
 }
 
-.new-project-button button{
-    border-radius: 5px 0px 0px 5px;
-    padding: 0px 10px 0px 10px;
-    border-right: 1px solid white;
-    font-family: "Noto Sans", sans-serif;
+.new-project-button button {
+  border-radius: 5px 0px 0px 5px;
+  padding: 0px 10px 0px 10px;
+  border-right: 1px solid white;
+  font-family: "Noto Sans", sans-serif;
 }
 
-.new-project-plus button{
-    border-radius: 0px 5px 5px 0px;
-    padding: 0px 10px 0px 10px;
+.new-project-plus button {
+  border-radius: 0px 5px 5px 0px;
+  padding: 0px 10px 0px 10px;
 }
 
-.new-project-plus span{
-    font-size: 30px;
-    margin-top: 3px;
+.new-project-plus span {
+  font-size: 30px;
+  margin-top: 3px;
 }
 
-.favorites-title-content{
-    height: 35px;
-    margin-top: 15px;
+.favorites-title-content {
+  height: 35px;
+  margin-top: 15px;
 }
 
-.favorites-title-content button{
-    display: flex; 
-    align-items: center;
-    background-color: white;
-    border: none;
-    font-size: 16px;
-    font-family: "Noto Sans", sans-serif;
-    padding: 0px;
-    height: 35px;
-    gap: 20px;
-    font-weight: 500;
-    cursor: pointer;
+.favorites-title-content button {
+  display: flex;
+  align-items: center;
+  background-color: white;
+  border: none;
+  font-size: 16px;
+  font-family: "Noto Sans", sans-serif;
+  padding: 0px;
+  height: 35px;
+  gap: 20px;
+  font-weight: 500;
+  cursor: pointer;
 }
 
-.favorites-title p{
-    margin: 0px;
+.favorites-title p {
+  margin: 0px;
 }
 
-.favorites-plus{
-    margin-top: 5px;
+.favorites-plus {
+  margin-top: 5px;
 }
 
-.favorites-plus span{
-    font-size: 30px;
-}   
-
-.favorites-atalhos-content{
-    margin-top: 15px;
-    padding-bottom: 20px;
+.favorites-plus span {
+  font-size: 30px;
 }
 
-.user-atalhos-content{
-    margin-top: 15px;
-    padding-bottom: 20px;
+.favorites-atalhos-content {
+  margin-top: 15px;
+  padding-bottom: 20px;
 }
 
-.favorites-atalhos-ex1{
-    display: flex;
-    height: 40px;
-    align-items: center;
-    border-bottom: 1px solid black;
-    margin-bottom: 10px;
-    margin-right: 10px;
+.user-atalhos-content {
+  margin-top: 15px;
+  padding-bottom: 20px;
 }
 
-.btn-menu-user-projects{
-    background-color: transparent;
-    border: none;
-    font-size: 16px;
-    padding: 0px;
-    cursor: pointer;
+.favorites-atalhos-ex1 {
+  display: flex;
+  height: 40px;
+  align-items: center;
+  border-bottom: 1px solid black;
+  margin-bottom: 10px;
+  margin-right: 10px;
 }
 
-.favorites-atalhos-ex1 p{
-    margin: 0px;
+.btn-menu-user-projects {
+  background-color: transparent;
+  border: none;
+  font-size: 16px;
+  padding: 0px;
+  cursor: pointer;
 }
 
-.button-favorites-atalhos-content{
-    margin-left: auto;
-    width: 35px;
-    text-align: center;
-    border-left: 1px solid black;
+.favorites-atalhos-ex1 p {
+  margin: 0px;
 }
 
-.button-favorites-atalhos-content button{
-    cursor : pointer;
-    background-color: white;
-    width: 100%;
-    height: 30px;
-    border: none;
-    font-size: 16px;
-    color: var(--ache-red);
-    padding: 0px;
+.button-favorites-atalhos-content {
+  margin-left: auto;
+  width: 35px;
+  text-align: center;
+  border-left: 1px solid black;
 }
 
-.button-favorites-atalhos-hover{
-    display: none;
-    background-color: #f1f1f1;
-    width: 100%;
-    margin-top: 2px;
-    height: 30px;
-    font-size: 16px;
-    align-items: center;
-    justify-content: center;
-    border-radius: 5px;
+.button-favorites-atalhos-content button {
+  cursor: pointer;
+  background-color: white;
+  width: 100%;
+  height: 30px;
+  border: none;
+  font-size: 16px;
+  color: var(--ache-red);
+  padding: 0px;
+}
+
+.button-favorites-atalhos-hover {
+  display: none;
+  background-color: #f1f1f1;
+  width: 100%;
+  margin-top: 2px;
+  height: 30px;
+  font-size: 16px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
 }
 
 .button-favorites-atalhos-content button:hover .button-favorites-atalhos {
-    display: none;
+  display: none;
 }
 
 .button-favorites-atalhos-content button:hover .button-favorites-atalhos-hover {
-    display: flex;
+  display: flex;
 }
 
 /* FIM - Barra da esquerda (Onde o usuario cria seus projetos, exibe seus anexos e favoritos, e exibe todos os seus projetos e os que tambem foram atribuidos) */
 
-
-
 /* Barra da direita (Onde, apos o usuario selecionar a opcao ou projeto que deseja  visualizar, sera exibido todas as informacoes nesta parte). Obs. O conteudo desta parte (Barra da direita) sera bem flexivel, podendo exibir varios tipos diferentes de conteudo, seja de todos os projetos do usuario, informacoes sobre um projeto em especifico, calendario das tarefas dos projetos do usuario, etc. */
-.right-main{
-    display: flex;
-    background-color: #d8d8d8;
-    margin: 10px 0px 0px 10px;
-    width: 100%;
-    
-    border-radius: 5px;
+.right-main {
+  display: flex;
+  background-color: #d8d8d8;
+  margin: 10px 0px 0px 10px;
+  width: 100%;
+
+  border-radius: 5px;
 }
-
-
 
 /* Barra da direita - tela de todos os projetos do usuario (contem todos os projetos criados e atribuídos pelo;para o usuario). */
-.right-main-user-projects{
-    display: none;
-    width: 100%;
-    height: 100%;
-    overflow-y: auto;
+.right-main-user-projects {
+  display: none;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
 }
 
-.left-main-flexible-menu{
-    margin-left:15px;
-    width: 250px;
+.left-main-flexible-menu {
+  margin-left: 15px;
+  width: 250px;
 }
 
-.left-main-new-project-content-flexible-menu{
-    display: flex;
-    height: 35px;
-    margin-top: 15px;
+.left-main-new-project-content-flexible-menu {
+  display: flex;
+  height: 35px;
+  margin-top: 15px;
 }
 
-.left-main-new-project-content-flexible-menu button{
-    background-color: white;
-    border: none;
-    height: 35px;
-    padding: 0px;
-    align-items: center;
-    font-size: 16px;
-    color: black;
-    cursor: pointer;
+.left-main-new-project-content-flexible-menu button {
+  background-color: white;
+  border: none;
+  height: 35px;
+  padding: 0px;
+  align-items: center;
+  font-size: 16px;
+  color: black;
+  cursor: pointer;
 }
 
-.left-main-new-project-content-flexible-menu button p{
-    margin: 0px;
+.left-main-new-project-content-flexible-menu button p {
+  margin: 0px;
 }
 
-.new-project-button-flexible-menu button{
-    border-radius: 5px 0px 0px 5px;
-    padding: 0px 10px 0px 10px;
-    font-family: "Noto Sans", sans-serif;
+.new-project-button-flexible-menu button {
+  border-radius: 5px 0px 0px 5px;
+  padding: 0px 10px 0px 10px;
+  font-family: "Noto Sans", sans-serif;
 }
 
-.new-project-plus-flexible-menu button{
-    border-radius: 0px 5px 5px 0px;
-    padding: 0px 10px 0px 10px;
+.new-project-plus-flexible-menu button {
+  border-radius: 0px 5px 5px 0px;
+  padding: 0px 10px 0px 10px;
 }
 
-.new-project-plus-flexible-menu span{
-    font-size: 30px;
-    margin-top: 3px;
+.new-project-plus-flexible-menu span {
+  font-size: 30px;
+  margin-top: 3px;
 }
 
-.favorites-atalhos-content-flexible-menu{
-    margin-top: 35px;
-    padding-bottom: 20px;
+.favorites-atalhos-content-flexible-menu {
+  margin-top: 35px;
+  padding-bottom: 20px;
 }
 
-.main-favorites-atalhos-ex1-flexible-menu{
-    display: flex;
-    height: 40px;
-    align-items: center;
-    margin-bottom: 10px;
-    margin-right: 10px;
+.main-favorites-atalhos-ex1-flexible-menu {
+  display: flex;
+  height: 40px;
+  align-items: center;
+  margin-bottom: 10px;
+  margin-right: 10px;
 }
 
-.main-favorites-atalhos-ex1-flexible-menu button{
-    cursor: pointer;
-    align-items: center;
-    background-color: transparent;
-    border: none;
-    font-size: 16px;
-    padding: 0px;
+.main-favorites-atalhos-ex1-flexible-menu button {
+  cursor: pointer;
+  align-items: center;
+  background-color: transparent;
+  border: none;
+  font-size: 16px;
+  padding: 0px;
 }
 
-.favorites-atalhos-ex1-flexible-menu{
-    margin-bottom: 30px;
-    border-bottom: 1px solid black;
+.favorites-atalhos-ex1-flexible-menu {
+  margin-bottom: 30px;
+  border-bottom: 1px solid black;
 }
 
-.favorites-atalhos-ex1-flexible-menu p{
-    margin: 0px;
+.favorites-atalhos-ex1-flexible-menu p {
+  margin: 0px;
 }
 
-.button-favorites-atalhos-content-flexible-menu{
-    margin-left: auto;
-    width: 35px;
-    text-align: center;
-    border-left: 1px solid black;
+.button-favorites-atalhos-content-flexible-menu {
+  margin-left: auto;
+  width: 35px;
+  text-align: center;
+  border-left: 1px solid black;
 }
 
-.button-favorites-atalhos-content-flexible-menu button{
-    cursor : pointer;
-    background-color: #d8d8d8;
-    width: 100%;
-    height: 30px;
-    border: none;
-    font-size: 16px;
-    color: var(--ache-red);
-    padding: 0px;
+.button-favorites-atalhos-content-flexible-menu button {
+  cursor: pointer;
+  background-color: #d8d8d8;
+  width: 100%;
+  height: 30px;
+  border: none;
+  font-size: 16px;
+  color: var(--ache-red);
+  padding: 0px;
 }
 
-.button-favorites-atalhos-content-flexible-menu-att{
-    font-size: 13px;
-    color: var(--ache-red);
-    gap: 5px;
-    font-weight: 500;
+.button-favorites-atalhos-content-flexible-menu-att {
+  font-size: 13px;
+  color: var(--ache-red);
+  gap: 5px;
+  font-weight: 500;
 }
 
-.exibicao-selection-project-space{
-    display: none;
-    background-color: white;
-    margin-left: 30px;
-    width: calc(100% - 290px);
-    height: calc(100vh - 200px);
-    overflow-y: auto;
-    align-self: center;
-    border-radius: 5px 0px 0px 5px;
+.exibicao-selection-project-space {
+  display: none;
+  background-color: white;
+  margin-left: 30px;
+  width: calc(100% - 290px);
+  height: calc(100vh - 200px);
+  overflow-y: auto;
+  align-self: center;
+  border-radius: 5px 0px 0px 5px;
 }
 
-.exibicao-selection-project-space-content{
-    display: none;
-    margin: 15px 50px 0px 50px;
-/* Ajustar no Media Query */
+.exibicao-selection-project-space-content {
+  display: none;
+  margin: 15px 50px 0px 50px;
+  /* Ajustar no Media Query */
 }
 
-.exibicao-selection-project-space-content p{
-    margin: 0px;
+.exibicao-selection-project-space-content p {
+  margin: 0px;
 }
 /* FIM - Barra da direita - tela de todos os projetos do usuario (contem todos os projetos criados e atribuídos pelo;para o usuario). */
 
-
-
 /* Barra da direita (Onde, apos o usuario selecionar a opcao ou projeto que deseja  visualizar, sera exibido todas as informacoes nesta parte). Obs. O conteudo desta parte (Barra da direita) sera bem flexivel, podendo exibir varios tipos diferentes de conteudo, seja de todos os projetos do usuario, informacoes sobre um projeto em especifico, calendario das tarefas dos projetos do usuario, etc. */
-.exibicao-selection-project-space-top{
-    display: flex;
-    align-items: center;
+.exibicao-selection-project-space-top {
+  display: flex;
+  align-items: center;
 }
 
-.exibicao-selection-project-space-top button{
-    background-color: transparent;
-    border: none;
-    margin-left: auto;
-    cursor: pointer;
+.exibicao-selection-project-space-top button {
+  background-color: transparent;
+  border: none;
+  margin-left: auto;
+  cursor: pointer;
 }
 
-.exibicao-selection-project-space-top-project-name{
-    font-size: 16px;
-    font-weight: 500
+.exibicao-selection-project-space-top-project-name {
+  font-size: 16px;
+  font-weight: 500;
 }
 
-.exibicao-selection-project-space-top-project-kanbam{
-    background-color: #d8d8d8;
-    border-radius: 5px;
-    box-shadow: 2px 3px 5px black;
+.exibicao-selection-project-space-top-project-kanbam {
+  background-color: #d8d8d8;
+  border-radius: 5px;
+  box-shadow: 2px 3px 5px black;
 }
 
-.exibicao-selection-project-space-top-project-kanbam-icon{
-    display: flex;
-    padding: 10px 10px 5px 10px;
-    gap: 10px;
+.exibicao-selection-project-space-top-project-kanbam-icon {
+  display: flex;
+  padding: 10px 10px 5px 10px;
+  gap: 10px;
 }
 
-.exibicao-selection-project-space-top-project-kanbam-p{
-    padding: 0px 0px 10px 0px;
-    font-size: 16px;
-    font-weight: 500;
+.exibicao-selection-project-space-top-project-kanbam-p {
+  padding: 0px 0px 10px 0px;
+  font-size: 16px;
+  font-weight: 500;
 }
 
-.exibicao-selection-project-space-creator-space{
-    color: var(--ache-red);
-    font-size: 16px;
-    margin-top: 15px;
+.exibicao-selection-project-space-creator-space {
+  color: var(--ache-red);
+  font-size: 16px;
+  margin-top: 15px;
 }
 
-.exibicao-selection-project-space-workers-space{
-    color: var(--ache-red);
-    font-size: 16px;
-    margin-top: 30px;
+.exibicao-selection-project-space-workers-space {
+  color: var(--ache-red);
+  font-size: 16px;
+  margin-top: 30px;
 }
 
-.exibicao-selection-project-space-description-content{
-    margin-top: 30px;
+.exibicao-selection-project-space-description-content {
+  margin-top: 30px;
 }
 
-.exibicao-selection-project-space-description-title{
-    font-size: 16px;
-    margin-top: 15px;
-    font-weight: 500;
+.exibicao-selection-project-space-description-title {
+  font-size: 16px;
+  margin-top: 15px;
+  font-weight: 500;
 }
 
-.exibicao-selection-project-space-description-text{
-    margin-top: 10px;
-    font-size: 16px;
+.exibicao-selection-project-space-description-text {
+  margin-top: 10px;
+  font-size: 16px;
 }
 
-.exibicao-selection-project-space-tarefas-contents{
-    margin-top: 30px;
+.exibicao-selection-project-space-tarefas-contents {
+  margin-top: 30px;
 }
 
-.exibicao-selection-project-space-tarefas-title{
-    font-size: 16px;
-    font-weight: 500;
+.exibicao-selection-project-space-tarefas-title {
+  font-size: 16px;
+  font-weight: 500;
 }
 
-.exibicao-selection-project-space-tarefas-addnew-button{
-    margin-top: 15px;
+.exibicao-selection-project-space-tarefas-addnew-button {
+  margin-top: 15px;
 }
 
-.exibicao-selection-project-space-tarefas-addnew-button button{
-    display: flex;
-    background-color: var(--ache-red);
-    border: none;
-    color: white;
-    align-items: center;
-    border-radius: 5px;
-    padding: 0px;
-    cursor: pointer;
+.exibicao-selection-project-space-tarefas-addnew-button button {
+  display: flex;
+  background-color: var(--ache-red);
+  border: none;
+  color: white;
+  align-items: center;
+  border-radius: 5px;
+  padding: 0px;
+  cursor: pointer;
 }
 
-.exibicao-selection-project-space-tarefas-addnew-button-title{
-    font-size: 16px;
-    font-weight: 500;
-    padding: 0px 10px;
+.exibicao-selection-project-space-tarefas-addnew-button-title {
+  font-size: 16px;
+  font-weight: 500;
+  padding: 0px 10px;
 }
 
-.exibicao-selection-project-space-tarefas-addnew-button-plus{
-    font-size: 30px;
-    font-weight: 500;
-    padding: 0px 10px;
-    border-left: 1px solid white;
+.exibicao-selection-project-space-tarefas-addnew-button-plus {
+  font-size: 30px;
+  font-weight: 500;
+  padding: 0px 10px;
+  border-left: 1px solid white;
 }
 
-.exibicao-selection-project-space-tarefas-exibir-tarefas{
-    margin-top: 30px;
+.exibicao-selection-project-space-tarefas-exibir-tarefas {
+  margin-top: 30px;
 }
 
-.exibicao-selection-project-tarefa{
-    background-color: #d8d8d8;
-    padding: 10px;
-    margin-bottom: 30px;
-    border-radius: 5px;
+.exibicao-selection-project-tarefa {
+  background-color: #d8d8d8;
+  padding: 10px;
+  margin-bottom: 30px;
+  border-radius: 5px;
 }
 
-.exibicao-selection-project-tarefa-top{
-    display: flex;
-    font-size: 16px;
-    font-weight: 500;
-    align-items: center;
+.exibicao-selection-project-tarefa-top {
+  display: flex;
+  font-size: 16px;
+  font-weight: 500;
+  align-items: center;
 }
 
-.exibicao-selection-project-tarefa-top-text{
-    margin-left: 10px;
+.exibicao-selection-project-tarefa-top-text {
+  margin-left: 10px;
 }
 
-.exibicao-selection-project-tarefa-bottom{
-    margin-top: 15px;
-    display: flex;
-    color: var(--ache-red);
-    align-items: center;
+.exibicao-selection-project-tarefa-bottom {
+  margin-top: 15px;
+  display: flex;
+  color: var(--ache-red);
+  align-items: center;
 }
 
-.exibicao-selection-project-tarefa-bottom-right{
-    margin-left: auto;
+.exibicao-selection-project-tarefa-bottom-right {
+  margin-left: auto;
 }
 
-.exibicao-selection-project-tarefa-bottom-right-img img{
-    border-radius: 50px;
-    border: 2px solid black;
+.exibicao-selection-project-tarefa-bottom-right-img img {
+  border-radius: 50px;
+  border: 2px solid black;
 }
 
-
-
-
-
-
-.exibicao-selection-project-space-kanbam-content{
-    display: none;
-    margin: 15px 50px 0px 50px;
+.exibicao-selection-project-space-kanbam-content {
+  display: none;
+  margin: 15px 50px 0px 50px;
 }
 
-.exibicao-selection-project-space-kanbam-top{
-    display: flex;
+.exibicao-selection-project-space-kanbam-top {
+  display: flex;
 }
 
-.exibicao-selection-project-space-kanbam-top button{
-    background-color: #d8d8d8;
-    border-radius: 5px;
-    padding: 0px;
-    border: none;
-    margin-left: auto;
-    padding: 10px 10px 10px 10px;
-    cursor: pointer;
+.exibicao-selection-project-space-kanbam-top button {
+  background-color: #d8d8d8;
+  border-radius: 5px;
+  padding: 0px;
+  border: none;
+  margin-left: auto;
+  padding: 10px 10px 10px 10px;
+  cursor: pointer;
 }
 
-.exibicao-selection-project-space-kanbam-top-project-name{
-    font-size: 16px;
-    font-weight: 500;
+.exibicao-selection-project-space-kanbam-top-project-name {
+  font-size: 16px;
+  font-weight: 500;
 }
 
-.exibicao-selection-project-space-kanbam-top-return-button{
-    display: flex;
-    align-items: center;
-    gap: 10px;
+.exibicao-selection-project-space-kanbam-top-return-button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-.exibicao-selection-project-space-kanbam-top-return-button-text p{
-    font-size: 16px;
-    font-weight: 500;
-    margin: 0px;
+.exibicao-selection-project-space-kanbam-top-return-button-text p {
+  font-size: 16px;
+  font-weight: 500;
+  margin: 0px;
 }
 
-
-
-.kanbam-board-content{
-    display: flex;
-    align-items: flex-start; /* Alinha as colunas no topo */
-    justify-content: space-between;
-    margin: 20px 0px;
+.kanbam-board-content {
+  display: flex;
+  align-items: flex-start; /* Alinha as colunas no topo */
+  justify-content: space-between;
+  margin: 20px 0px;
 }
 
-.kanbam-collum{
-    background-color: #d8d8d8;
-    padding: 10px;
-    border-radius: 5px;
-    width:28%;
+.kanbam-collum {
+  background-color: #d8d8d8;
+  padding: 10px;
+  border-radius: 5px;
+  width: 28%;
 }
 
-.kanbam-collum-top{
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    margin-bottom: 10px;
+.kanbam-collum-top {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 10px;
 }
 
-.kanbam-collum-top-text p{
-    font-size: 16px;
-    font-weight: 500;
+.kanbam-collum-top-text p {
+  font-size: 16px;
+  font-weight: 500;
 }
 
-.kanbam-collum-new-tarefa-button-content{
-    margin-bottom: 25px;
+.kanbam-collum-new-tarefa-button-content {
+  margin-bottom: 25px;
 }
 
-.kanbam-collum-new-tarefa-button-content button{
-    display: flex;
-    margin: auto;
-    background-color: var(--ache-red);
-    border: none;
-    padding: 0px;
-    border-radius: 5px;
-    cursor: pointer;
+.kanbam-collum-new-tarefa-button-content button {
+  display: flex;
+  margin: auto;
+  background-color: var(--ache-red);
+  border: none;
+  padding: 0px;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
-.kanbam-collum-new-tarefa-button{
-    display: flex;
-    margin: auto;
-    align-items: center;
+.kanbam-collum-new-tarefa-button {
+  display: flex;
+  margin: auto;
+  align-items: center;
 }
 
-.kanbam-collum-new-tarefa-button p{
-    font-size: 16px;
-    font-weight: 500;
-    margin: 0px;
-    color: white;
+.kanbam-collum-new-tarefa-button p {
+  font-size: 16px;
+  font-weight: 500;
+  margin: 0px;
+  color: white;
 }
 
-.kanbam-collum-new-tarefa-button-text{
-    padding: 10px 10px;
-    border-right: 1px solid white;
+.kanbam-collum-new-tarefa-button-text {
+  padding: 10px 10px;
+  border-right: 1px solid white;
 }
 
-.kanbam-collum-new-tarefa-button-plus{
-    padding: 0px 10px;
+.kanbam-collum-new-tarefa-button-plus {
+  padding: 0px 10px;
 }
 
-.kanbam-collum-new-tarefa-button-plus p{
-    font-size: 30px;
+.kanbam-collum-new-tarefa-button-plus p {
+  font-size: 30px;
 }
 
-.kanbam-collum-todo-tarefa{
-    font-size: 16px;
-    padding: 15px;
-    margin-bottom: 15px;
-    border-radius: 5px;
-    cursor: grab;
-    border-left: 5px solid;
-    border-left-color: #A020F0;
-    background-color: white;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+.kanbam-collum-todo-tarefa {
+  font-size: 16px;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  cursor: grab;
+  border-left: 5px solid;
+  border-left-color: #a020f0;
+  background-color: white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
-.kanbam-collum-doing-tarefa{
-    font-size: 16px;
-    padding: 15px;
-    margin-bottom: 15px;
-    border-radius: 5px;
-    cursor: grab;
-    border-left: 5px solid;
-    border-left-color: yellow;
-    background-color: white;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+.kanbam-collum-doing-tarefa {
+  font-size: 16px;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  cursor: grab;
+  border-left: 5px solid;
+  border-left-color: yellow;
+  background-color: white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
-.kanbam-collum-done-tarefa{
-    font-size: 16px;
-    padding: 15px;
-    margin-bottom: 15px;
-    border-radius: 5px;
-    cursor: grab;
-    border-left: 5px solid;
-    border-left-color: green;
-    background-color: white;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+.kanbam-collum-done-tarefa {
+  font-size: 16px;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  cursor: grab;
+  border-left: 5px solid;
+  border-left-color: green;
+  background-color: white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
-.kanbam-collum-todo-tarefa p{
-    margin: 0px;
+.kanbam-collum-todo-tarefa p {
+  margin: 0px;
 }
 
-.kanbam-collum-doing-tarefa p{
-    margin: 0px;
+.kanbam-collum-doing-tarefa p {
+  margin: 0px;
 }
 
-.kanbam-collum-done-tarefa p{
-    margin: 0px;
+.kanbam-collum-done-tarefa p {
+  margin: 0px;
 }
 
-.kanbam-collum-new-tarefa-content{
-    padding-bottom: 50px;
+.kanbam-collum-new-tarefa-content {
+  padding-bottom: 50px;
 }
 
 /* Adicione este CSS à sua folha de estilo ou em uma tag <style> */
 /* Estilo para a tarefa que está sendo arrastada */
 .dragging {
-    opacity: 0.5; /* Deixa o card semi-transparente */
-    cursor: grabbing;
+  opacity: 0.5; /* Deixa o card semi-transparente */
+  cursor: grabbing;
 }
 
 /* Estilo para a coluna que está recebendo a tarefa */
 .drag-over {
-    background-color: rgba(0, 0, 0, 0.1) !important; /* Destaque sutil */
+  background-color: rgba(0, 0, 0, 0.1) !important; /* Destaque sutil */
 }
-
-
-
-
-
-
-
-
-
-
-
 
 /*teste calendario*/
 
@@ -775,146 +745,146 @@ header{
 /* --- Estilos Específicos do Calendário --- */
 
 .calendar-page {
-    background-color: white; /* Fundo branco para o conteúdo */
-    padding: 20px 60px;
-    margin: 10px;
-    width: calc(100% - 20px); /* Ocupa toda a área direita */
-    height: calc(100% - 20px); /* Ocupa toda a área direita */
-    border-radius: 5px;
-    display: flex;
-    flex-direction: column; /* Organiza os elementos em coluna */
-    overflow-y: auto; /* Permite rolagem se necessário */
+  background-color: white; /* Fundo branco para o conteúdo */
+  padding: 20px 60px;
+  margin: 10px;
+  width: calc(100% - 20px); /* Ocupa toda a área direita */
+  height: calc(100% - 20px); /* Ocupa toda a área direita */
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column; /* Organiza os elementos em coluna */
+  overflow-y: auto; /* Permite rolagem se necessário */
 }
 
 .calendar-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-    padding-bottom: 15px;
-    border-bottom: 2px solid #f0f0f0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid #f0f0f0;
 }
 
 .calendar-header h2 {
-    font-size: 1.8em;
-    color: var(--dark-text-color);
-    margin: 0;
+  font-size: 1.8em;
+  color: var(--dark-text-color);
+  margin: 0;
 }
 
 .calendar-nav-button {
-    background-color: var(--ache-red);
-    color: var(--text-color);
-    border: none;
-    border-radius: 50%; /* Botões redondos */
-    width: 40px;
-    height: 40px;
-    cursor: pointer;
-    font-size: 1.5em;
-    line-height: 40px; /* Alinha o texto verticalmente */
-    text-align: center;
-    transition: background-color 0.3s ease;
+  background-color: var(--ache-red);
+  color: var(--text-color);
+  border: none;
+  border-radius: 50%; /* Botões redondos */
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  font-size: 1.5em;
+  line-height: 40px; /* Alinha o texto verticalmente */
+  text-align: center;
+  transition: background-color 0.3s ease;
 }
 
 .calendar-nav-button:hover {
-    background-color: var(--light-red);
+  background-color: var(--light-red);
 }
 
 .calendar-weekdays {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 5px;
-    margin-bottom: 10px;
-    font-weight: bold;
-    color: var(--ache-red); /* Cor da Aché para os dias da semana */
-    text-align: center;
-    padding-bottom: 10px;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: var(--ache-red); /* Cor da Aché para os dias da semana */
+  text-align: center;
+  padding-bottom: 10px;
 }
 
 .calendar-grid {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 5px;
-    flex-grow: 1; /* Faz a grid ocupar o espaço restante */
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+  flex-grow: 1; /* Faz a grid ocupar o espaço restante */
 }
 
 .calendar-day {
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    padding: 10px;
-    min-height: 100px; /* Altura mínima para cada dia */
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    font-size: 0.9em;
-    color: var(--dark-text-color);
-    transition: background-color 0.2s ease;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 10px;
+  min-height: 100px; /* Altura mínima para cada dia */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  font-size: 0.9em;
+  color: var(--dark-text-color);
+  transition: background-color 0.2s ease;
 }
 
 .calendar-day:not(.empty):hover {
-    background-color: #e9e9e9;
-    cursor: pointer;
+  background-color: #e9e9e9;
+  cursor: pointer;
 }
 
 .calendar-day.empty {
-    background-color: #f0f0f0; /* Dias do mês anterior/próximo */
-    color: #bbb;
+  background-color: #f0f0f0; /* Dias do mês anterior/próximo */
+  color: #bbb;
 }
 
 .calendar-day .day-number {
-    font-weight: bold;
-    font-size: 1.2em;
-    margin-bottom: 5px;
+  font-weight: bold;
+  font-size: 1.2em;
+  margin-bottom: 5px;
 }
 
 .calendar-day.today .day-number {
-    color: white;
-    background-color: var(--ache-red);
-    border-radius: 50%;
-    width: 30px;
-    height: 30px;
-    text-align: center;
-    line-height: 30px;
+  color: white;
+  background-color: var(--ache-red);
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  line-height: 30px;
 }
 
 .task-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    width: 100%;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
 }
 
 .task-item {
-    background-color: var(--light-red);
-    color: white;
-    border-radius: 3px;
-    padding: 3px 6px;
-    font-size: 0.8em;
-    margin-top: 5px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  background-color: var(--light-red);
+  color: white;
+  border-radius: 3px;
+  padding: 3px 6px;
+  font-size: 0.8em;
+  margin-top: 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .task-item-button {
-    background-color: var(--light-red);
-    color: white;
-    border-radius: 3px;
-    padding: 3px 6px;
-    font-size: 0.8em;
-    margin-top: 5px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    border: none;         /* Remove a borda padrão do botão */
-    width: 100%;          /* Faz o botão ocupar a largura toda do dia */
-    text-align: left;     /* Alinha o texto à esquerda */
-    cursor: pointer;      /* Muda o cursor para uma "mãozinha" */
-    transition: background-color 0.2s ease;
+  background-color: var(--light-red);
+  color: white;
+  border-radius: 3px;
+  padding: 3px 6px;
+  font-size: 0.8em;
+  margin-top: 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  border: none; /* Remove a borda padrão do botão */
+  width: 100%; /* Faz o botão ocupar a largura toda do dia */
+  text-align: left; /* Alinha o texto à esquerda */
+  cursor: pointer; /* Muda o cursor para uma "mãozinha" */
+  transition: background-color 0.2s ease;
 }
 
 .task-item-button:hover {
-    background-color: var(--ache-red); /* Escurece um pouco ao passar o mouse */
+  background-color: var(--ache-red); /* Escurece um pouco ao passar o mouse */
 }
 
 /* style.css - Adicione este código ao final do arquivo */
@@ -923,114 +893,137 @@ header{
 
 /* style-desenvolvimento.css */
 .calendario-popup {
-    display: none;
-    background-color: rgba(0, 0, 0, 0.5);
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    top: 0px;
-    left: 0px;
-    z-index: 1;
-    justify-content: center;
-    align-items: center;
+  display: none;
+  background-color: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0px;
+  left: 0px;
+  z-index: 1;
+  justify-content: center;
+  align-items: center;
 }
 
-.calendario-popup-content{
-    width: 50%;
-    height: 80%;
-    margin: auto;
-    overflow: auto;
-    border-radius: 5px;
-    z-index: 9999;
-    background-color: white;
+.calendario-popup-content {
+  width: 50%;
+  height: 80%;
+  margin: auto;
+  overflow: auto;
+  border-radius: 5px;
+  z-index: 9999;
+  background-color: white;
 }
 
-.calendario-popoup-top{
-    display: flex;
-    align-items: center;
+.calendario-popoup-top {
+  display: flex;
+  align-items: center;
 }
 
-.calendario-popoup-top p{
-    font-size: 16px;
-    font-weight: 700;
+.calendario-popoup-top p {
+  font-size: 16px;
+  font-weight: 700;
 }
 
-.calendario-popoup-top-left{
-    margin: 30px 30px 30px;
+.calendario-popoup-top-left {
+  margin: 30px 30px 30px;
 }
 
-.calendario-popoup-top-title p{
-    margin: 0px;
+.calendario-popoup-top-title p {
+  margin: 0px;
 }
 
-.calendario-popoup-top-right{
-    margin-left: auto;
-    margin-right: 30px;
+.calendario-popoup-top-right {
+  margin-left: auto;
+  margin-right: 30px;
 }
 
-.calendario-popoup-top-right button{
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    padding: 0px;
+.calendario-popoup-top-right button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0px;
 }
 
-.calendario-popoup-top-close-btn p{
-    margin: 0px;
+.calendario-popoup-top-close-btn p {
+  margin: 0px;
 }
 
-.calendario-popoup-midle{
-    display: flex;
-    padding-left: 30px;
-    gap: 30px;
-    margin-bottom: 30px;
+.calendario-popoup-midle {
+  display: flex;
+  padding-left: 30px;
+  gap: 30px;
+  margin-bottom: 30px;
 }
 
-.calendario-popoup-midle button{
-    background-color: var(--ache-red);
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    font-weight: 700;
-    color: white;
-    padding: 10px;
-    cursor: pointer;
+.calendario-popoup-midle button {
+  background-color: var(--ache-red);
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: 700;
+  color: white;
+  padding: 10px;
+  cursor: pointer;
 }
 
-.calendario-popoup-midle button p{
-    margin: 0px;
+.calendario-popoup-midle button p {
+  margin: 0px;
 }
 
-.calendario-popup-down{
-    padding-left: 30px;
+.calendario-popup-down {
+  padding-left: 30px;
 }
 
-.calendario-popup-down-part{
-    display: flex;
-    gap: 10px;
-    font-size: 16px;
-    margin-bottom: 30px;
+.calendario-popup-down-part {
+  display: flex;
+  gap: 10px;
+  font-size: 16px;
+  margin-bottom: 30px;
 }
 
-.calendario-popup-down-title p{
-    font-weight: 700;
-    margin: 0px;
+.calendario-popup-down-title p {
+  font-weight: 700;
+  margin: 0px;
 }
 
-.calendario-popup-down-answer p{
-    margin: 0px;
+.calendario-popup-down-answer p {
+  margin: 0px;
 }
 
 .close-button {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
 }
 
-.close-button:hover{
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
+.close-button:hover {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
 }
 
+.menu-content-logout {
+  margin-left: 15px;
+  display: flex;
+  align-items: center;
+}
+
+.menu-content-logout button {
+  background-color: white;
+  color: #c2185b; /* cor principal do header */
+  border: 2px solid white;
+  padding: 6px 14px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.menu-content-logout button:hover {
+  background-color: #ad1457; /* tom mais escuro */
+  color: white;
+  border-color: #ad1457;
+}
