@@ -34,62 +34,59 @@
 
       <div class="menu-content">
         <div class="menu-content-mensagem">
-          <p id="welcome-message">Bem-vindo</p>
+          <p id="welcome-msg">Bem-vindo</p>
         </div>
-        <div class="menu-content-data">
-          <p id="current-date"></p>
-        </div>
-        <div class="menu-content-time">
-          <p id="current-time"></p>
-        </div>
+        <div class="menu-content-data" id="current-date"></div>
+        <div class="menu-content-time" id="current-time"></div>
 
         <!-- Botão de sair -->
         <div class="menu-content-logout">
-          <button id="logoutBtn" class="logout-button">
-            Sair
-          </button>
+          <button id="logoutBtn">Sair</button>
         </div>
       </div>
 
       <script>
-        document
-          .getElementById("logoutBtn")
-          .addEventListener("click", function () {
-            // Aqui você remove os dados de autenticação (localStorage/sessionStorage)
-            localStorage.removeItem("usuarioLogado");
-
-            // Redireciona para a página de login
-            window.location.href = "login.html";
-          });
-
-        // Busca o nome completo salvo no login
-        const usuario = JSON.parse(
-          localStorage.getItem("usuarioLogado") || "null"
-        );
-
-        if (!usuario) {
-          window.location.href = "login.html";
-        } else {
-          const primeiroNome = usuario.nome.split(" ")[0];
-          document.querySelector(
-            ".menu-content-mensagem p"
+        // --- Pegar nome do usuário logado ---
+        const usuarioLogado = JSON.parse(localStorage.getItem("usuarioLogado"));
+        if (usuarioLogado && usuarioLogado.nome) {
+          const primeiroNome = usuarioLogado.nome.split(" ")[0];
+          document.getElementById(
+            "welcome-msg"
           ).textContent = `Bem-vindo, ${primeiroNome}`;
         }
 
-        // Data e hora automáticas
+        // --- Função para atualizar data e hora ---
         function atualizarDataHora() {
           const agora = new Date();
-          document.querySelector(".menu-content-data p").textContent =
-            agora.toLocaleDateString("pt-BR");
-          document.querySelector(".menu-content-time p").textContent =
-            agora.toLocaleTimeString("pt-BR", {
-              hour: "2-digit",
-              minute: "2-digit"
-            });
+
+          // Data formatada
+          const data = agora.toLocaleDateString("pt-BR", {
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric"
+          });
+
+          // Hora formatada
+          const hora = agora.toLocaleTimeString("pt-BR", {
+            hour: "2-digit",
+            minute: "2-digit"
+          });
+
+          document.getElementById("current-date").textContent = data;
+          document.getElementById("current-time").textContent = hora;
         }
 
+        // Atualiza imediatamente e depois a cada 1s
         atualizarDataHora();
-        setInterval(atualizarDataHora, 600);
+        setInterval(atualizarDataHora, 1000);
+
+        // --- Logout ---
+        document
+          .getElementById("logoutBtn")
+          .addEventListener("click", function () {
+            localStorage.removeItem("usuarioLogado");
+            window.location.href = "login.html";
+          });
       </script>
     </header>
 
@@ -1171,5 +1168,6 @@
               : "none";
         });
     </script>
+    <script src="/Js/chatbot.js"></script>
   </body>
 </html>
