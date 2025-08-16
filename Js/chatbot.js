@@ -14,28 +14,30 @@ chatbotContainer.innerHTML = `
 `;
 document.body.appendChild(chatbotContainer);
 
-// Botão flutuante para abrir o chat
-const openButton = document.createElement("button");
-openButton.id = "chatbot-open";
-openButton.textContent = "💬";
-document.body.appendChild(openButton);
+// Cria barra de pesquisa flutuante para abrir o chat
+const searchBar = document.createElement("input");
+searchBar.id = "chatbot-bar";
+searchBar.type = "text";
+searchBar.placeholder = "Pergunte ao assistente...";
+document.body.appendChild(searchBar);
 
 // CSS do chatbot (injetado no documento)
+// CSS atualizado do chatbot
 const style = document.createElement("style");
 style.textContent = `
-#chatbot-open {
+#chatbot-bar {
   position: fixed;
   bottom: 20px;
   right: 20px;
-  background: #007bff;
-  color: white;
-  border: none;
-  border-radius: 50%;
-  width: 55px;
-  height: 55px;
-  font-size: 24px;
-  cursor: pointer;
+  width: 250px;
+  padding: 12px 15px;
+  border: 1px solid #ccc;
+  border-radius: 25px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  font-size: 14px;
+  outline: none;
+  background: #fff;
+  color: #333;
 }
 
 #chatbot-container {
@@ -44,27 +46,32 @@ style.textContent = `
   right: 20px;
   width: 350px;
   height: 500px;
-  background: white;
+  background: #fff;
   border-radius: 10px;
   box-shadow: 0 2px 12px rgba(0,0,0,0.3);
   display: none;
   flex-direction: column;
   overflow: hidden;
+  font-family: Arial, sans-serif;
 }
 
 #chatbot-header {
-  background: #007bff;
-  color: white;
+  background: #f5f5f5; /* cinza claro para combinar */
+  color: #333;
   padding: 10px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  font-weight: bold;
+  border-bottom: 1px solid #ddd;
 }
 
 #chatbot-messages {
   flex: 1;
   padding: 10px;
   overflow-y: auto;
+  background: #fff;
+  color: #333;
 }
 
 #chatbot-input-area {
@@ -76,24 +83,30 @@ style.textContent = `
   flex: 1;
   border: none;
   padding: 10px;
+  outline: none;
 }
 
 #chatbot-send {
-  background: #007bff;
-  color: white;
+  background: #333; /* botão no tom neutro */
+  color: #fff;
   border: none;
-  padding: 10px;
+  padding: 10px 15px;
   cursor: pointer;
+  border-radius: 0 0 10px 0;
+}
+
+#chatbot-send:hover {
+  background: #555;
 }
 `;
 document.head.appendChild(style);
 
 // Abrir e fechar chatbot
-openButton.addEventListener("click", () => {
+searchBar.addEventListener("focus", () => {
   chatbotContainer.style.display = "flex";
-  openButton.style.display = "none";
+  searchBar.style.display = "none";
 });
 document.getElementById("chatbot-close").addEventListener("click", () => {
   chatbotContainer.style.display = "none";
-  openButton.style.display = "block";
+  searchBar.style.display = "block";
 });
