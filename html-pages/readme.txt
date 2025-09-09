@@ -1,1 +1,0 @@
-Desenvolvimento da estrutura das páginas antes de passar para PHP.
