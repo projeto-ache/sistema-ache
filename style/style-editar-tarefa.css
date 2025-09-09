@@ -1,0 +1,28 @@
+/* Container para o botão de editar tarefa */
+.tarefa-actions-container {
+    margin-top: 15px;
+    padding-top: 10px;
+    border-top: 1px solid #eee;
+    text-align: right; /* Alinha o botão à direita */
+}
+
+/* Estilo do botão de editar tarefa */
+.btn-editar-tarefa {
+    display: inline-block;
+    padding: 8px 15px;
+    background-color: #5a67d8; /* Um azul/roxo para diferenciar */
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.btn-editar-tarefa:hover {
+    background-color: #434190;
+}
+
+.btn-editar-tarefa i {
+    margin-right: 5px; /* Espaço entre o ícone e o texto */
+}

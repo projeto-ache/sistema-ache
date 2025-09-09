@@ -1,0 +1,175 @@
+/* Fundo e Fonte Padrão */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Segoe UI", sans-serif;
+    background-color: #f4f4f9; /* Um cinza um pouco mais claro */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px 0; /* Adiciona espaço caso o formulário seja grande */
+}
+
+/* Container principal do formulário */
+.form-container {
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 600px; /* Mais largo para acomodar o formulário de projeto */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+}
+
+/* Título da página */
+.form-container h1 {
+    color: #c80064;
+    font-size: 28px;
+    text-align: center;
+    font-weight: 800;
+    margin-top: 0;
+    margin-bottom: 30px;
+}
+
+/* Agrupamento de label e input */
+.form-group {
+    margin-bottom: 20px;
+}
+
+/* Labels dos campos */
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Campos de texto e textarea */
+input[type="text"],
+textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-family: "Segoe UI", sans-serif;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+}
+
+textarea {
+    resize: vertical; /* Permite redimensionar apenas na vertical */
+    min-height: 100px;
+}
+
+input[type="text"]:focus,
+textarea:focus {
+    outline: none;
+    border-color: #c80064;
+}
+
+/* Estilo para a lista de participantes com scroll */
+.checkbox-list {
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 10px;
+    max-height: 180px; /* Altura máxima antes de ativar o scroll */
+    overflow-y: auto; /* Adiciona scroll vertical se necessário */
+    background-color: #fafafa;
+}
+
+.checkbox-list label {
+    display: block; /* Cada participante em sua própria linha */
+    padding: 5px;
+    font-weight: normal;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+}
+
+.checkbox-list label:hover {
+    background-color: #e9e9e9;
+}
+
+.checkbox-list input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+/* Container para os botões de ação */
+.button-container {
+    display: flex;
+    gap: 15px; /* Espaço entre os botões */
+    margin-top: 30px;
+}
+
+/* Botão principal (Salvar) */
+.button-container .btn-primary {
+    flex-grow: 1; /* Faz o botão ocupar o espaço disponível */
+    padding: 12px;
+    background-color: #c80064;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+.button-container .btn-primary:hover {
+    background-color: #a80050;
+}
+
+/* Botão secundário (Cancelar) */
+.button-container .btn-secondary {
+    flex-grow: 1;
+    padding: 12px;
+    background-color: #e0e0e0;
+    color: #333;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.button-container .btn-secondary:hover {
+    background-color: #c7c7c7;
+}
+
+/* Adicione este código ao final do seu arquivo style-form.css */
+
+/* Estilo para as mensagens de sucesso e erro */
+.message {
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 6px;
+    text-align: center;
+    font-weight: bold;
+    border: 1px solid transparent;
+}
+
+.message.success {
+    background-color: #d4edda;
+    color: #155724;
+    border-color: #c3e6cb;
+}
+
+.message.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border-color: #f5c6cb;
+}
+
+/* Estilo para o divisor "- OU -" */
+.divider {
+    text-align: center;
+    margin: 25px 0;
+    font-weight: bold;
+    color: #aaa;
+}

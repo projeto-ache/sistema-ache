@@ -1,0 +1,156 @@
+/* style/style-projeto.css */
+
+/* Estilos gerais */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+/* Caixa principal do formulário */
+.projeto-box {
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 450px;
+    text-align: center;
+}
+
+.projeto-box h1 {
+    font-size: 2.5em;
+    color: #c000c0; /* Cor roxa da Aché */
+    margin-bottom: 10px;
+}
+
+.projeto-box .subtitulo {
+    color: #666;
+    margin-bottom: 30px;
+}
+
+/* Estilos do formulário */
+form {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+label {
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 8px;
+    margin-top: 15px;
+}
+
+input[type="text"],
+input[type="date"],
+textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box; /* Garante que o padding não aumente a largura */
+    font-size: 1em;
+}
+
+textarea {
+    resize: vertical; /* Permite que o usuário redimensione a altura */
+}
+
+button {
+    background-color: #c000c0; /* Cor roxa da Aché */
+    color: white;
+    padding: 15px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 30px;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #a000a0; /* Um tom de roxo mais escuro */
+}
+
+/* Link de cancelar */
+.cancelar-link {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.cancelar-link a {
+    color: #666;
+    text-decoration: none;
+    font-size: 0.9em;
+}
+
+.cancelar-link a:hover {
+    text-decoration: underline;
+}
+
+/* Adicionar ao final de style/style-projeto.css */
+
+/* --- Estilos para busca de usuários --- */
+
+#busca_usuario {
+    position: relative;
+}
+
+#resultados_busca {
+    position: relative;
+    border: 1px solid #ddd;
+    border-top: none;
+    border-radius: 0 0 5px 5px;
+    max-height: 150px;
+    overflow-y: auto;
+}
+
+.resultado-item {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.resultado-item:hover {
+    background-color: #f0f0f0;
+}
+
+#membros_selecionados {
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+}
+
+#membros_selecionados p {
+    margin: 0;
+    font-weight: bold;
+    color: #333;
+}
+
+.membro-pill {
+    background-color: #e0e0e0;
+    padding: 5px 10px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    font-size: 0.9em;
+}
+
+.remover-membro {
+    margin-left: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    color: #888;
+}
+
+.remover-membro:hover {
+    color: #333;
+}

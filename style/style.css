@@ -148,10 +148,33 @@ header {
 
 /* Barra da esquerda (Onde o usuario cria seus projetos, exibe seus anexos e favoritos, e exibe todos os seus projetos e os que tambem foram atribuidos) */
 .left-main {
-  display: none;
+  display: block;
   margin-left: 50px;
   width: 200px;
+  overflow-y: auto;
   border-right: 3px solid var(--light-red);
+}
+
+/* Define a largura da barra de rolagem */
+.left-main::-webkit-scrollbar {
+  width: 5px; /* Largura da barra */
+}
+
+/* Define o fundo da trilha (a parte onde a barra corre) */
+.left-main::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Cor de fundo da trilha */
+  border-radius: 5px;
+}
+
+/* Define o estilo da própria barra (o "polegar" que você arrasta) */
+.left-main::-webkit-scrollbar-thumb {
+  background: #c2c2c2; /* Cor da barra */
+  border-radius: 10px; /* Bordas arredondadas */
+}
+
+/* Melhora a cor da barra ao passar o mouse por cima */
+.left-main::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8; /* Cor da barra ao passar o mouse */
 }
 
 .left-main-new-project-content {
@@ -242,6 +265,14 @@ header {
   margin-right: 10px;
 }
 
+.favorites-atalhos-ex1 button{
+  border: none;
+  background-color: white;
+  font-size: 16px;
+  padding: 0px;
+  cursor: pointer;
+}
+
 .btn-menu-user-projects {
   background-color: transparent;
   border: none;
@@ -299,20 +330,22 @@ header {
   display: flex;
   background-color: #d8d8d8;
   margin: 10px 0px 0px 10px;
-  width: 100%;
-
+  width: calc(100% - 250px);
   border-radius: 5px;
+  height: 100%;
+  box-sizing: border-box;
 }
 
 /* Barra da direita - tela de todos os projetos do usuario (contem todos os projetos criados e atribuídos pelo;para o usuario). */
 .right-main-user-projects {
-  display: none;
+  display: nne;
   width: 100%;
   height: 100%;
   overflow-y: auto;
 }
 
 .left-main-flexible-menu {
+  display: none;
   margin-left: 15px;
   width: 250px;
 }
@@ -356,7 +389,7 @@ header {
 
 .favorites-atalhos-content-flexible-menu {
   margin-top: 35px;
-  padding-bottom: 20px;
+  padding-bottom: 0px;
 }
 
 .main-favorites-atalhos-ex1-flexible-menu {
@@ -377,8 +410,7 @@ header {
 }
 
 .favorites-atalhos-ex1-flexible-menu {
-  margin-bottom: 30px;
-  border-bottom: 1px solid black;
+  margin-bottom: 0px;
 }
 
 .favorites-atalhos-ex1-flexible-menu p {
@@ -386,6 +418,7 @@ header {
 }
 
 .button-favorites-atalhos-content-flexible-menu {
+  margin: 0px;
   margin-left: auto;
   width: 35px;
   text-align: center;
@@ -408,6 +441,19 @@ header {
   color: var(--ache-red);
   gap: 5px;
   font-weight: 500;
+  border-bottom: 1px solid black;
+}
+
+.exibicao-selection-project-space-direct{
+  display: none;
+  background-color: white;
+  margin-top: 30px;
+  margin-left: 30px;
+  width: 100%;
+  height: calc(100vh - 200px);
+  overflow-y: auto;
+  align-self: center;
+  border-radius: 5px 0px 0px 5px;
 }
 
 .exibicao-selection-project-space {
@@ -422,7 +468,6 @@ header {
 }
 
 .exibicao-selection-project-space-content {
-  display: none;
   margin: 15px 50px 0px 50px;
   /* Ajustar no Media Query */
 }
@@ -525,6 +570,11 @@ header {
   padding: 0px 10px;
 }
 
+.exibicao-selection-project-space-tarefas-addnew-button-title a{
+  text-decoration:  none;
+  color: white;
+}
+
 .exibicao-selection-project-space-tarefas-addnew-button-plus {
   font-size: 30px;
   font-weight: 500;
@@ -571,7 +621,7 @@ header {
 }
 
 .exibicao-selection-project-space-kanbam-content {
-  display: none;
+  display: non;
   margin: 15px 50px 0px 50px;
 }
 
@@ -664,6 +714,11 @@ header {
   border-right: 1px solid white;
 }
 
+.kanbam-collum-new-tarefa-button-text a{
+  text-decoration: none;
+  color: white;
+}
+
 .kanbam-collum-new-tarefa-button-plus {
   padding: 0px 10px;
 }
@@ -743,17 +798,40 @@ header {
 /* style.css - Adicione este código ao final do arquivo */
 
 /* --- Estilos Específicos do Calendário --- */
+/* Estilo para os botões de ícone no menu superior */
+.nav-icon-btn {
+    background: none;
+    border: none;
+    color: inherit; /* Herda a cor do link pai */
+    cursor: pointer;
+    padding: 0;
+    font-size: inherit; /* Herda o tamanho da fonte */
+}
+.nav-icon-btn:hover {
+    color: #fff; /* ou a cor de hover que preferir */
+}
 
+
+
+.right-main-calendar-view {
+    width: 100%;
+    flex-grow: 1; /* Faz esta view crescer para ocupar todo o espaço */
+    padding: 15px; /* Espaçamento interno, mais seguro que margem */
+    box-sizing: border-box;
+    display: flex; /* Para controlar o .calendar-page */
+}
+/* MODIFICADO: Ajusta a página do calendário para preencher o novo container */
+/* MODIFICADO: Ajusta a página do calendário para preencher o novo container */
 .calendar-page {
-  background-color: white; /* Fundo branco para o conteúdo */
-  padding: 20px 60px;
-  margin: 10px;
-  width: calc(100% - 20px); /* Ocupa toda a área direita */
-  height: calc(100% - 20px); /* Ocupa toda a área direita */
-  border-radius: 5px;
-  display: flex;
-  flex-direction: column; /* Organiza os elementos em coluna */
-  overflow-y: auto; /* Permite rolagem se necessário */
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    border-radius: 5px;
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; /* Esconde qualquer overflow aqui */
 }
 
 .calendar-header {
@@ -800,18 +878,21 @@ header {
   padding-bottom: 10px;
 }
 
+/* CÓDIGO CORRIGIDO */
 .calendar-grid {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 5px;
-  flex-grow: 1; /* Faz a grid ocupar o espaço restante */
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(6, 1fr); /* Mantém a altura fixa com 6 semanas */
+    gap: 5px;
+    flex-grow: 1; /* Faz a grade se esticar para preencher o espaço restante */
+    overflow-y: auto; /* A barra de rolagem vai AQUI! */
 }
 
 .calendar-day {
   background-color: #f9f9f9;
   border: 1px solid #ddd;
   border-radius: 5px;
-  padding: 10px;
+  padding: 8px;
   min-height: 100px; /* Altura mínima para cada dia */
   display: flex;
   flex-direction: column;
@@ -819,6 +900,7 @@ header {
   font-size: 0.9em;
   color: var(--dark-text-color);
   transition: background-color 0.2s ease;
+  overflow: hidden; /* IMPORTANTE: Esconde qualquer overflow do próprio dia */
 }
 
 .calendar-day:not(.empty):hover {
@@ -847,6 +929,15 @@ header {
   line-height: 30px;
 }
 
+/* NOVO: Container das tarefas dentro do dia (Onde a mágica acontece) */
+.tasks-container {
+  flex-grow: 1; /* Faz este container crescer e ocupar todo o espaço restante no dia */
+  overflow-y: auto; /* Adiciona a barra de rolagem APENAS se as tarefas não couberem */
+  min-height: 0; /* Correção de flexbox para garantir que a rolagem funcione corretamente */
+  padding-right: 4px; /* Pequeno espaço para a barra de rolagem não sobrepor o texto */
+  margin-right: -4px; /* Compensa o padding para manter o alinhamento */
+}
+
 .task-list {
   list-style: none;
   padding: 0;
@@ -866,27 +957,45 @@ header {
   text-overflow: ellipsis;
 }
 
+/* Modificação no botão base da tarefa para adicionar a barra */
 .task-item-button {
-  background-color: var(--light-red);
-  color: white;
-  border-radius: 3px;
-  padding: 3px 6px;
-  font-size: 0.8em;
+  background-color: #f0f2f5; /* Um cinza claro para destacar a barra */
+  color: #333; /* Texto mais escuro para melhor contraste */
+  border-radius: 4px;
+  padding: 4px 8px 4px 12px; /* Aumenta o padding esquerdo para dar espaço à barra */
+  font-size: 0.85em;
+  font-weight: 500;
   margin-top: 5px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  border: none; /* Remove a borda padrão do botão */
-  width: 100%; /* Faz o botão ocupar a largura toda do dia */
-  text-align: left; /* Alinha o texto à esquerda */
-  cursor: pointer; /* Muda o cursor para uma "mãozinha" */
+  border: none;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
   transition: background-color 0.2s ease;
+  position: relative; /* Necessário para o pseudo-elemento ::before */
+  border-left: 4px solid transparent; /* Cria a barra, mas transparente por padrão */
 }
 
 .task-item-button:hover {
-  background-color: var(--ache-red); /* Escurece um pouco ao passar o mouse */
+  background-color: #e4e6e9;
 }
 
+/* NOVAS CLASSES DE STATUS */
+/* Aplica a cor correta na barra da esquerda */
+
+.task-item-button.status-a-fazer {
+  border-left-color: #8A2BE2; /* Roxo */
+}
+
+.task-item-button.status-em-andamento {
+  border-left-color: #FFC107; /* Amarelo */
+}
+
+.task-item-button.status-concluido {
+  border-left-color: #28A745; /* Verde */
+}
 /* style.css - Adicione este código ao final do arquivo */
 
 /* --- Estilos do Modal --- */
@@ -1026,4 +1135,318 @@ header {
   background-color: #ad1457; /* tom mais escuro */
   color: white;
   border-color: #ad1457;
+}
+
+/* --- ESTILOS PARA OS FILTROS DO CALENDÁRIO --- */
+
+.calendar-filters {
+    display: flex;
+    gap: 30px; /* Espaço entre os grupos de filtro */
+    padding: 15px 0;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #f0f0f0;
+    align-items: center;
+    flex-wrap: wrap; /* Permite que os filtros quebrem a linha em telas menores */
+}
+
+.filter-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.filter-group label {
+    font-weight: bold;
+    color: #555;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.filter-group select {
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+}
+
+.status-checkboxes {
+    display: flex;
+    gap: 15px;
+}
+
+.status-checkboxes label {
+    font-weight: normal;
+    cursor: pointer;
+}
+
+
+
+
+
+/* Adicione este código ao seu arquivo style.css */
+
+/* Torna a tarefa inteira clicável */
+.tarefa-clicavel {
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Adiciona um leve destaque ao passar o mouse */
+.tarefa-clicavel:hover {
+    background-color: #f9f9f9; 
+}
+
+/* O container dos detalhes expansíveis */
+.tarefa-detalhes-expansivel {
+    /* Escondido por padrão com animação */
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease-out, opacity 0.3s ease-out, margin-top 0.5s ease-out;
+    margin-top: 0;
+}
+
+/* Classe que o JavaScript vai adicionar para MOSTRAR os detalhes */
+.tarefa-detalhes-expansivel.visivel {
+    max-height: 500px; /* Um valor alto para caber qualquer conteúdo */
+    opacity: 1;
+    margin-top: 15px; /* Adiciona um espaço quando expandido */
+    transition: max-height 0.5s ease-in, opacity 0.7s ease-in, margin-top 0.5s ease-in;
+}
+
+/* Estilos para os detalhes dentro da área expansível */
+.tarefa-divisor {
+    border: 0;
+    border-top: 1px solid #e0e0e0;
+    margin-bottom: 15px;
+}
+
+.detalhe-item {
+    margin-bottom: 12px;
+    font-size: 0.9em;
+    color: #333;
+}
+
+.detalhe-label {
+    font-weight: bold;
+    color: #555;
+    display: block; /* Para que o valor fique na linha de baixo se for longo */
+    margin-bottom: 4px;
+}
+
+.detalhe-valor {
+    color: #111;
+}
+
+.detalhe-descricao {
+    background-color: #f5f5f5;
+    border-left: 3px solid #007bff;
+    padding: 10px;
+    margin-top: 5px;
+    white-space: pre-wrap; /* Preserva quebras de linha na descrição */
+    word-wrap: break-word; /* Evita que o texto estoure o container */
+}
+
+
+
+
+
+
+
+.menu-contexto {
+    display: none; 
+    position: absolute; 
+    z-index: 1000;
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.15);
+    padding: 5px 0;
+    min-width: 150px;
+}
+
+.menu-contexto ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.menu-contexto .menu-opcao {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 10px 15px;
+    text-align: left;
+    font-size: 0.9em;
+    cursor: pointer;
+    color: #333;
+}
+
+.menu-contexto .menu-opcao:hover {
+    background-color: #f0f0f0;
+}
+
+.menu-contexto .menu-opcao-excluir:hover {
+    background-color: #ffebee;
+    color: #c62828;
+}
+
+.menu-contexto .menu-opcao i {
+    width: 15px;
+    text-align: center;
+}
+
+
+/* Container para o botão de editar tarefa */
+.tarefa-actions-container {
+    margin-top: 15px;
+    padding-top: 10px;
+    border-top: 1px solid #eee;
+    text-align: right; /* Alinha o botão à direita */
+}
+
+/* Estilo do botão de editar tarefa */
+.btn-editar-tarefa {
+    display: inline-block;
+    padding: 8px 15px;
+    background-color: #5a67d8; /* Um azul/roxo para diferenciar */
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.btn-editar-tarefa:hover {
+    background-color: #434190;
+}
+
+.btn-editar-tarefa i {
+    margin-right: 5px; /* Espaço entre o ícone e o texto */
+}
+
+/* --- ESTILOS PARA EXPANDIR/RECOLHER DETALHES DA TAREFA --- */
+
+/* 1. Esconde a área de detalhes da tarefa por padrão de forma suave */
+.tarefa-detalhes-expansivel {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-out;
+    /* Começa totalmente transparente para um efeito mais limpo */
+    opacity: 0;
+}
+
+/* 2. MOSTRA a área de detalhes quando a classe 'visivel' é adicionada pelo JavaScript */
+.tarefa-detalhes-expansivel.visivel {
+    max-height: 1000px; /* Um valor alto o suficiente para caber qualquer conteúdo */
+    transition: max-height 0.5s ease-in, opacity 0.5s ease-in;
+    /* Torna-se totalmente opaco ao expandir */
+    opacity: 1;
+}
+
+/* Estilo do botão de excluir tarefa */
+.btn-excluir-tarefa {
+    padding: 8px 15px;
+    background-color: #e53e3e; /* Vermelho para perigo */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    font-family: "Segoe UI", sans-serif;
+    transition: background-color 0.3s ease;
+}
+
+.btn-excluir-tarefa:hover {
+    background-color: #c53030;
+}
+
+.btn-excluir-tarefa i {
+    margin-right: 5px;
+}
+
+/* --- ESTILOS PARA O MODAL DE DETALHES DA TAREFA --- */
+
+/* O fundo escurecido que cobre a página inteira */
+.modal-overlay {
+    position: fixed; /* Fica fixo na tela mesmo com scroll */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Fundo preto semi-transparente */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Garante que fique na frente de tudo */
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+/* A caixa de conteúdo do modal */
+.modal-content {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 650px; /* Largura máxima */
+    max-height: 80vh; /* Altura máxima para não ocupar a tela toda */
+    overflow-y: auto; /* Adiciona scroll se o conteúdo for muito grande */
+    position: relative;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+}
+
+/* Efeito de aparição */
+.modal-overlay.visivel {
+    opacity: 1;
+}
+.modal-overlay.visivel .modal-content {
+    transform: scale(1);
+}
+
+/* Botão de fechar (X) */
+.modal-close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #aaa;
+    background: none;
+    border: none;
+    cursor: pointer;
+    line-height: 1;
+}
+.modal-close-btn:hover {
+    color: #333;
+}
+
+/* Estilos para o corpo do modal (reaproveitando classes existentes) */
+#modal-tarefa-body .detalhe-item {
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+#modal-tarefa-body .detalhe-item:last-child {
+    border-bottom: none;
+}
+#modal-tarefa-body .detalhe-label {
+    font-weight: bold;
+    color: #555;
+    margin-bottom: 5px;
+    display: block;
+}
+#modal-tarefa-body .detalhe-valor {
+    color: #333;
+}
+#modal-tarefa-body .detalhe-descricao {
+    color: #333;
+    white-space: pre-wrap; /* Mantém as quebras de linha da descrição */
 }

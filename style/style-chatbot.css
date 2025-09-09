@@ -1,0 +1,115 @@
+#chatbot-bar {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 250px;
+  padding: 12px 15px;
+  border: 1px solid #ccc;
+  border-radius: 25px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  font-size: 14px;
+  outline: none;
+  background: #fff;
+  color: #333;
+}
+
+#chatbot-container {
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  width: 350px;
+  height: 500px;
+  background-color: rgba(255, 255, 255, 0.5); /* Fundo branco semi-transparente */
+  border-radius: 10px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+  display: none;
+  flex-direction: column;
+  overflow: hidden;
+  font-family: Arial, sans-serif;
+  backdrop-filter: blur(5px); /* Efeito de desfoque */
+}
+
+#chatbot-header {
+  background: #d50057; /* Tom de rosa/vermelho do cabeçalho do site */
+  color: #fff;
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: bold;
+}
+
+#chatbot-messages {
+  flex: 1;
+  padding: 20px 10px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.chatbot-message-container {
+    width: 100%;
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.chatbot-message-container.user {
+    justify-content: flex-end;
+}
+
+.chatbot-message-container.bot {
+    justify-content: flex-start;
+}
+
+.chatbot-message {
+    max-width: 80%;
+    padding: 8px 12px;
+    border-radius: 10px;
+    font-size: 14px;
+    position: relative;
+    box-shadow: 0 1px 0.5px rgba(0,0,0,0.13);
+}
+
+.chatbot-message.user {
+    background-color: #F8D9D9; /* Tom de rosa/vermelho mais claro */
+    margin-right: 5px;
+}
+
+.chatbot-message.bot {
+    background-color: #fff; /* Balão do assistente branco */
+    margin-left: 5px;
+}
+
+#chatbot-input-area {
+  display: flex;
+  padding: 5px;
+  background: #f0f0f0;
+  border-top: 1px solid #ddd;
+}
+
+#chatbot-input {
+  flex: 1;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  padding: 8px 15px;
+  margin-right: 5px;
+  outline: none;
+}
+
+#chatbot-send {
+  background: #d50057; /* Cor do botão de envio */
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+}
+
+#chatbot-send:hover {
+  background: #d50057;
+}
