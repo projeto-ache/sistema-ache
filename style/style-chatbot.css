@@ -6,7 +6,7 @@
   padding: 12px 15px;
   border: 1px solid #ccc;
   border-radius: 25px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   font-size: 14px;
   outline: none;
   background: #fff;
@@ -19,9 +19,14 @@
   right: 20px;
   width: 350px;
   height: 500px;
-  background-color: rgba(255, 255, 255, 0.5); /* Fundo branco semi-transparente */
+  background-color: rgba(
+    255,
+    255,
+    255,
+    0.5
+  ); /* Fundo branco semi-transparente */
   border-radius: 10px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
   display: none;
   flex-direction: column;
   overflow: hidden;
@@ -48,36 +53,36 @@
 }
 
 .chatbot-message-container {
-    width: 100%;
-    display: flex;
-    margin-bottom: 10px;
+  width: 100%;
+  display: flex;
+  margin-bottom: 10px;
 }
 
 .chatbot-message-container.user {
-    justify-content: flex-end;
+  justify-content: flex-end;
 }
 
 .chatbot-message-container.bot {
-    justify-content: flex-start;
+  justify-content: flex-start;
 }
 
 .chatbot-message {
-    max-width: 80%;
-    padding: 8px 12px;
-    border-radius: 10px;
-    font-size: 14px;
-    position: relative;
-    box-shadow: 0 1px 0.5px rgba(0,0,0,0.13);
+  max-width: 80%;
+  padding: 8px 12px;
+  border-radius: 10px;
+  font-size: 14px;
+  position: relative;
+  box-shadow: 0 1px 0.5px rgba(0, 0, 0, 0.13);
 }
 
 .chatbot-message.user {
-    background-color: #F8D9D9; /* Tom de rosa/vermelho mais claro */
-    margin-right: 5px;
+  background-color: #f8d9d9; /* Tom de rosa/vermelho mais claro */
+  margin-right: 5px;
 }
 
 .chatbot-message.bot {
-    background-color: #fff; /* Balão do assistente branco */
-    margin-left: 5px;
+  background-color: #fff; /* Balão do assistente branco */
+  margin-left: 5px;
 }
 
 #chatbot-input-area {
@@ -112,4 +117,41 @@
 
 #chatbot-send:hover {
   background: #d50057;
+}
+
+.chatbot-message.bot .cronograma-list {
+  margin-top: 10px;
+  padding-left: 0;
+}
+
+.chatbot-message.bot .cronograma-list ul {
+  list-style-type: none; /* Remove o marcador padrão da lista */
+  padding-left: 15px; /* Adiciona um recuo para a lista */
+}
+
+/* Estilos para a lista de opções */
+.chatbot-message.bot .opcoes-list {
+  list-style-type: none; /* Remove o marcador padrão da lista */
+  padding-left: 0;
+  margin-top: 10px;
+}
+
+.chatbot-message.bot .opcoes-list li {
+  background-color: #e6e6e6; /* Cor de fundo para cada opção */
+  border-radius: 20px;
+  padding: 8px 15px;
+  margin-bottom: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #333;
+  transition: background-color 0.2s;
+}
+
+.chatbot-message.bot .opcoes-list li:hover {
+  background-color: #d1d1d1;
+}
+
+/* Garante que o negrito dentro das listas funcione */
+.chatbot-message.bot .cronograma-list strong {
+  font-weight: bold;
 }

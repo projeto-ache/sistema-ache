@@ -39,17 +39,50 @@ const chatbotInput = document.getElementById("chatbot-input");
 const chatbotSend = document.getElementById("chatbot-send");
 
 // Função para exibir mensagens no chat
-function addMessage(sender, text) {
+function addMessage(sender, content, isHtml = false) {
   const container = document.createElement("div");
   const message = document.createElement("div");
 
-  container.classList.add("chatbot-message-container", sender === "Você" ? "user" : "bot");
+  container.classList.add(
+    "chatbot-message-container",
+    sender === "Você" ? "user" : "bot"
+  );
   message.classList.add("chatbot-message", sender === "Você" ? "user" : "bot");
-  message.textContent = text;
-  
+
+  if (isHtml) {
+    message.innerHTML = content;
+  } else {
+    message.textContent = content;
+  }
   container.appendChild(message);
+
   chatbotMessages.appendChild(container);
   chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+}
+
+// Formatar a resposta da IA
+function formatResponse(text) {
+  let formattedText = text.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
+  formattedText = formattedText.replace(/\*\s/g, "<br>• ");
+  formattedText = formattedText.replace(/\n/g, "<br>");
+  if (formattedText.startsWith("<br>")) {
+    formattedText = formattedText.substring(4);
+  }
+  return formattedText;
+}
+
+function formatResponse(text) {
+  let formattedText = text.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
+  formattedText = formattedText.replace(/\*\s/g, "<br>• ");
+  formattedText = formattedText.replace(/\n/g, "<br>");
+  formattedText = formattedText.replace(
+    /\[(.*?)\]\((.*?)\)/g,
+    '<a href="$2" target="_blank">$1</a>'
+  );
+  if (formattedText.startsWith("<br>")) {
+    formattedText = formattedText.substring(4);
+  }
+  return formattedText;
 }
 
 // Enviar mensagem para API
@@ -64,14 +97,19 @@ async function sendMessage() {
     const response = await fetch("http://localhost:5000/chat", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ message: text })
+      body: JSON.stringify({ message: text }),
     });
 
     const data = await response.json();
-    addMessage("Assistente", data.reply || "Não entendi a pergunta.");
+
+    console.log("Dados do backend:", data);
+
+    const formattedReply = formatResponse(data.reply);
+
+    addMessage("Assistente", formattedReply, true);
   } catch (error) {
-    console.error(error);
-    addMessage("Assistente", "Erro de conexão com o servidor.");
+    console.error("Erro ao enviar mensagem:", error);
+    addMessage("Assistente", "Desculpe, houve um erro. Tente novamente.");
   }
 }
 
