@@ -1,9 +1,22 @@
+:root {
+  --primary-color: #D60059; /* Cor vermelha do cabeçalho */
+  --secundary-color: #B3004A; /* Cor do menu principal */
+  --text-color: white;
+  --dark-text-color: black; /* Cor para texto em fundos claros */
+  --icon-color: white;
+  --light-background-color: white;
+  --gray-background-color: #d8d8d8;
+  --dark-background-color: black;
+}
+
+
+
 /* Fundo */
 body {
   margin: 0;
   padding: 0;
   font-family: "Segoe UI", sans-serif;
-  background-color: #e0e0e0;
+  background-color: var(--gray-background-color);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -12,16 +25,16 @@ body {
 
 /* Container principal */
 .cadastro-box {
-  background-color: #ffffff;
+  background-color: var(--light-background-color);
   padding: 40px;
-  border-radius: 12px;
+  border-radius: 5px;
   width: 380px;
   box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
 }
 
 /* Marca */
 .logo {
-  color: #c80064;
+  color: var(--primary-color);
   font-size: 32px;
   text-align: center;
   font-weight: 800;
@@ -33,7 +46,7 @@ body {
   font-size: 16px;
   text-align: center;
   margin-bottom: 30px;
-  color: #555;
+  color: var(--dark-text-color);
 }
 
 /* Labels */
@@ -41,7 +54,7 @@ label {
   display: block;
   margin-bottom: 5px;
   font-weight: bold;
-  color: #333;
+  color: var(--dark-text-color);
 }
 
 /* Campos */
@@ -52,7 +65,7 @@ input[type="password"] {
   padding: 10px;
   margin-bottom: 15px;
   border: 1px solid #ccc;
-  border-radius: 6px;
+  border-radius: 5px;
   box-sizing: border-box;
 }
 
@@ -60,10 +73,10 @@ input[type="password"] {
 button {
   width: 100%;
   padding: 12px;
-  background-color: #c80064;
-  color: white;
+  background-color: var(--primary-color);
+  color: var(--text-color);
   border: none;
-  border-radius: 6px;
+  border-radius: 5px;
   font-size: 16px;
   font-weight: bold;
   cursor: pointer;
@@ -71,7 +84,7 @@ button {
 }
 
 button:hover {
-  background-color: #a80050;
+  background-color: var(--secundary-color);
 }
 
 /* Link para login */
@@ -82,7 +95,7 @@ button:hover {
 
 .login-link a {
   font-size: 14px;
-  color: #c80064;
+  color: var(--dark-text-color);
   text-decoration: none;
 }
 
@@ -99,7 +112,7 @@ button:hover {
 
 .senha-info {
   font-size: 12px;
-  color: #666;
+  color: var(--dark-text-color);
   margin: -10px 0 15px;
   display: block;
 }

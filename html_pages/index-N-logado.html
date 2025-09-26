@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../style/style-index-N-logado.css">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans:400,500,600,700&display=swap" rel="stylesheet">
+    <title>Página inicial</title>
+</head>
+<body>
+    
+    <header>
+    <div class="menu-logo">
+      <a href="index-N-logado.html">
+        <div class="menu-logo-texto">
+          <img src="../images/Logo_Ache - Branco.png" alt="Logo ACHE" height="20px">
+        </div>
+      </a>
+    </div>
+
+
+    <div class="menu-content">
+      <div class="menu-content-data" id="current-date"></div>
+      <div class="menu-content-time" id="current-time"></div>
+    </div>
+
+    <script>
+      // --- O SCRIPT QUE PEGAVA NOME DO USUÁRIO DO LOCALSTORAGE FOI REMOVIDO ---
+
+      // --- Função para atualizar data e hora (continua igual) ---
+      function atualizarDataHora() {
+        const agora = new Date();
+        const data = agora.toLocaleDateString("pt-BR", { day: "2-digit", month: "2-digit", year: "numeric" });
+        const hora = agora.toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" });
+        document.getElementById("current-date").textContent = data;
+        document.getElementById("current-time").textContent = hora;
+      }
+      atualizarDataHora();
+      setInterval(atualizarDataHora, 1000);
+
+      // --- O SCRIPT DE LOGOUT COM LOCALSTORAGE FOI REMOVIDO ---
+    </script>
+  </header>
+
+
+
+    <div class="index-N-logado-main">
+
+        <div class="left-index-N-logado-main">
+
+            <div class="top-left-index-N-logado-main">
+                <div class="main-text-top-left-index-N-logado-main">
+                    <p>Use o gerenciador de tarefas da ACHE para tornar seu dia mais fácil.</p> 
+                </div>
+
+                <div class="scd-text-top-left-index-N-logado-main">
+                    <p>Gerencie várias contas, projetos, tarefas e calendários em um só lugar.</p>
+                </div>
+            </div>
+
+            <div class="bottom-left-index-N-logado-main">
+                <a href="login.html">
+                    <div class="btn-login-bottom-left-index-N-logado-main" id="btn-index-N-logado">
+                        <p>Entrar</p>
+                    </div>
+                </a>
+
+                <a href="cadastro.html">
+                    <div class="btn-cadastro-bottom-left-index-N-logado-main" id="btn-index-N-logado">
+                        <p>Criar uma conta</p>
+                    </div>
+                </a>
+            </div>
+
+        </div>
+
+
+
+        <div class="right-index-N-logado-main">
+            <div class="content-right-index-N-logado-main">
+                <div class="image-content-right-index-N-logado-main">
+                    <img src="../images/img-ache-sistema.jpg" alt="" height="600px" width="700px">
+                </div>
+
+                <div class="msg-content-right-index-N-logado-main">
+                    <img src="../images/Logo_Ache_mensagem - Branco.png" alt="" height="50px" width="150px">
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>

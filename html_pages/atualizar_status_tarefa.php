@@ -1,50 +1,69 @@
 <?php
 session_start();
-header('Content-Type: application/json');
-
-// Verificações de segurança
-if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true || $_SERVER['REQUEST_METHOD'] !== 'POST') {
-    echo json_encode(['success' => false, 'message' => 'Acesso não autorizado.']);
-    exit;
-}
-
 require_once 'conexao.php';
 
-$id_atribuicao = isset($_POST['id_atribuicao']) ? (int)$_POST['id_atribuicao'] : 0;
-$novo_status = isset($_POST['novo_status']) ? trim($_POST['novo_status']) : '';
-$id_usuario_logado = $_SESSION['user_id'];
+header('Content-Type: application/json'); // Define que a resposta será em formato JSON
 
-// Validação dos dados recebidos
-$status_validos = ['A Fazer', 'Em Andamento', 'Concluído'];
-if ($id_atribuicao <= 0 || !in_array($novo_status, $status_validos)) {
-    echo json_encode(['success' => false, 'message' => 'Dados inválidos.']);
+// Verifica se o usuário está logado
+if (!isset($_SESSION['logged_in']) || !$_SESSION['logged_in']) {
+    echo json_encode(['success' => false, 'message' => 'Usuário não autenticado.']);
     exit;
 }
 
+// Pega os dados enviados pelo JavaScript (via método POST)
+$idAtribuicao = $_POST['id_atribuicao'] ?? null;
+$novoStatus = $_POST['novo_status'] ?? null;
+$idUsuarioLogado = $_SESSION['user_id'];
+
+// Validação básica dos dados recebidos
+if (!$idAtribuicao || !$novoStatus) {
+    echo json_encode(['success' => false, 'message' => 'Dados incompletos.']);
+    exit;
+}
+
+$conexao->begin_transaction(); // Inicia uma transação para garantir a consistência dos dados
+
 try {
-    // A mesma verificação de permissão que usamos na exclusão
-    $sql_perm = "SELECT p.ID_Projeto FROM projetos_tarefas_atribuidas pta
-                 JOIN projetos p ON pta.ID_Projeto = p.ID_Projeto
-                 LEFT JOIN projetos_usuarios pu ON p.ID_Projeto = pu.ID_Projeto
-                 WHERE pta.ID_Atribuicao = ? AND (p.ID_Usuario_Criador = ? OR pu.ID_Usuario = ?)";
-    $stmt_perm = $conexao->prepare($sql_perm);
-    $stmt_perm->bind_param("iii", $id_atribuicao, $id_usuario_logado, $id_usuario_logado);
-    $stmt_perm->execute();
-    if ($stmt_perm->get_result()->num_rows === 0) {
-        throw new Exception('Permissão negada.');
+    // --- ETAPA 1: ATUALIZAR O STATUS DA TAREFA (lógica que você já tinha) ---
+    $sql_update_status = "UPDATE projetos_tarefas_atribuidas SET Status = ? WHERE ID_Atribuicao = ?";
+    $stmt_status = $conexao->prepare($sql_update_status);
+    $stmt_status->bind_param("si", $novoStatus, $idAtribuicao);
+    $stmt_status->execute();
+    $stmt_status->close();
+
+    // --- ETAPA 2: REGISTRAR A MODIFICAÇÃO NO PROJETO (a novidade) ---
+
+    // 2.1: Primeiro, precisamos descobrir a qual projeto esta tarefa pertence.
+    $sql_get_project_id = "SELECT ID_Projeto FROM projetos_tarefas_atribuidas WHERE ID_Atribuicao = ?";
+    $stmt_get_id = $conexao->prepare($sql_get_project_id);
+    $stmt_get_id->bind_param("i", $idAtribuicao);
+    $stmt_get_id->execute();
+    $result = $stmt_get_id->get_result();
+    
+    if ($row = $result->fetch_assoc()) {
+        $idProjetoDaTarefa = $row['ID_Projeto'];
+        $stmt_get_id->close();
+
+        // 2.2: Agora que temos o ID do projeto, "carimbamos" a tabela de projetos.
+        $sql_log = "UPDATE projetos 
+                    SET ID_UltimoUsuarioModificador = ?, DataHoraUltimaModificacao = NOW() 
+                    WHERE ID_Projeto = ?";
+        $stmt_log = $conexao->prepare($sql_log);
+        $stmt_log->bind_param("ii", $idUsuarioLogado, $idProjetoDaTarefa);
+        $stmt_log->execute();
+        $stmt_log->close();
+    } else {
+        // Se, por algum motivo, não encontrar a tarefa, lança um erro para cancelar a transação.
+        $stmt_get_id->close();
+        throw new Exception("Tarefa não encontrada para registrar a modificação.");
     }
-    $stmt_perm->close();
-
-    // Atualiza o status da tarefa no banco de dados
-    $stmt_update = $conexao->prepare("UPDATE projetos_tarefas_atribuidas SET Status = ? WHERE ID_Atribuicao = ?");
-    $stmt_update->bind_param("si", $novo_status, $id_atribuicao);
-    $stmt_update->execute();
-    $stmt_update->close();
-
-    echo json_encode(['success' => true]);
+    
+    $conexao->commit(); // Se ambas as operações deram certo, confirma as mudanças.
+    echo json_encode(['success' => true, 'message' => 'Status atualizado com sucesso.']);
 
 } catch (Exception $e) {
-    echo json_encode(['success' => false, 'message' => 'Erro no servidor: ' . $e->getMessage()]);
+    $conexao->rollback(); // Se qualquer uma das operações falhou, desfaz tudo.
+    echo json_encode(['success' => false, 'message' => 'Erro no banco de dados: ' . $e->getMessage()]);
 }
 
 $conexao->close();

@@ -2,11 +2,25 @@
 
 /* Variáveis para cores (opcional, mas boa prática) */
 :root {
-  --ache-red: #d50057; /* Cor vermelha do cabeçalho */
-  --light-red: #ac1d58; /* Cor do menu principal */
-  --text-color: #ffffff;
-  --dark-text-color: #333; /* Cor para texto em fundos claros */
-  --icon-color: #ffffff;
+  --primary-color: #D60059; /* Cor vermelha do cabeçalho */
+  --secundary-color: #B3004A; /* Cor do menu principal */
+  --text-color: white;
+  --dark-text-color: black; /* Cor para texto em fundos claros */
+  --icon-color: white;
+  --light-background-color: white;
+  --gray-background-color: #d8d8d8;
+  --second-background-color: #572b3d;
+  --dark-background-color: black;
+  --STATUS_GREEN: #2ecc71;
+  --STATUS_RED: #e74c3c;
+
+  --PRIMARY_ACHE: #D60059;
+  --BG_LIGHT_GREY: #F8F8F8;
+  --BG_SIDEBAR_DARK: #332229;
+  --BG_CARD_WHITE: #FFFFFF;
+  --FG_DARK_TEXT: #000000;
+  --STATUS_GREEN: #2ecc71;
+  --STATUS_RED: #e74c3c;
 }
 
 body {
@@ -21,8 +35,8 @@ body {
 /* Style para menu */
 header {
   display: flex;
-  background-color: var(--ache-red);
-  color: white;
+  background-color: var(--primary-color);
+  color: var(--text-color);
   height: 60px;
 }
 
@@ -35,7 +49,7 @@ header {
 }
 
 .menu-logo a {
-  color: white;
+  color: var(--text-color);
   text-decoration: none;
 }
 
@@ -62,21 +76,21 @@ header {
 }
 
 .second-menu {
-  background-color: var(--light-red);
+  background-color: var(--secundary-color);
   height: 60px;
   display: flex;
   padding-left: 50px;
   padding-right: 50px;
-  color: white;
+  color: var(--text-color);
   align-items: center;
   font-size: 16px;
 }
 
 .menu-burger-icon button {
   font-size: 30px;
-  background-color: #ac1d58;
+  background-color: var(--secundary-color);
   padding: 0px;
-  color: white;
+  color: var(--text-color);
   border: none;
   cursor: pointer;
 }
@@ -113,7 +127,7 @@ header {
 
 .menu-atalhos-iniciais a {
   text-decoration: none;
-  color: white;
+  color: var(--text-color);
 }
 
 .menu-atalhos-pessoais {
@@ -129,13 +143,29 @@ header {
   margin-left: 25px;
 }
 
-.menu-atalhos-pessoais ul li :hover {
+.menu-atalhos-pessoais a{
+  padding-bottom: 1px;
+}
+
+.menu-atalhos-pessoais a:hover {
   border-bottom: 2px solid white;
+  padding-bottom: 1px; /* ajuste o valor conforme desejar */
 }
 
 .menu-atalhos-pessoais ul li a {
-  color: white;
+  color: var(--text-color);
   font-size: 20px;
+}
+
+.menu-atalhos-pessoais button{
+  color: var(--text-color);
+  font-size: 20px;
+  padding-bottom: 1px;
+}
+
+.menu-atalhos-pessoais button :hover {
+  border-bottom: 2px solid white;
+  padding-bottom: 1px;
 }
 /* FIM - Style para menu */
 
@@ -152,7 +182,7 @@ header {
   margin-left: 50px;
   width: 200px;
   overflow-y: auto;
-  border-right: 3px solid var(--light-red);
+  border-right: 3px solid var(--secundary-color);
 }
 
 /* Define a largura da barra de rolagem */
@@ -184,13 +214,13 @@ header {
 }
 
 .left-main-new-project-content button {
-  background-color: var(--ache-red);
+  background-color: var(--primary-color);
   border: none;
   height: 35px;
   padding: 0px;
   align-items: center;
   font-size: 16px;
-  color: white;
+  color: var(--text-color);
   cursor: pointer;
 }
 
@@ -223,7 +253,7 @@ header {
 .favorites-title-content button {
   display: flex;
   align-items: center;
-  background-color: white;
+  background-color: var(--light-background-color);
   border: none;
   font-size: 16px;
   font-family: "Noto Sans", sans-serif;
@@ -267,7 +297,7 @@ header {
 
 .favorites-atalhos-ex1 button{
   border: none;
-  background-color: white;
+  background-color: var(--light-background-color);
   font-size: 16px;
   padding: 0px;
   cursor: pointer;
@@ -294,20 +324,19 @@ header {
 
 .button-favorites-atalhos-content button {
   cursor: pointer;
-  background-color: white;
+  background-color: var(--light-background-color);
   width: 100%;
   height: 30px;
   border: none;
   font-size: 16px;
-  color: var(--ache-red);
+  color: var(--primary-color);
   padding: 0px;
 }
 
 .button-favorites-atalhos-hover {
-  display: none;
-  background-color: #f1f1f1;
+  display: flex;
+  background-color: var(--gray-background-color);
   width: 100%;
-  margin-top: 2px;
   height: 30px;
   font-size: 16px;
   align-items: center;
@@ -328,7 +357,7 @@ header {
 /* Barra da direita (Onde, apos o usuario selecionar a opcao ou projeto que deseja  visualizar, sera exibido todas as informacoes nesta parte). Obs. O conteudo desta parte (Barra da direita) sera bem flexivel, podendo exibir varios tipos diferentes de conteudo, seja de todos os projetos do usuario, informacoes sobre um projeto em especifico, calendario das tarefas dos projetos do usuario, etc. */
 .right-main {
   display: flex;
-  background-color: #d8d8d8;
+  background-color: var(--gray-background-color);
   margin: 10px 0px 0px 10px;
   width: calc(100% - 250px);
   border-radius: 5px;
@@ -357,13 +386,13 @@ header {
 }
 
 .left-main-new-project-content-flexible-menu button {
-  background-color: white;
+  background-color: var(--light-background-color);
   border: none;
   height: 35px;
   padding: 0px;
   align-items: center;
   font-size: 16px;
-  color: black;
+  color: var(--dark-text-color);
   cursor: pointer;
 }
 
@@ -427,18 +456,18 @@ header {
 
 .button-favorites-atalhos-content-flexible-menu button {
   cursor: pointer;
-  background-color: #d8d8d8;
+  background-color: var(--gray-background-color);
   width: 100%;
   height: 30px;
   border: none;
   font-size: 16px;
-  color: var(--ache-red);
+  color: var(--primary-color);
   padding: 0px;
 }
 
 .button-favorites-atalhos-content-flexible-menu-att {
   font-size: 13px;
-  color: var(--ache-red);
+  color: var(--primary-color);
   gap: 5px;
   font-weight: 500;
   border-bottom: 1px solid black;
@@ -446,7 +475,7 @@ header {
 
 .exibicao-selection-project-space-direct{
   display: none;
-  background-color: white;
+  background-color: var(--light-background-color);
   margin-top: 30px;
   margin-left: 30px;
   width: 100%;
@@ -458,7 +487,7 @@ header {
 
 .exibicao-selection-project-space {
   display: none;
-  background-color: white;
+  background-color: var(--light-background-color);
   margin-left: 30px;
   width: calc(100% - 290px);
   height: calc(100vh - 200px);
@@ -496,7 +525,7 @@ header {
 }
 
 .exibicao-selection-project-space-top-project-kanbam {
-  background-color: #d8d8d8;
+  background-color: var(--gray-background-color);
   border-radius: 5px;
   box-shadow: 2px 3px 5px black;
 }
@@ -514,13 +543,13 @@ header {
 }
 
 .exibicao-selection-project-space-creator-space {
-  color: var(--ache-red);
+  color: var(--primary-color);
   font-size: 16px;
   margin-top: 15px;
 }
 
 .exibicao-selection-project-space-workers-space {
-  color: var(--ache-red);
+  color: var(--primary-color);
   font-size: 16px;
   margin-top: 30px;
 }
@@ -555,9 +584,9 @@ header {
 
 .exibicao-selection-project-space-tarefas-addnew-button button {
   display: flex;
-  background-color: var(--ache-red);
+  background-color: var(--primary-color);
   border: none;
-  color: white;
+  color: var(--text-color);
   align-items: center;
   border-radius: 5px;
   padding: 0px;
@@ -572,7 +601,7 @@ header {
 
 .exibicao-selection-project-space-tarefas-addnew-button-title a{
   text-decoration:  none;
-  color: white;
+  color: var(--text-color);
 }
 
 .exibicao-selection-project-space-tarefas-addnew-button-plus {
@@ -587,7 +616,7 @@ header {
 }
 
 .exibicao-selection-project-tarefa {
-  background-color: #d8d8d8;
+  background-color: var(--gray-background-color);
   padding: 10px;
   margin-bottom: 30px;
   border-radius: 5px;
@@ -607,7 +636,7 @@ header {
 .exibicao-selection-project-tarefa-bottom {
   margin-top: 15px;
   display: flex;
-  color: var(--ache-red);
+  color: var(--primary-color);
   align-items: center;
 }
 
@@ -630,7 +659,7 @@ header {
 }
 
 .exibicao-selection-project-space-kanbam-top button {
-  background-color: #d8d8d8;
+  background-color: var(--gray-background-color);
   border-radius: 5px;
   padding: 0px;
   border: none;
@@ -664,7 +693,7 @@ header {
 }
 
 .kanbam-collum {
-  background-color: #d8d8d8;
+  background-color: var(--gray-background-color);
   padding: 10px;
   border-radius: 5px;
   width: 28%;
@@ -689,11 +718,15 @@ header {
 .kanbam-collum-new-tarefa-button-content button {
   display: flex;
   margin: auto;
-  background-color: var(--ache-red);
+  background-color: var(--primary-color);
   border: none;
   padding: 0px;
   border-radius: 5px;
   cursor: pointer;
+}
+
+.kanbam-collum-new-tarefa-button-content a{
+  text-decoration: none;
 }
 
 .kanbam-collum-new-tarefa-button {
@@ -706,7 +739,7 @@ header {
   font-size: 16px;
   font-weight: 500;
   margin: 0px;
-  color: white;
+  color: var(--text-color);
 }
 
 .kanbam-collum-new-tarefa-button-text {
@@ -716,7 +749,7 @@ header {
 
 .kanbam-collum-new-tarefa-button-text a{
   text-decoration: none;
-  color: white;
+  color: var(--text-color);
 }
 
 .kanbam-collum-new-tarefa-button-plus {
@@ -735,7 +768,7 @@ header {
   cursor: grab;
   border-left: 5px solid;
   border-left-color: #a020f0;
-  background-color: white;
+  background-color: var(--light-background-color);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
@@ -747,7 +780,7 @@ header {
   cursor: grab;
   border-left: 5px solid;
   border-left-color: yellow;
-  background-color: white;
+  background-color: var(--light-background-color);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
@@ -759,7 +792,7 @@ header {
   cursor: grab;
   border-left: 5px solid;
   border-left-color: green;
-  background-color: white;
+  background-color: var(--light-background-color);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
@@ -808,7 +841,7 @@ header {
     font-size: inherit; /* Herda o tamanho da fonte */
 }
 .nav-icon-btn:hover {
-    color: #fff; /* ou a cor de hover que preferir */
+    color: var(--text-color); /* ou a cor de hover que preferir */
 }
 
 
@@ -825,7 +858,7 @@ header {
 .calendar-page {
     width: 100%;
     height: 100%;
-    background-color: white;
+    background-color: var(--light-background-color);
     border-radius: 5px;
     padding: 20px;
     box-sizing: border-box;
@@ -850,7 +883,7 @@ header {
 }
 
 .calendar-nav-button {
-  background-color: var(--ache-red);
+  background-color: var(--primary-color);
   color: var(--text-color);
   border: none;
   border-radius: 50%; /* Botões redondos */
@@ -864,7 +897,7 @@ header {
 }
 
 .calendar-nav-button:hover {
-  background-color: var(--light-red);
+  background-color: var(--secundary-color);
 }
 
 .calendar-weekdays {
@@ -873,7 +906,7 @@ header {
   gap: 5px;
   margin-bottom: 10px;
   font-weight: bold;
-  color: var(--ache-red); /* Cor da Aché para os dias da semana */
+  color: var(--primary-color); /* Cor da Aché para os dias da semana */
   text-align: center;
   padding-bottom: 10px;
 }
@@ -889,7 +922,7 @@ header {
 }
 
 .calendar-day {
-  background-color: #f9f9f9;
+  background-color: var(--light-background-color);
   border: 1px solid #ddd;
   border-radius: 5px;
   padding: 8px;
@@ -904,13 +937,13 @@ header {
 }
 
 .calendar-day:not(.empty):hover {
-  background-color: #e9e9e9;
+  background-color: var(--light-background-color);
   cursor: pointer;
 }
 
 .calendar-day.empty {
-  background-color: #f0f0f0; /* Dias do mês anterior/próximo */
-  color: #bbb;
+  background-color: var(--gray-background-color); /* Dias do mês anterior/próximo */
+  color: var(--gray-background-color);
 }
 
 .calendar-day .day-number {
@@ -920,8 +953,8 @@ header {
 }
 
 .calendar-day.today .day-number {
-  color: white;
-  background-color: var(--ache-red);
+  color: var(--text-color);
+  background-color: var(--primary-color);
   border-radius: 50%;
   width: 30px;
   height: 30px;
@@ -946,8 +979,8 @@ header {
 }
 
 .task-item {
-  background-color: var(--light-red);
-  color: white;
+  background-color: var(--secundary-color);
+  color: var(--text-color);
   border-radius: 3px;
   padding: 3px 6px;
   font-size: 0.8em;
@@ -959,8 +992,8 @@ header {
 
 /* Modificação no botão base da tarefa para adicionar a barra */
 .task-item-button {
-  background-color: #f0f2f5; /* Um cinza claro para destacar a barra */
-  color: #333; /* Texto mais escuro para melhor contraste */
+  background-color: var(--light-background-color);
+  color: var(--dark-text-color); /* Texto mais escuro para melhor contraste */
   border-radius: 4px;
   padding: 4px 8px 4px 12px; /* Aumenta o padding esquerdo para dar espaço à barra */
   font-size: 0.85em;
@@ -979,7 +1012,7 @@ header {
 }
 
 .task-item-button:hover {
-  background-color: #e4e6e9;
+  background-color: var(--light-background-color);
 }
 
 /* NOVAS CLASSES DE STATUS */
@@ -1018,10 +1051,11 @@ header {
   width: 50%;
   height: 80%;
   margin: auto;
+  padding: 20px;
   overflow: auto;
   border-radius: 5px;
   z-index: 9999;
-  background-color: white;
+  background-color: var(--light-background-color);
 }
 
 .calendario-popoup-top {
@@ -1066,12 +1100,12 @@ header {
 }
 
 .calendario-popoup-midle button {
-  background-color: var(--ache-red);
+  background-color: var(--primary-color);
   border: none;
   border-radius: 5px;
   font-size: 16px;
   font-weight: 700;
-  color: white;
+  color: var(--text-color);
   padding: 10px;
   cursor: pointer;
 }
@@ -1101,14 +1135,14 @@ header {
 }
 
 .close-button {
-  color: #aaa;
+  color: var(--gray-background-color);
   float: right;
   font-size: 28px;
   font-weight: bold;
 }
 
 .close-button:hover {
-  color: black;
+  color: var(--dark-text-color);
   text-decoration: none;
   cursor: pointer;
 }
@@ -1120,8 +1154,8 @@ header {
 }
 
 .menu-content-logout button {
-  background-color: white;
-  color: #c2185b; /* cor principal do header */
+  background-color: var(--light-background-color);
+  color: var(--primary-color); /* cor principal do header */
   border: 2px solid white;
   padding: 6px 14px;
   border-radius: 20px;
@@ -1132,9 +1166,9 @@ header {
 }
 
 .menu-content-logout button:hover {
-  background-color: #ad1457; /* tom mais escuro */
+  background-color: var(--secundary-color); /* tom mais escuro */
   color: white;
-  border-color: #ad1457;
+  border-color: var(--secundary-color);
 }
 
 /* --- ESTILOS PARA OS FILTROS DO CALENDÁRIO --- */
@@ -1157,7 +1191,7 @@ header {
 
 .filter-group label {
     font-weight: bold;
-    color: #555;
+    color: var(--dark-text-color);
     display: flex;
     align-items: center;
     gap: 5px;
@@ -1194,7 +1228,7 @@ header {
 
 /* Adiciona um leve destaque ao passar o mouse */
 .tarefa-clicavel:hover {
-    background-color: #f9f9f9; 
+    background-color: var(--gray-background-color); 
 }
 
 /* O container dos detalhes expansíveis */
@@ -1225,23 +1259,23 @@ header {
 .detalhe-item {
     margin-bottom: 12px;
     font-size: 0.9em;
-    color: #333;
+    color: var(--dark-text-color);
 }
 
 .detalhe-label {
     font-weight: bold;
-    color: #555;
+    color: var(--dark-text-color);
     display: block; /* Para que o valor fique na linha de baixo se for longo */
     margin-bottom: 4px;
 }
 
 .detalhe-valor {
-    color: #111;
+    color: var(--dark-text-color);
 }
 
 .detalhe-descricao {
-    background-color: #f5f5f5;
-    border-left: 3px solid #007bff;
+    background-color: var(--light-background-color);
+    border-left: 3px solid var(--primary-color);
     padding: 10px;
     margin-top: 5px;
     white-space: pre-wrap; /* Preserva quebras de linha na descrição */
@@ -1258,7 +1292,7 @@ header {
     display: none; 
     position: absolute; 
     z-index: 1000;
-    background-color: #ffffff;
+    background-color: var(--light-background-color);
     border: 1px solid #ccc;
     border-radius: 5px;
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.15);
@@ -1283,16 +1317,16 @@ header {
     text-align: left;
     font-size: 0.9em;
     cursor: pointer;
-    color: #333;
+    color: var(--dark-text-color);
 }
 
 .menu-contexto .menu-opcao:hover {
-    background-color: #f0f0f0;
+    background-color: var(--gray-background-color);
 }
 
 .menu-contexto .menu-opcao-excluir:hover {
-    background-color: #ffebee;
-    color: #c62828;
+    background-color: var(--light-background-color);
+    color: red;
 }
 
 .menu-contexto .menu-opcao i {
@@ -1313,8 +1347,8 @@ header {
 .btn-editar-tarefa {
     display: inline-block;
     padding: 8px 15px;
-    background-color: #5a67d8; /* Um azul/roxo para diferenciar */
-    color: white;
+    background-color: var(--primary-color); /* Um azul/roxo para diferenciar */
+    color: var(--text-color);
     text-decoration: none;
     border-radius: 5px;
     font-size: 14px;
@@ -1323,7 +1357,7 @@ header {
 }
 
 .btn-editar-tarefa:hover {
-    background-color: #434190;
+    background-color: var(--secundary-color);
 }
 
 .btn-editar-tarefa i {
@@ -1352,8 +1386,8 @@ header {
 /* Estilo do botão de excluir tarefa */
 .btn-excluir-tarefa {
     padding: 8px 15px;
-    background-color: #e53e3e; /* Vermelho para perigo */
-    color: white;
+    background-color: red; /* Vermelho para perigo */
+    color: var(--text-color);
     border: none;
     border-radius: 5px;
     font-size: 14px;
@@ -1364,7 +1398,7 @@ header {
 }
 
 .btn-excluir-tarefa:hover {
-    background-color: #c53030;
+    background-color: red;
 }
 
 .btn-excluir-tarefa i {
@@ -1391,7 +1425,7 @@ header {
 
 /* A caixa de conteúdo do modal */
 .modal-content {
-    background-color: #fff;
+    background-color: var(--light-background-color);
     padding: 30px;
     border-radius: 8px;
     width: 90%;
@@ -1419,14 +1453,14 @@ header {
     right: 15px;
     font-size: 28px;
     font-weight: bold;
-    color: #aaa;
+    color: var(--gray-background-color);
     background: none;
     border: none;
     cursor: pointer;
     line-height: 1;
 }
 .modal-close-btn:hover {
-    color: #333;
+    color: var(--dark-text-color);
 }
 
 /* Estilos para o corpo do modal (reaproveitando classes existentes) */
@@ -1439,15 +1473,15 @@ header {
 }
 #modal-tarefa-body .detalhe-label {
     font-weight: bold;
-    color: #555;
+    color: var(--dark-text-color);
     margin-bottom: 5px;
     display: block;
 }
 #modal-tarefa-body .detalhe-valor {
-    color: #333;
+    color: var(--dark-text-color);
 }
 #modal-tarefa-body .detalhe-descricao {
-    color: #333;
+    color: var(--dark-text-color);
     white-space: pre-wrap; /* Mantém as quebras de linha da descrição */
 }
 
@@ -1482,17 +1516,29 @@ header {
 /* Garante que o fundo seja o padrão e aplica a cor na borda */
 
 .task-item-button.status-a-fazer {
+<<<<<<< Updated upstream
   background-color: #fff; /* ou a cor de fundo padrão do seu botão */
+=======
+  background-color: var(--light-background-color); /* ou a cor de fundo padrão do seu botão */
+>>>>>>> Stashed changes
   border-left: 5px solid #8A2BE2; /* Borda Roxa */
 }
 
 .task-item-button.status-em-andamento {
+<<<<<<< Updated upstream
   background-color: #fff;
+=======
+  background-color: var(--light-background-color);
+>>>>>>> Stashed changes
   border-left: 5px solid #FFD700; /* Borda Amarela */
 }
 
 .task-item-button.status-concluido {
+<<<<<<< Updated upstream
   background-color: #fff;
+=======
+  background-color: var(--light-background-color);
+>>>>>>> Stashed changes
   border-left: 5px solid #32CD32; /* Borda Verde */
 }
 
@@ -1515,7 +1561,11 @@ header {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%); /* Centraliza o popup perfeitamente */
+<<<<<<< Updated upstream
     background-color: white;
+=======
+    background-color: var(--light-background-color);
+>>>>>>> Stashed changes
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 5px 20px rgba(0,0,0,0.2);
@@ -1543,7 +1593,11 @@ header {
     border: none;
     font-size: 28px;
     cursor: pointer;
+<<<<<<< Updated upstream
     color: #888;
+=======
+    color: var(--dark-text-color);
+>>>>>>> Stashed changes
 }
 
 .popup-body {
@@ -1555,7 +1609,11 @@ header {
 .filter-option {
     padding: 12px;
     border: 1px solid #ddd;
+<<<<<<< Updated upstream
     background-color: #f9f9f9;
+=======
+    background-color: var(--light-background-color);
+>>>>>>> Stashed changes
     cursor: pointer;
     border-radius: 5px;
     text-align: left;
@@ -1563,7 +1621,11 @@ header {
 }
 
 .filter-option:hover {
+<<<<<<< Updated upstream
     background-color: #f0f0f0;
+=======
+    background-color: var(--light-background-color);
+>>>>>>> Stashed changes
 }
 
 /* Adicione este código junto com os outros estilos do popup */
@@ -1575,4 +1637,110 @@ header {
     border-radius: 5px;
     box-sizing: border-box; /* Garante que o padding não altere a largura total */
     margin-bottom: 15px; /* Espaço entre a busca e os botões */
+<<<<<<< Updated upstream
+=======
+}
+
+
+
+
+
+.recorrencia-info {
+    display: inline-flex; /* Usa flexbox para alinhar o ícone e o texto */
+    align-items: center;  /* Alinha verticalmente ao centro */
+    gap: 8px;             /* Cria um espaço entre o ícone e o texto */
+    color: #007bff;       /* Uma cor de destaque para a informação */
+    font-weight: bold;
+}
+
+.recorrencia-info .fas {
+    /* A cor do ícone já será herdada do pai (o span) */
+    font-size: 0.9em; /* Deixa o ícone um pouco menor que o texto */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Estilos para o Popup de Notificações */
+.notificacoes-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 1010;
+}
+
+.notificacoes-popup {
+    display: none;
+    position: fixed;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--light-background-color);
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.25);
+    z-index: 1011;
+    width: 90%;
+    max-width: 450px;
+}
+
+.notificacoes-popup .popup-header { /* Reutilizando a classe que já temos */
+    background-color: var(--gray-background-color);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    padding: 10px;
+}
+
+.notificacoes-popup .popup-body { /* Reutilizando a classe que já temos */
+    padding: 10px 20px 20px 20px;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.notificacao-item {
+    border-bottom: 1px solid #eee;
+    padding: 15px 0;
+}
+.notificacao-item:last-child {
+    border-bottom: none;
+}
+
+.notificacao-titulo {
+    font-weight: bold;
+    color: var(--primary-color);
+    margin-bottom: 5px;
+}
+
+.notificacao-detalhes {
+    font-size: 0.9em;
+    color: var(--dark-text-color);
+    display: flex;
+    justify-content: space-between;
+}
+
+.prazo-urgente {
+    font-weight: bold;
+    color: red; /* Vermelho de alerta */
+}
+
+.sem-avisos {
+    color: var(--dark-text-color);
+    padding: 20px 0;
+    text-align: center;
+>>>>>>> Stashed changes
 }

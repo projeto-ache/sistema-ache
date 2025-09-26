@@ -38,10 +38,24 @@ try {
     $types = str_repeat('i', count($project_ids));
 
     // --- 2. Buscar os detalhes de TODOS os projetos ---
+<<<<<<< Updated upstream
     $sql_projetos = "SELECT p.ID_Projeto, p.NomeProjeto, p.Descricao, p.DataCriacao, u.Email AS EmailCriador 
                      FROM projetos p 
                      JOIN usuarios u ON p.ID_Usuario_Criador = u.ID_Usuario 
                      WHERE p.ID_Projeto IN ($placeholders)";
+=======
+    $sql_projetos = "SELECT 
+                    p.ID_Projeto, 
+                    p.NomeProjeto, 
+                    p.Descricao, 
+                    p.DataCriacao, 
+                    u_criador.Email AS EmailCriador,
+                    u_modificador.Nome AS NomeUltimoModificador
+                 FROM projetos p 
+                 JOIN usuarios u_criador ON p.ID_Usuario_Criador = u_criador.ID_Usuario
+                 LEFT JOIN usuarios u_modificador ON p.ID_UltimoUsuarioModificador = u_modificador.ID_Usuario
+                 WHERE p.ID_Projeto IN ($placeholders)";
+>>>>>>> Stashed changes
     $stmt_projetos = $conexao->prepare($sql_projetos);
     $stmt_projetos->bind_param($types, ...$project_ids);
     $stmt_projetos->execute();
@@ -76,9 +90,12 @@ try {
     // --- 4. Buscar TODAS as tarefas com todos os detalhes necessários ---
     // Na "ETAPA 1" do seu index.php, atualize a consulta de tarefas
     $sql_tarefas = "SELECT 
-                        pta.ID_Projeto,
-                        pta.ID_Atribuicao, -- Importante para o GROUP BY
-                        pta.Status, 
+                    pta.ID_Projeto,
+                    pta.ID_Atribuicao,
+                    pta.ID_Recorrencia,
+                    pta.FrequenciaRecorrencia, -- <<< ADICIONE ESTA LINHA
+                    pta.DataFimRecorrencia,   -- <<< ADICIONE ESTA LINHA
+                    pta.Status, 
                         pta.DataCriacao,
                         pta.DataPrazo, 
                         pta.DataConclusao,
@@ -120,6 +137,77 @@ try {
     $stmt_tarefas->close();
   }
 
+
+
+  // =================================================================
+  // NOVA LÓGICA: BUSCAR TAREFAS COM PRAZO PRÓXIMO (NOTIFICAÇÕES)
+  // =================================================================
+  $tarefas_urgentes = [];
+  try {
+    $sql_urgentes = "SELECT DISTINCT
+                        pta.NomeTarefaPersonalizado, 
+                        p.NomeProjeto, 
+                        pta.DataPrazo
+                     FROM projetos_tarefas_atribuidas pta
+                     JOIN projetos p ON pta.ID_Projeto = p.ID_Projeto
+                     JOIN projetos_usuarios pu ON p.ID_Projeto = pu.ID_Projeto
+                     WHERE 
+                        (p.ID_Usuario_Criador = ? OR pu.ID_Usuario = ?)
+                        AND pta.Status != 'Concluído'
+                        AND pta.DataPrazo >= CURDATE() AND pta.DataPrazo <= DATE_ADD(CURDATE(), INTERVAL 3 DAY)
+                     ORDER BY pta.DataPrazo ASC";
+    $stmt_urgentes = $conexao->prepare($sql_urgentes);
+    // Note que agora passamos o ID do usuário duas vezes
+    $stmt_urgentes->bind_param("ii", $idUsuarioLogado, $idUsuarioLogado);
+    $stmt_urgentes->execute();
+    $result_urgentes = $stmt_urgentes->get_result();
+    while ($tarefa = $result_urgentes->fetch_assoc()) {
+      $tarefas_urgentes[] = $tarefa;
+    }
+    $stmt_urgentes->close();
+
+
+
+    // =================================================================
+    //      INÍCIO DA NOVA LÓGICA DE CONTAGEM PARA OS BOTÕES
+    // =================================================================
+
+    // 1. Contagem de projetos (já temos essa informação)
+    $contagem_projetos = count($projetos);
+
+    // 2. Contagem de tarefas atribuídas ao usuário
+    $contagem_tarefas_atribuidas = 0;
+    try {
+      $sql_contagem_tarefas = "SELECT COUNT(DISTINCT ID_Atribuicao) as total 
+                                 FROM tarefa_atribuida_usuarios 
+                                 WHERE ID_Usuario = ?";
+      $stmt_contagem = $conexao->prepare($sql_contagem_tarefas);
+      $stmt_contagem->bind_param("i", $idUsuarioLogado);
+      $stmt_contagem->execute();
+      $resultado_contagem = $stmt_contagem->get_result()->fetch_assoc();
+      if ($resultado_contagem) {
+        $contagem_tarefas_atribuidas = $resultado_contagem['total'];
+      }
+      $stmt_contagem->close();
+    } catch (Exception $e) {
+      // Se der erro, a contagem fica em 0
+      $contagem_tarefas_atribuidas = 0;
+    }
+    // =================================================================
+    //      FIM DA NOVA LÓGICA DE CONTAGEM
+    // =================================================================
+
+
+
+  } catch (Exception $e) {
+    // Se der erro, o array de tarefas urgentes simplesmente ficará vazio.
+  }
+  // =================================================================
+  // FIM DA NOVA LÓGICA
+  // =================================================================
+
+
+
   // Reorganiza o array para que a parte do HTML possa usá-lo com um loop simples.
   $projetos = array_values($projetos);
 
@@ -133,9 +221,7 @@ try {
 
 $conexao->close();
 
-// =================================================================
-// ETAPA 2: RENDERIZAR O HTML (AGORA COM OS DADOS JÁ CARREGADOS)
-// =================================================================
+
 ?>
 
 
@@ -153,57 +239,22 @@ $conexao->close();
   <title>Index</title>
 </head>
 
+<style>
+  body {
+    overflow: hidden;
+  }
+</style>
+
 <body>
 
   <div id="calendario-popup" class="calendario-popup" style="display: none;">
     <div class="calendario-popup-content">
       <div class="calendario-popoup-top">
-        <div class="calendario-popoup-top-left">
-          <div class="calendario-popoup-top-title">
-            <p id="popup-title">Título da Tarefa</p>
-          </div>
+        <div id="popup-title-container">
         </div>
-        <div class="calendario-popoup-top-right">
-          <button class="close-button">&times;</button>
-        </div>
+        <button class="close-button">&times;</button>
       </div>
-      <div class="calendario-popoup-midle">
-        <a href="#" id="popup-edit-btn"><button>
-            <div class="calendario-popoup-midle-edit">
-              <p>Editar tarefa</p>
-            </div>
-          </button></a>
-        <button id="popup-delete-btn">
-          <div class="calendario-popoup-midle-exclude">
-            <p>Excluir tarefa</p>
-          </div>
-        </button>
-      </div>
-      <div class="calendario-popup-down">
-        <div class="calendario-popup-down-part">
-          <div class="calendario-popup-down-title">
-            <p>Projeto:</p>
-          </div>
-          <div class="calendario-popup-down-answer">
-            <p id="popup-project">Nome do Projeto</p>
-          </div>
-        </div>
-        <div class="calendario-popup-down-part">
-          <div class="calendario-popup-down-title">
-            <p>Prazo final:</p>
-          </div>
-          <div class="calendario-popup-down-answer">
-            <p id="popup-duedate">DD/MM/YYYY</p>
-          </div>
-        </div>
-        <div class="calendario-popup-down-part">
-          <div class="calendario-popup-down-title">
-            <p>Status:</p>
-          </div>
-          <div class="calendario-popup-down-answer">
-            <p id="popup-status">Status da Tarefa</p>
-          </div>
-        </div>
+      <div id="popup-body-container" class="calendario-popup-body">
       </div>
     </div>
   </div>
@@ -233,7 +284,7 @@ $conexao->close();
     <div class="menu-logo">
       <a href="index.php">
         <div class="menu-logo-texto">
-          <p>ACHE</p>
+          <img src="../images/Logo_Ache - Branco.png" alt="Logo ACHE" height="20px">
         </div>
       </a>
     </div>
@@ -291,7 +342,7 @@ $conexao->close();
           <button id="btn-mostrar-calendario-global" class="nav-icon-btn"><i class="fas fa-calendar-alt"></i></button>
         </li>
         <li>
-          <a href="#"><i class="fas fa-bell"></i></a>
+          <a href="#" id="btn-notificacoes"><i class="fas fa-bell"></i></a>
         </li>
         <li>
           <a href="#"><i class="fas fa-cog"></i></a>
@@ -324,7 +375,7 @@ $conexao->close();
         <div class="favorites-title-content">
           <button class="btn-cls-favorites-atalhos">
             <div class="favorites-title">
-              <p>Favoritos</p>
+              <p>Fixados</p>
             </div>
             <div class="favorites-plus">
               <span class="material-symbols-outlined">
@@ -344,10 +395,10 @@ $conexao->close();
             <div class="button-favorites-atalhos-content">
               <button>
                 <div class="button-favorites-atalhos">
-                  <p>1109</p>
+                  <p></p> <!-- Parte que adicionaria o numero de notificações / atualizações do projeto -->
                 </div>
                 <div class="button-favorites-atalhos-hover">
-                  <span class="material-symbols-outlined"> more_horiz </span>
+                  <p><?php echo $contagem_projetos; ?></p>
                 </div>
               </button>
             </div>
@@ -361,10 +412,10 @@ $conexao->close();
             <div class="button-favorites-atalhos-content">
               <button>
                 <div class="button-favorites-atalhos">
-                  <p>101</p>
+                  <p></p> <!-- Parte que adicionaria o numero de notificações / atualizações do projeto -->
                 </div>
                 <div class="button-favorites-atalhos-hover">
-                  <span class="material-symbols-outlined"> more_horiz </span>
+                  <p><?php echo $contagem_tarefas_atribuidas; ?></p>
                 </div>
               </button>
             </div>
@@ -378,10 +429,10 @@ $conexao->close();
             <div class="button-favorites-atalhos-content">
               <button>
                 <div class="button-favorites-atalhos">
-                  <p>31</p>
+                  <p></p> <!-- Parte que adicionaria o numero de notificações / atualizações do projeto -->
                 </div>
                 <div class="button-favorites-atalhos-hover">
-                  <span class="material-symbols-outlined"> more_horiz </span>
+                  <p><?php echo $contagem_projetos; ?></p>
                 </div>
               </button>
             </div>
@@ -510,7 +561,7 @@ $conexao->close();
                       <img src="..\images\label-yellow.png" alt="" width="35px" height="35px" />
                     </div>
                     <div class="exibicao-selection-project-space-top-project-kanbam-p">
-                      <p>Kanbam</p>
+                      <p>Kanban</p>
                     </div>
                   </div>
                 </button>
@@ -578,8 +629,8 @@ $conexao->close();
                               <p>Prazo: <?php echo date('d/m/Y', strtotime($tarefa['DataPrazo'])); ?></p>
                             </div>
                             <div class="exibicao-selection-project-tarefa-bottom-left-conclusao">
-                              <p>Concluído:
-                                <?php echo $tarefa['DataConclusao'] ? date('d/m/Y', strtotime($tarefa['DataConclusao'])) : '--'; ?>
+                              <p>Concluído: --
+                                
                               </p>
                             </div>
                           </div>
@@ -634,6 +685,34 @@ $conexao->close();
                             </div>
                           <?php endif; ?>
 
+                          <?php if (!empty($tarefa['ID_Recorrencia'])): ?>
+                            <div class="detalhe-item">
+                              <span class="detalhe-label">Recorrência:</span>
+                              <span class="detalhe-valor recorrencia-info">
+                                <i class="fas fa-sync-alt"></i>
+                                <?php
+                                // Traduz a frequência para um texto mais amigável
+                                $frequenciaTexto = '';
+                                switch ($tarefa['FrequenciaRecorrencia']) {
+                                  case 'diaria':
+                                    $frequenciaTexto = 'Diariamente';
+                                    break;
+                                  case 'semanal':
+                                    $frequenciaTexto = 'Semanalmente';
+                                    break;
+                                  case 'mensal':
+                                    $frequenciaTexto = 'Mensalmente';
+                                    break;
+                                }
+                                // Formata a data final para o padrão brasileiro
+                                $dataFinalFormatada = date('d/m/Y', strtotime($tarefa['DataFimRecorrencia']));
+
+                                echo "Repete " . $frequenciaTexto . " até " . $dataFinalFormatada;
+                                ?>
+                              </span>
+                            </div>
+                          <?php endif; ?>
+
                           <?php if (!empty($tarefa['ComoFazer'])): ?>
                             <div class="detalhe-item">
                               <span class="detalhe-label">Como Fazer:</span>
@@ -684,7 +763,7 @@ $conexao->close();
                       <img src="..\images\return-icon.png" alt="" width="35px" height="35px" />
                     </div>
                     <div class="exibicao-selection-project-space-kanbam-top-return-button-text">
-                      <p>Gerênciamento</p>
+                      <p>Gerenciamento</p>
                     </div>
                   </div>
                 </button>
@@ -701,7 +780,7 @@ $conexao->close();
 
               <div class="exibicao-selection-project-space-description-content">
                 <div class="exibicao-selection-project-space-description-title">
-                  <p>Descricao:</p>
+                  <p>Descrição:</p>
                 </div>
                 <div class="exibicao-selection-project-space-description-text">
                   <p><?php echo nl2br(htmlspecialchars($projeto['Descricao'])); ?></p>
@@ -881,7 +960,13 @@ $conexao->close();
                       </div>
                     </div>
                     <div class="button-favorites-atalhos-content-flexible-menu-att">
-                      <p>Ultima att. Mateus atualizou uma tarefa</p>
+                      <?php if (!empty($projeto['NomeUltimoModificador'])): ?>
+                        <p><i class="fas fa-history"></i> Última alteração por:
+                          <?php echo htmlspecialchars($projeto['NomeUltimoModificador']); ?>
+                        </p>
+                      <?php else: ?>
+                        <p><i class="fas fa-history"></i> Nenhuma alteração recente.</p>
+                      <?php endif; ?>
                     </div>
                   </div>
                 </div>
@@ -913,7 +998,7 @@ $conexao->close();
                       </div>
 
                       <div class="exibicao-selection-project-space-top-project-kanbam-p">
-                        <p>Kanbam</p>
+                        <p>Kanban</p>
                       </div>
                     </div>
                   </button>
@@ -996,8 +1081,8 @@ $conexao->close();
                                 <p>Prazo: <?php echo date('d/m/Y', strtotime($tarefa['DataPrazo'])); ?></p>
                               </div>
                               <div class="exibicao-selection-project-tarefa-bottom-left-conclusao">
-                                <p>Concluído:
-                                  <?php echo $tarefa['DataConclusao'] ? date('d/m/Y', strtotime($tarefa['DataConclusao'])) : '--'; ?>
+                                <p>Concluído: --
+                                  
                                 </p>
                               </div>
                             </div>
@@ -1047,6 +1132,34 @@ $conexao->close();
                               <div class="detalhe-item">
                                 <span class="detalhe-label">Fase:</span>
                                 <span class="detalhe-valor"><?php echo htmlspecialchars($tarefa['Fase_Ache']); ?></span>
+                              </div>
+                            <?php endif; ?>
+
+                            <?php if (!empty($tarefa['ID_Recorrencia'])): ?>
+                              <div class="detalhe-item">
+                                <span class="detalhe-label">Recorrência:</span>
+                                <span class="detalhe-valor recorrencia-info">
+                                  <i class="fas fa-sync-alt"></i>
+                                  <?php
+                                  // Traduz a frequência para um texto mais amigável
+                                  $frequenciaTexto = '';
+                                  switch ($tarefa['FrequenciaRecorrencia']) {
+                                    case 'diaria':
+                                      $frequenciaTexto = 'Diariamente';
+                                      break;
+                                    case 'semanal':
+                                      $frequenciaTexto = 'Semanalmente';
+                                      break;
+                                    case 'mensal':
+                                      $frequenciaTexto = 'Mensalmente';
+                                      break;
+                                  }
+                                  // Formata a data final para o padrão brasileiro
+                                  $dataFinalFormatada = date('d/m/Y', strtotime($tarefa['DataFimRecorrencia']));
+
+                                  echo "Repete " . $frequenciaTexto . " até " . $dataFinalFormatada;
+                                  ?>
+                                </span>
                               </div>
                             <?php endif; ?>
 
@@ -1109,7 +1222,7 @@ $conexao->close();
                         <img src="..\images\return-icon.png" alt="" width="35px" height="35px" />
                       </div>
                       <div class="exibicao-selection-project-space-kanbam-top-return-button-text">
-                        <p>Gerênciamento</p>
+                        <p>Gerenciamento</p>
                       </div>
                     </div>
                   </button>
@@ -1126,7 +1239,7 @@ $conexao->close();
 
                 <div class="exibicao-selection-project-space-description-content">
                   <div class="exibicao-selection-project-space-description-title">
-                    <p>Descricao:</p>
+                    <p>Descrição:</p>
                   </div>
                   <div class="exibicao-selection-project-space-description-text">
                     <p><?php echo nl2br(htmlspecialchars($projeto['Descricao'])); ?></p>
@@ -1306,7 +1419,13 @@ $conexao->close();
                         </div>
                       </div>
                       <div class="button-favorites-atalhos-content-flexible-menu-att">
-                        <p>Ultima att. Mateus atualizou uma tarefa</p>
+                        <?php if (!empty($projeto['NomeUltimoModificador'])): ?>
+                          <p><i class="fas fa-history"></i> Última alteração por:
+                            <?php echo htmlspecialchars($projeto['NomeUltimoModificador']); ?>
+                          </p>
+                        <?php else: ?>
+                          <p><i class="fas fa-history"></i> Nenhuma alteração recente.</p>
+                        <?php endif; ?>
                       </div>
                     </div>
                   </div>
@@ -1340,6 +1459,7 @@ $conexao->close();
       </div>
     </div>
 
+<<<<<<< Updated upstream
     <script>
       // ... seu javascript existente ...
     </script>
@@ -1351,6 +1471,42 @@ $conexao->close();
   // FLUXOS DE EXIBIÇÃO DE PROJETO (VERSÃO FINAL CORRIGIDA)
   // =================================================================================
 
+=======
+    <div id="notificacoes-overlay" class="notificacoes-overlay"></div>
+    <div id="notificacoes-popup" class="notificacoes-popup">
+      <div class="popup-header">
+        <h3><i class="fas fa-bell"></i> Lembretes de Prazo</h3>
+        <button id="btn-close-notificacoes" class="close-button">&times;</button>
+      </div>
+      <div class="popup-body">
+        <?php if (empty($tarefas_urgentes)): ?>
+          <div class="notificacao-item">
+            <p class="sem-avisos">Você não tem nenhuma tarefa com prazo para os próximos 3 dias. Bom trabalho!</p>
+          </div>
+        <?php else: ?>
+          <?php foreach ($tarefas_urgentes as $tarefa): ?>
+            <div class="notificacao-item">
+              <div class="notificacao-titulo"><?php echo htmlspecialchars($tarefa['NomeTarefaPersonalizado']); ?></div>
+              <div class="notificacao-detalhes">
+                <span>No projeto: <strong><?php echo htmlspecialchars($tarefa['NomeProjeto']); ?></strong></span>
+                <span class="prazo-urgente">Prazo: <?php echo date('d/m/Y', strtotime($tarefa['DataPrazo'])); ?></span>
+              </div>
+            </div>
+          <?php endforeach; ?>
+        <?php endif; ?>
+      </div>
+    </div>
+
+
+</body>
+
+
+<script>
+  // =================================================================================
+  // FLUXOS DE EXIBIÇÃO DE PROJETO (VERSÃO FINAL CORRIGIDA)
+  // =================================================================================
+
+>>>>>>> Stashed changes
   // Função para esconder todas as visualizações de projeto e limpar a tela
   function esconderTodasAsVisualizacoes() {
     // Esconde os contêineres principais dos dois fluxos
@@ -1510,6 +1666,7 @@ $conexao->close();
     return null; // Retorna nulo se não encontrar
   }
 
+<<<<<<< Updated upstream
   // Adiciona um "espião" de cliques no corpo do documento
   document.body.addEventListener('click', function (event) {
     const kanbanCard = event.target.closest('.kanbam-collum-todo-tarefa, .kanbam-collum-doing-tarefa, .kanbam-collum-done-tarefa');
@@ -1526,19 +1683,60 @@ $conexao->close();
         let detalhesHtml = `
           <h2>${tarefa.NomeTarefaExibicao}</h2>
           <div class="detalhe-item">
+=======
+
+
+  // =================================================================================
+  // FUNÇÃO REUTILIZÁVEL PARA GERAR OS DETALHES DA TAREFA
+  // =================================================================================
+  function gerarHtmlDetalhesTarefa(tarefa, projeto) {
+    // Formata as datas para o padrão brasileiro, tratando valores nulos
+    const dataCriacaoF = tarefa.DataCriacao ? new Date(tarefa.DataCriacao).toLocaleDateString('pt-BR') : '--';
+    const dataPrazoF = tarefa.DataPrazo ? new Date(tarefa.DataPrazo).toLocaleDateString('pt-BR') : '--';
+    const dataConclusaoF = tarefa.DataConclusao ? new Date(tarefa.DataConclusao).toLocaleDateString('pt-BR') : '--';
+
+    // Constrói o bloco de recorrência se existir
+    let recorrenciaHtml = '';
+    if (tarefa.ID_Recorrencia) {
+      let frequenciaTexto = '';
+      switch (tarefa.FrequenciaRecorrencia) {
+        case 'diaria': frequenciaTexto = 'Diariamente'; break;
+        case 'semanal': frequenciaTexto = 'Semanalmente'; break;
+        case 'mensal': frequenciaTexto = 'Mensalmente'; break;
+      }
+      const dataFinalF = new Date(tarefa.DataFimRecorrencia).toLocaleDateString('pt-BR');
+      recorrenciaHtml = `
+        <div class="detalhe-item">
+            <span class="detalhe-label">Recorrência:</span>
+            <span class="detalhe-valor recorrencia-info">
+                <i class="fas fa-sync-alt"></i> Repete ${frequenciaTexto} até ${dataFinalF}
+            </span>
+        </div>`;
+    }
+
+    // Monta a string HTML final
+    return `
+        <h2>${tarefa.NomeTarefaExibicao}</h2>
+        
+        <div class="detalhe-item">
+            <span class="detalhe-label">Projeto:</span>
+            <span class="detalhe-valor">${projeto.NomeProjeto}</span>
+        </div>
+        <div class="detalhe-item">
+>>>>>>> Stashed changes
             <span class="detalhe-label">Status:</span>
             <span class="detalhe-valor">${tarefa.Status}</span>
-          </div>
-          <div class="detalhe-item">
+        </div>
+        <div class="detalhe-item">
+            <span class="detalhe-label">Prazo Final:</span>
+            <span class="detalhe-valor">${dataPrazoF}</span>
+        </div>
+        <div class="detalhe-item">
             <span class="detalhe-label">Atribuído para:</span>
             <span class="detalhe-valor">${tarefa.NomesUsuariosAtribuidos || 'Não atribuído'}</span>
-          </div>
-          <div class="detalhe-item">
-            <span class="detalhe-label">Prazo:</span>
-            <span class="detalhe-valor">${new Date(tarefa.DataPrazo).toLocaleDateString('pt-BR')}</span>
-          </div>
-        `;
+        </div>
 
+<<<<<<< Updated upstream
         if (tarefa.DescricaoPersonalizada) {
           detalhesHtml += `
             <div class="detalhe-item">
@@ -1633,6 +1831,139 @@ $conexao->close();
       e.preventDefault();
       if (!draggedCard) return;
 
+=======
+        <hr class="tarefa-divisor">
+        
+        ${tarefa.DescricaoPersonalizada ? `
+        <div class="detalhe-item">
+            <span class="detalhe-label">Descrição Personalizada:</span>
+            <p class="detalhe-descricao">${tarefa.DescricaoPersonalizada}</p>
+        </div>
+        <div class="detalhe-item">
+            <span class="detalhe-label">Tarefa Padrão Original:</span>
+            <span class="detalhe-valor">${tarefa.NomeTarefaOriginal}</span>
+        </div>` : ''}
+
+        ${tarefa.Classificacao_Ache ? `<div class="detalhe-item"><span class="detalhe-label">Classificação:</span><span class="detalhe-valor">${tarefa.Classificacao_Ache}</span></div>` : ''}
+        ${tarefa.Categoria_Ache ? `<div class="detalhe-item"><span class="detalhe-label">Categoria:</span><span class="detalhe-valor">${tarefa.Categoria_Ache}</span></div>` : ''}
+        ${tarefa.Fase_Ache ? `<div class="detalhe-item"><span class="detalhe-label">Fase:</span><span class="detalhe-valor">${tarefa.Fase_Ache}</span></div>` : ''}
+        
+        ${recorrenciaHtml}
+        
+        ${tarefa.ComoFazer ? `<div class="detalhe-item"><span class="detalhe-label">Como Fazer:</span><p class="detalhe-descricao">${tarefa.ComoFazer.replace(/\n/g, '<br>')}</p></div>` : ''}
+        ${tarefa.DocumentoReferencia ? `<div class="detalhe-item"><span class="detalhe-label">Documento de Referência:</span><span class="detalhe-valor">${tarefa.DocumentoReferencia}</span></div>` : ''}
+        
+        <div class="tarefa-actions-container">
+            <a href="editar-tarefa.php?id=${tarefa.ID_Atribuicao}" class="btn-editar-tarefa"><i class="fas fa-edit"></i> Editar Tarefa</a>
+            <button type="button" class="btn-excluir-tarefa" data-id-atribuicao="${tarefa.ID_Atribuicao}"><i class="fas fa-trash-alt"></i> Excluir</button>
+        </div>
+    `;
+  }
+
+  // Adicione esta função auxiliar também, para encontrar o projeto de uma tarefa
+  function encontrarProjetoPorIdTarefa(idAtribuicao) {
+    for (const projeto of todosProjetos) {
+      if (projeto.Tarefas.some(t => String(t.ID_Atribuicao) === String(idAtribuicao))) {
+        return projeto;
+      }
+    }
+    return null;
+  }
+
+
+
+
+
+  // Adiciona um "espião" de cliques no corpo do documento
+  document.body.addEventListener('click', function (event) {
+    const kanbanCard = event.target.closest('.kanbam-collum-todo-tarefa, .kanbam-collum-doing-tarefa, .kanbam-collum-done-tarefa');
+
+    // Se o clique foi em um cartão do Kanban
+    if (kanbanCard) {
+      event.preventDefault(); // Previne o início do drag se for só um clique
+
+      const idAtribuicao = kanbanCard.dataset.idAtribuicao;
+      const tarefa = encontrarTarefaPorId(idAtribuicao);
+
+      if (tarefa) {
+        // Constrói o HTML com os detalhes da tarefa
+        const projetoDaTarefa = encontrarProjetoPorIdTarefa(idAtribuicao);
+        if (tarefa && projetoDaTarefa) {
+          // Usa a nova função para gerar todo o HTML padronizado
+          const corpoHtml = gerarHtmlDetalhesTarefa(tarefa, projetoDaTarefa);
+
+          modalBody.innerHTML = corpoHtml;
+          modal.style.display = 'flex';
+          setTimeout(() => modal.classList.add('visivel'), 10);
+        }
+
+
+        modal.style.display = 'flex';
+        setTimeout(() => modal.classList.add('visivel'), 10); // Adiciona a classe para o efeito de transição
+      }
+    }
+  });
+
+  // Função para fechar o modal
+  function fecharModal() {
+    modal.classList.remove('visivel');
+    setTimeout(() => modal.style.display = 'none', 300); // Espera a transição terminar para esconder
+  }
+
+  // Eventos para fechar o modal
+  closeModalBtn.addEventListener('click', fecharModal);
+  modal.addEventListener('click', function (event) {
+    // Fecha o modal apenas se o clique for no fundo (overlay) e não no conteúdo
+    if (event.target === modal) {
+      fecharModal();
+    }
+  });
+
+  // --- LÓGICA KANBAN DRAG & DROP (VERSÃO COMPLETA E FUNCIONAL) ---
+  const taskCards = document.querySelectorAll(
+    ".kanbam-collum-todo-tarefa, .kanbam-collum-doing-tarefa, .kanbam-collum-done-tarefa"
+  );
+  const taskContainers = document.querySelectorAll(
+    ".kanbam-collum-new-tarefa-content"
+  );
+  let draggedCard = null;
+
+  // Adiciona os eventos de "pegar" e "largar" o cartão
+  taskCards.forEach((card) => {
+    card.addEventListener("dragstart", () => {
+      draggedCard = card;
+      setTimeout(() => {
+        card.classList.add("dragging");
+      }, 0);
+    });
+    card.addEventListener("dragend", () => {
+      if (draggedCard) {
+        draggedCard.classList.remove("dragging");
+      }
+      draggedCard = null;
+    });
+  });
+
+  // Adiciona os eventos às colunas para saber onde o cartão está sendo arrastado e onde foi solto
+  taskContainers.forEach((container) => {
+    container.addEventListener("dragover", (e) => {
+      e.preventDefault();
+      const afterElement = getDragAfterElement(container, e.clientY);
+      if (draggedCard) {
+        if (afterElement == null) {
+          container.appendChild(draggedCard);
+        } else {
+          container.insertBefore(draggedCard, afterElement);
+        }
+      }
+    });
+
+    // EVENTO DE DROP (SOLTAR) ATUALIZADO PARA SALVAR NO BANCO
+    container.addEventListener("drop", (e) => {
+      e.preventDefault();
+      if (!draggedCard) return;
+
+>>>>>>> Stashed changes
       // 1. Pega os dados necessários do cartão e da coluna
       const idAtribuicao = draggedCard.dataset.idAtribuicao;
       const novoStatus = container.dataset.status;
@@ -1999,6 +2330,7 @@ $conexao->close();
 
   // Lógica do Modal e Navegação (sem alterações, mas mantida aqui)
   function openModalCalendario(task) {
+<<<<<<< Updated upstream
     document.getElementById('popup-title').textContent = task.title;
     document.getElementById('popup-project').textContent = task.project;
     document.getElementById('popup-duedate').textContent = new Date(task.dueDate).toLocaleDateString('pt-BR', { timeZone: 'UTC' });
@@ -2008,6 +2340,28 @@ $conexao->close();
     popupDeleteBtn.dataset.idAtribuicao = task.id;
 
     modalCalendario.style.display = 'flex';
+=======
+    const projetoDaTarefa = todosProjetos.find(p => p.NomeProjeto === task.project);
+    const tarefaCompleta = encontrarTarefaPorId(task.id);
+
+    if (tarefaCompleta && projetoDaTarefa) {
+      // Encontra os containers do popup
+      const titleContainer = document.getElementById('popup-title-container');
+      const bodyContainer = document.getElementById('popup-body-container');
+
+      // Gera o HTML padronizado
+      const corpoHtml = gerarHtmlDetalhesTarefa(tarefaCompleta, projetoDaTarefa);
+
+      // Insere o H2 (título) e o resto do corpo nos lugares certos
+      // A função já gera o H2, então podemos inserir tudo no body.
+      bodyContainer.innerHTML = corpoHtml;
+
+      // Limpa o title container antigo para evitar duplicatas, se necessário
+      titleContainer.innerHTML = '';
+
+      modalCalendario.style.display = 'flex';
+    }
+>>>>>>> Stashed changes
   }
 
   function closeModalCalendario() {
@@ -2044,6 +2398,10 @@ $conexao->close();
     }
   });
 
+<<<<<<< Updated upstream
+=======
+  /* COMENTE A PARTIR DAQUI
+>>>>>>> Stashed changes
   popupDeleteBtn.addEventListener('click', function () {
     const idAtribuicao = this.dataset.idAtribuicao;
     if (confirm('Tem certeza que deseja excluir esta tarefa?')) {
@@ -2056,7 +2414,11 @@ $conexao->close();
         .then(data => {
           if (data.success) {
             closeModalCalendario();
+<<<<<<< Updated upstream
             inicializarCalendario(); // Recarrega os dados e o calendário
+=======
+            inicializarCalendario(); 
+>>>>>>> Stashed changes
           } else {
             alert('Erro: ' + data.message);
           }
@@ -2064,6 +2426,10 @@ $conexao->close();
         .catch(error => console.error('Erro:', error));
     }
   });
+<<<<<<< Updated upstream
+=======
+  ATÉ AQUI */
+>>>>>>> Stashed changes
 
 
 
@@ -2072,6 +2438,7 @@ $conexao->close();
 
   // --- LÓGICA DO POPUP DE FILTRO E ORDENAÇÃO ---
 
+<<<<<<< Updated upstream
 // --- LÓGICA INTEGRADA DE FILTRO, BUSCA E ORDENAÇÃO ---
 
 // Elementos do DOM
@@ -2110,6 +2477,46 @@ function renderProjectList(projectsToRender) {
     }
     projectsToRender.forEach(projeto => {
         const projectHTML = `
+=======
+  // --- LÓGICA INTEGRADA DE FILTRO, BUSCA E ORDENAÇÃO ---
+
+  // Elementos do DOM
+  const btnOpenFilter = document.getElementById('btn-open-filter');
+  const btnCloseFilter = document.getElementById('btn-close-filter');
+  const filterPopup = document.getElementById('filter-popup');
+  const filterOverlay = document.getElementById('filter-overlay');
+  const projectListContainer = document.getElementById('project-list-container');
+  const filterOptions = document.querySelectorAll('.filter-option');
+  const searchInput = document.getElementById('search-input'); // Novo elemento
+
+  // Variáveis de Estado
+  const originalProjects = [...todosProjetos];
+  let currentSortType = 'default'; // Guarda a ordenação atual
+
+  // Funções para abrir e fechar o popup (sem alterações)
+  btnOpenFilter.addEventListener('click', () => {
+    filterOverlay.style.display = 'block';
+    filterPopup.style.display = 'block';
+  });
+
+  function closeFilterPopup() {
+    filterOverlay.style.display = 'none';
+    filterPopup.style.display = 'none';
+  }
+  btnCloseFilter.addEventListener('click', closeFilterPopup);
+  filterOverlay.addEventListener('click', closeFilterPopup);
+
+
+  // Função para redesenhar a lista (sem alterações)
+  function renderProjectList(projectsToRender) {
+    projectListContainer.innerHTML = '';
+    if (projectsToRender.length === 0) {
+      projectListContainer.innerHTML = '<p style="padding: 15px; color: #888; font-size: 0.9em;">Nenhum projeto encontrado.</p>';
+      return;
+    }
+    projectsToRender.forEach(projeto => {
+      const projectHTML = `
+>>>>>>> Stashed changes
             <div class="favorites-atalhos-content-flexible-menu">
               <div class="favorites-atalhos-ex1-flexible-menu">
                 <div class="main-favorites-atalhos-ex1-flexible-menu">
@@ -2123,6 +2530,7 @@ function renderProjectList(projectsToRender) {
                 <div class="button-favorites-atalhos-content-flexible-menu-att"><p>Ultima att. Mateus atualizou uma tarefa</p></div>
               </div>
             </div>`;
+<<<<<<< Updated upstream
         projectListContainer.innerHTML += projectHTML;
     });
 }
@@ -2131,10 +2539,21 @@ function renderProjectList(projectsToRender) {
 // A NOVA FUNÇÃO MESTRE QUE CONTROLA TUDO
 // ==========================================================
 function applyFiltersAndSort() {
+=======
+      projectListContainer.innerHTML += projectHTML;
+    });
+  }
+
+  // ==========================================================
+  // A NOVA FUNÇÃO MESTRE QUE CONTROLA TUDO
+  // ==========================================================
+  function applyFiltersAndSort() {
+>>>>>>> Stashed changes
     let processedProjects = [...originalProjects];
 
     // 1. APLICA A ORDENAÇÃO ATUAL
     switch (currentSortType) {
+<<<<<<< Updated upstream
         case 'asc':
             processedProjects.sort((a, b) => a.NomeProjeto.localeCompare(b.NomeProjeto));
             break;
@@ -2148,18 +2567,40 @@ function applyFiltersAndSort() {
             processedProjects.sort((a, b) => new Date(a.DataCriacao) - new Date(b.DataCriacao));
             break;
         // O caso 'default' não faz nada, mantendo a ordem original.
+=======
+      case 'asc':
+        processedProjects.sort((a, b) => a.NomeProjeto.localeCompare(b.NomeProjeto));
+        break;
+      case 'desc':
+        processedProjects.sort((a, b) => b.NomeProjeto.localeCompare(a.NomeProjeto));
+        break;
+      case 'date_desc':
+        processedProjects.sort((a, b) => new Date(b.DataCriacao) - new Date(a.DataCriacao));
+        break;
+      case 'date_asc':
+        processedProjects.sort((a, b) => new Date(a.DataCriacao) - new Date(b.DataCriacao));
+        break;
+      // O caso 'default' não faz nada, mantendo a ordem original.
+>>>>>>> Stashed changes
     }
 
     // 2. APLICA O FILTRO DE BUSCA (DEPOIS DE ORDENAR)
     const searchTerm = searchInput.value.toLowerCase();
     if (searchTerm.length > 0) {
+<<<<<<< Updated upstream
         processedProjects = processedProjects.filter(projeto => 
             projeto.NomeProjeto.toLowerCase().includes(searchTerm)
         );
+=======
+      processedProjects = processedProjects.filter(projeto =>
+        projeto.NomeProjeto.toLowerCase().includes(searchTerm)
+      );
+>>>>>>> Stashed changes
     }
 
     // 3. RENDERIZA O RESULTADO FINAL
     renderProjectList(processedProjects);
+<<<<<<< Updated upstream
 }
 
 
@@ -2179,10 +2620,62 @@ searchInput.addEventListener('input', () => {
     applyFiltersAndSort();
 });
 
+=======
+  }
+
+
+  // --- ATUALIZAÇÃO DOS EVENTOS ---
+
+  // Os botões de ordenação agora apenas atualizam o estado e chamam a função mestre
+  filterOptions.forEach(button => {
+    button.addEventListener('click', () => {
+      currentSortType = button.getAttribute('data-sort'); // Atualiza a ordenação
+      applyFiltersAndSort(); // Aplica
+      closeFilterPopup();
+    });
+  });
+
+  // O campo de busca chama a função mestre a cada tecla digitada
+  searchInput.addEventListener('input', () => {
+    applyFiltersAndSort();
+  });
+
+
+  // --- LÓGICA DO POPUP DE NOTIFICAÇÕES ---
+  const btnNotificacoes = document.getElementById('btn-notificacoes');
+  const notificacoesPopup = document.getElementById('notificacoes-popup');
+  const notificacoesOverlay = document.getElementById('notificacoes-overlay');
+  const btnCloseNotificacoes = document.getElementById('btn-close-notificacoes');
+
+  function abrirNotificacoes() {
+    notificacoesOverlay.style.display = 'block';
+    notificacoesPopup.style.display = 'block';
+  }
+
+  function fecharNotificacoes() {
+    notificacoesOverlay.style.display = 'none';
+    notificacoesPopup.style.display = 'none';
+  }
+
+  btnNotificacoes.addEventListener('click', (e) => {
+    e.preventDefault(); // Impede o link de navegar para '#'
+    abrirNotificacoes();
+  });
+
+  btnCloseNotificacoes.addEventListener('click', fecharNotificacoes);
+  notificacoesOverlay.addEventListener('click', fecharNotificacoes);
+
+>>>>>>> Stashed changes
   // NOVOS LISTENERS para os filtros
   projectFilter.addEventListener('change', applyFiltersAndRender);
   statusFilters.forEach(checkbox => checkbox.addEventListener('change', applyFiltersAndRender));
 </script>
+<<<<<<< Updated upstream
+=======
+<script>
+  const CURRENT_USER_ID = <?php echo json_encode($idUsuarioLogado); ?>;
+</script>
+>>>>>>> Stashed changes
 <script src="../Js/chatbot.js"></script>
 
 

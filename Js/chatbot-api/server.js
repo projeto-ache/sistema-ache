@@ -21,8 +21,12 @@ app.use("/reports", express.static(path.join(process.cwd(), "reports")));
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
 app.post("/chat", async (req, res) => {
+<<<<<<< Updated upstream
   const { message } = req.body;
   const userId = 1; // 🔥 depois você pode trocar para o usuário logado
+=======
+  const { message, userId } = req.body;
+>>>>>>> Stashed changes
 
   try {
     // Lógica para pedidos de cronograma e relatórios
@@ -39,6 +43,7 @@ app.post("/chat", async (req, res) => {
 
       if (projetos.length === 0) {
         return res.json({
+<<<<<<< Updated upstream
           reply: "Você não está envolvido em nenhum projeto no momento.",
         });
       }
@@ -51,11 +56,27 @@ app.post("/chat", async (req, res) => {
       const excelUrl = `http://localhost:5000/${excelPath}`;
       const pdfUrl = `http://localhost:5000/${pdfPath}`;
 
+=======
+          reply: "Você não está envolvido em nenhum projeto no momento."
+        });
+      }
+
+      // Geração dos relatórios
+      const excelPath = await gerarExcel(projetos, userId);
+      const pdfPath = gerarPDF(projetos, userId);
+
+      // Garantir caminhos relativos
+      const excelUrl = `http://localhost:5000/${excelPath}`;
+      const pdfUrl = `http://localhost:5000/${pdfPath}`;
+
+      // Formatar a resposta simples para o chat
+>>>>>>> Stashed changes
       const respostaFormatada = projetos
         .map(
           (p) =>
             `* **Projeto**: ${
               p.NomeProjeto
+<<<<<<< Updated upstream
             }\n  **Início**: ${p.DataCriacao.toISOString().slice(
               0,
               10
@@ -63,11 +84,25 @@ app.post("/chat", async (req, res) => {
         )
         .join("\n");
 
+=======
+            }\n  **Início**: ${p.DataCriacaoProjeto.toISOString().slice(
+              0,
+              10
+            )}\n  **Fim**: ${p.DataConclusaoProjeto.toISOString().slice(0, 10)}`
+        )
+        .join("\n");
+
+      // Adiciona a mensagem com os links para download dos relatórios
+>>>>>>> Stashed changes
       return res.json({
         reply:
           "Aqui está o seu cronograma de projetos:\n" +
           respostaFormatada +
+<<<<<<< Updated upstream
           `\n\n📂 Baixe seus relatórios:\n[Excel](${excelUrl}) | [PDF](${pdfUrl})`,
+=======
+          `\n\n📂 Baixe seus relatórios completos:\n[Excel](${excelUrl}) | [PDF](${pdfUrl})`
+>>>>>>> Stashed changes
       });
     }
 
@@ -79,7 +114,11 @@ app.post("/chat", async (req, res) => {
     const replyText = response.text();
 
     res.json({
+<<<<<<< Updated upstream
       reply: replyText,
+=======
+      reply: replyText
+>>>>>>> Stashed changes
     });
   } catch (error) {
     console.error("Erro ao processar requisição:", error);

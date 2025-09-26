@@ -1,5 +1,5 @@
 <?php
-// Arquivo: criar_projeto.php
+// Arquivo: criar-projeto.php (Versão Corrigida e Refinada)
 
 // 1. INICIAR A SESSÃO E CONEXÃO
 session_start();
@@ -18,17 +18,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nomeProjeto = trim($_POST['nome_projeto']);
     $descricao = trim($_POST['descricao']);
     $dataConclusao = $_POST['data_conclusao'];
-    $membrosStr = trim($_POST['membros']);
+    $membrosStr = trim($_POST['membros']); // Vem como "1,2,3" ou ""
     $idCriador = $_SESSION['user_id'];
 
-    // Se o nome do projeto estiver vazio, interrompe
     if (empty($nomeProjeto)) {
         die("O nome do projeto é obrigatório.");
     }
-    
-    // Converte a string de membros em um array de IDs
-    $membrosIds = explode(',', $membrosStr);
 
+    // =======================================================
+    //      INÍCIO DA CORREÇÃO
+    // =======================================================
+    // Converte a string de membros em um array de IDs, com tratamento para o caso de estar vazio
+    $membrosIds = []; // Começa com um array de fato vazio
+    if (!empty($membrosStr)) {
+        $membrosIds = explode(',', $membrosStr);
+    }
+    // =======================================================
+    //      FIM DA CORREÇÃO
+    // =======================================================
+    
     // 4. INICIAR UMA TRANSAÇÃO NO BANCO DE DADOS
     $conexao->begin_transaction();
     
@@ -36,50 +44,46 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // 5. INSERIR O NOVO PROJETO NA TABELA `projetos`
         $sqlProjeto = "INSERT INTO projetos (NomeProjeto, Descricao, DataConclusao, ID_Usuario_Criador, DataCriacao) VALUES (?, ?, ?, ?, NOW())";
         $stmtProjeto = $conexao->prepare($sqlProjeto);
-
-        // A data pode ser nula, então tratamos o valor
         $dataConclusaoFinal = empty($dataConclusao) ? NULL : $dataConclusao;
-        
-        // O "sssi" indica 3 strings e 1 integer para os placeholders (?)
         $stmtProjeto->bind_param("sssi", $nomeProjeto, $descricao, $dataConclusaoFinal, $idCriador);
-        
         $stmtProjeto->execute();
-        $stmtProjeto->close();
-
+        
         // 6. OBTER O ID DO PROJETO RECÉM-CRIADO
         $idNovoProjeto = $conexao->insert_id;
+        $stmtProjeto->close();
 
         // 7. INSERIR OS MEMBROS NA TABELA `projetos_usuarios`
-        // Inclui o criador do projeto como membro. Se ele já estiver na lista, o banco não duplicará o registro devido à chave primária composta.
+        
+        // Lógica Robusta: Primeiro, adiciona o criador como participante garantido.
         $sqlMembro = "INSERT INTO projetos_usuarios (ID_Projeto, ID_Usuario) VALUES (?, ?)";
         $stmtMembro = $conexao->prepare($sqlMembro);
-        
-        // Garante que o criador está na lista de membros a serem adicionados
-        if (!in_array($idCriador, $membrosIds)) {
-            $membrosIds[] = $idCriador;
-        }
+        $stmtMembro->bind_param("ii", $idNovoProjeto, $idCriador);
+        $stmtMembro->execute();
 
-        foreach ($membrosIds as $idMembro) {
-            // "ii" indica que esperamos dois integers
-            $stmtMembro->bind_param("ii", $idNovoProjeto, $idMembro);
-            $stmtMembro->execute();
+        // Agora, adiciona os outros membros selecionados, se houver, evitando duplicar o criador.
+        if (!empty($membrosIds)) {
+            foreach ($membrosIds as $idMembro) {
+                $idMembroInt = (int)$idMembro;
+                // Só insere se o ID for válido e não for o próprio criador (que já foi adicionado)
+                if ($idMembroInt > 0 && $idMembroInt != $idCriador) {
+                    $stmtMembro->bind_param("ii", $idNovoProjeto, $idMembroInt);
+                    $stmtMembro->execute();
+                }
+            }
         }
         $stmtMembro->close();
 
         // 8. SE TUDO DEU CERTO, CONCLUIR A TRANSAÇÃO
         $conexao->commit();
         
-        // Redirecionar para a página principal com uma mensagem de sucesso
         header("Location: index.php?status=sucesso");
         exit();
 
     } catch (mysqli_sql_exception $e) {
-        // 9. EM CASO DE ERRO, DESFAZER TUDO
         $conexao->rollback();
-        die("Erro ao criar o projeto: " . $e->getMessage());
+        die("Erro ao criar o projeto: ". $e->getMessage());
     }
 } else {
-    // Se o acesso foi inválido (não via formulário)
     echo "Acesso inválido.";
 }
 ?>

@@ -80,6 +80,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" href="../style/style.css">
     <title>Alterar Senha - ACHE</title>
     <style>
+<<<<<<< Updated upstream
+=======
+        :root {
+  --primary-color: #D60059; /* Cor vermelha do cabeçalho */
+  --secundary-color: #B3004A; /* Cor do menu principal */
+  --text-color: white;
+  --dark-text-color: black; /* Cor para texto em fundos claros */
+  --icon-color: white;
+  --light-background-color: white;
+  --gray-background-color: #d8d8d8;
+  --dark-background-color: black;
+}
+
+
+>>>>>>> Stashed changes
         /* O estilo é idêntico ao da página de alterar nome para manter a consistência */
         .editar-senha-page-content {
             font-family: Arial, sans-serif;
@@ -90,7 +105,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         .form-container {
+<<<<<<< Updated upstream
             background-color: #fff;
+=======
+            background-color: var(--light-background-color);
+>>>>>>> Stashed changes
             padding: 30px 40px;
             border-radius: 10px;
             max-width: 500px;
@@ -100,7 +119,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         .form-container h2 {
             margin: 0 0 25px 0;
+<<<<<<< Updated upstream
             color: #d50057;
+=======
+            color: var(--primary-color);
+>>>>>>> Stashed changes
             font-size: 28px;
         }
 
@@ -113,13 +136,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             display: block;
             margin-bottom: 8px;
             font-weight: bold;
+<<<<<<< Updated upstream
             color: #333;
+=======
+            color: var(--dark-text-color);
+>>>>>>> Stashed changes
         }
 
         .input-group input {
             width: 100%;
             padding: 12px;
+<<<<<<< Updated upstream
             border: 1px solid #ccc;
+=======
+            border: 1px solid var(--gray-background-color);
+>>>>>>> Stashed changes
             border-radius: 5px;
             font-size: 16px;
             box-sizing: border-box;
@@ -130,8 +161,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             padding: 12px 20px;
             font-size: 16px;
             font-weight: bold;
+<<<<<<< Updated upstream
             color: #fff;
             background-color: #d50057;
+=======
+            color: var(--text-color);
+            background-color: var(--primary-color);
+>>>>>>> Stashed changes
             border: none;
             border-radius: 5px;
             cursor: pointer;
@@ -139,17 +175,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         .form-button:hover {
+<<<<<<< Updated upstream
             background-color: #ac1d58;
+=======
+            background-color: var(--secundary-color);
+>>>>>>> Stashed changes
         }
 
         .back-link {
             display: block;
             margin-top: 20px;
+<<<<<<< Updated upstream
             color: #555;
+=======
+            color: var(--dark-text-color);
+>>>>>>> Stashed changes
             text-decoration: none;
         }
 
         .back-link:hover{
+<<<<<<< Updated upstream
             color: #d50057;
         }
 
@@ -158,6 +203,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             color: #721c24;
             padding: 10px;
             border: 1px solid #f5c6cb;
+=======
+            color: var(--primary-color);
+        }
+
+        .error-message {
+            background-color: var(--light-background-color);
+            color: red;
+            padding: 10px;
+            border: 1px solid var(--gray-background-color);
+>>>>>>> Stashed changes
             border-radius: 5px;
             margin-bottom: 20px;
         }
@@ -173,7 +228,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="menu-logo">
         <a href="index.php">
             <div class="menu-logo-texto">
+<<<<<<< Updated upstream
                 <p>ACHE</p>
+=======
+                <img src="../images/Logo_Ache - Branco.png" alt="Logo ACHE" height="20px">
+>>>>>>> Stashed changes
             </div>
         </a>
     </div>

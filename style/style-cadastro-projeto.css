@@ -1,9 +1,20 @@
 /* style/style-projeto.css */
 
+:root {
+  --primary-color: #D60059; /* Cor vermelha do cabeçalho */
+  --secundary-color: #B3004A; /* Cor do menu principal */
+  --text-color: white;
+  --dark-text-color: black; /* Cor para texto em fundos claros */
+  --icon-color: white;
+  --light-background-color: white;
+  --gray-background-color: #d8d8d8;
+  --dark-background-color: black;
+}
+
 /* Estilos gerais */
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f9;
+    background-color: var(--gray-background-color);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -13,9 +24,9 @@ body {
 
 /* Caixa principal do formulário */
 .projeto-box {
-    background-color: #ffffff;
+    background-color: var(--light-background-color);
     padding: 40px;
-    border-radius: 10px;
+    border-radius: 5px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     width: 100%;
     max-width: 450px;
@@ -24,12 +35,12 @@ body {
 
 .projeto-box h1 {
     font-size: 2.5em;
-    color: #c000c0; /* Cor roxa da Aché */
+    color: var(--primary-color); /* Cor roxa da Aché */
     margin-bottom: 10px;
 }
 
 .projeto-box .subtitulo {
-    color: #666;
+    color: var(--dark-text-color);
     margin-bottom: 30px;
 }
 
@@ -42,7 +53,7 @@ form {
 
 label {
     font-weight: bold;
-    color: #333;
+    color: var(--dark-text-color);
     margin-bottom: 8px;
     margin-top: 15px;
 }
@@ -63,8 +74,8 @@ textarea {
 }
 
 button {
-    background-color: #c000c0; /* Cor roxa da Aché */
-    color: white;
+    background-color: var(--primary-color); /* Cor roxa da Aché */
+    color: var(--text-color);
     padding: 15px;
     border: none;
     border-radius: 5px;
@@ -76,7 +87,7 @@ button {
 }
 
 button:hover {
-    background-color: #a000a0; /* Um tom de roxo mais escuro */
+    background-color: var(--secundary-color); /* Um tom de roxo mais escuro */
 }
 
 /* Link de cancelar */
@@ -86,7 +97,7 @@ button:hover {
 }
 
 .cancelar-link a {
-    color: #666;
+    color: var(--dark-text-color);
     text-decoration: none;
     font-size: 0.9em;
 }
@@ -118,7 +129,7 @@ button:hover {
 }
 
 .resultado-item:hover {
-    background-color: #f0f0f0;
+    background-color: var(--gray-background-color);
 }
 
 #membros_selecionados {
@@ -132,13 +143,13 @@ button:hover {
 #membros_selecionados p {
     margin: 0;
     font-weight: bold;
-    color: #333;
+    color: var(--dark-text-color);
 }
 
 .membro-pill {
-    background-color: #e0e0e0;
+    background-color: var(--gray-background-color);
     padding: 5px 10px;
-    border-radius: 15px;
+    border-radius: 5px;
     display: flex;
     align-items: center;
     font-size: 0.9em;
@@ -148,9 +159,9 @@ button:hover {
     margin-left: 8px;
     cursor: pointer;
     font-weight: bold;
-    color: #888;
+    color: var(--dark-text-color);
 }
 
 .remover-membro:hover {
-    color: #333;
+    color: var(--dark-text-color);
 }

@@ -155,3 +155,50 @@
 .chatbot-message.bot .cronograma-list strong {
   font-weight: bold;
 }
+<<<<<<< Updated upstream
+=======
+
+/* Estilo para a animação de loading */
+#loading-dots-container {
+  justify-content: flex-start;
+  animation: fadeIn 0.5s;
+}
+
+#loading-dots-container .dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  background-color: #555;
+  border-radius: 50%;
+  margin: 0 2px;
+  animation: bounce 1.4s infinite ease-in-out both;
+}
+
+#loading-dots-container .dot:nth-child(1) {
+  animation-delay: -0.32s;
+}
+
+#loading-dots-container .dot:nth-child(2) {
+  animation-delay: -0.16s;
+}
+
+@keyframes bounce {
+  0%,
+  80%,
+  100% {
+    transform: scale(0);
+  }
+  40% {
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+>>>>>>> Stashed changes

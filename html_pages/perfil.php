@@ -45,9 +45,31 @@ try {
     <title>Meu Perfil - ACHE</title>
 
     <style>
+<<<<<<< Updated upstream
         .perfil-page-content {
             font-family: Arial, sans-serif;
             background-color: #f8f9fa;
+=======
+        :root {
+            --primary-color: #D60059;
+            /* Cor vermelha do cabeçalho */
+            --secundary-color: #B3004A;
+            /* Cor do menu principal */
+            --text-color: white;
+            --dark-text-color: black;
+            /* Cor para texto em fundos claros */
+            --icon-color: white;
+            --light-background-color: white;
+            --gray-background-color: #d8d8d8;
+            --dark-background-color: black;
+        }
+
+
+
+        .perfil-page-content {
+            font-family: Arial, sans-serif;
+            background-color: var(--light-background-color);
+>>>>>>> Stashed changes
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -85,7 +107,11 @@ try {
             position: absolute;
             bottom: 5px;
             right: 5px;
+<<<<<<< Updated upstream
             background-color: #d50057;
+=======
+            background-color: var(--primary-color);
+>>>>>>> Stashed changes
             width: 40px;
             height: 40px;
             border-radius: 50%;
@@ -97,7 +123,11 @@ try {
         }
 
         .edit-icon-form .material-symbols-outlined {
+<<<<<<< Updated upstream
             color: white;
+=======
+            color: var(--text-color);
+>>>>>>> Stashed changes
             font-size: 24px;
         }
 
@@ -123,14 +153,22 @@ try {
 
         .text-content .tagline {
             font-size: 18px;
+<<<<<<< Updated upstream
             color: #555;
+=======
+            color: var(--dark-text-color);
+>>>>>>> Stashed changes
             line-height: 1.5;
             margin-bottom: 25px;
         }
 
         .text-content .logout-link {
             font-size: 18px;
+<<<<<<< Updated upstream
             color: #d50057;
+=======
+            color: var(--primary-color);
+>>>>>>> Stashed changes
             text-decoration: none;
             font-weight: bold;
         }
@@ -149,14 +187,22 @@ try {
 
         .profile-details h2 {
             margin: 0 0 20px 0;
+<<<<<<< Updated upstream
             color: #d50057;
+=======
+            color: var(--primary-color);
+>>>>>>> Stashed changes
             border-bottom: 1px solid #eee;
             padding-bottom: 10px;
         }
 
         .info-item {
             font-size: 18px;
+<<<<<<< Updated upstream
             color: black;
+=======
+            color: var(--dark-text-color);
+>>>>>>> Stashed changes
             margin-bottom: 15px;
         }
 
@@ -169,18 +215,31 @@ try {
         .action-button {
             padding: 10px 20px;
             text-decoration: none;
+<<<<<<< Updated upstream
             color: #fff;
             background-color: #d50057;
+=======
+            color: var(--text-color);
+            background-color: var(--primary-color);
+>>>>>>> Stashed changes
             border-radius: 5px;
             transition: background-color 0.3s ease;
         }
 
         .action-button:hover {
+<<<<<<< Updated upstream
             background-color: #ac1d58;
         }
 
         .success-message {
             background-color: #d4edda;
+=======
+            background-color: var(--secundary-color);
+        }
+
+        .success-message {
+            background-color: var(--light-background-color);
+>>>>>>> Stashed changes
             color: #155724;
             padding: 15px;
             border: 1px solid #c3e6cb;
@@ -205,6 +264,7 @@ try {
 
 
 
+<<<<<<< Updated upstream
     <script>
         // --- O SCRIPT QUE PEGAVA NOME DO USUÁRIO DO LOCALSTORAGE FOI REMOVIDO ---
 
@@ -221,10 +281,29 @@ try {
 
         // --- O SCRIPT DE LOGOUT COM LOCALSTORAGE FOI REMOVIDO ---
     </script>
+=======
+<script>
+    // --- O SCRIPT QUE PEGAVA NOME DO USUÁRIO DO LOCALSTORAGE FOI REMOVIDO ---
+
+    // --- Função para atualizar data e hora (continua igual) ---
+    function atualizarDataHora() {
+        const agora = new Date();
+        const data = agora.toLocaleDateString("pt-BR", { day: "2-digit", month: "2-digit", year: "numeric" });
+        const hora = agora.toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" });
+        document.getElementById("current-date").textContent = data;
+        document.getElementById("current-time").textContent = hora;
+    }
+    atualizarDataHora();
+    setInterval(atualizarDataHora, 1000);
+
+    // --- O SCRIPT DE LOGOUT COM LOCALSTORAGE FOI REMOVIDO ---
+</script>
+>>>>>>> Stashed changes
 
 
 <body>
 
+<<<<<<< Updated upstream
 <header>
     <div class="menu-logo">
         <a href="index.php">
@@ -335,6 +414,119 @@ try {
     </script>
 
 </div>
+=======
+    <header>
+        <div class="menu-logo">
+            <a href="index.php">
+                <div class="menu-logo-texto">
+                    <img src="../images/Logo_Ache - Branco.png" alt="Logo ACHE" height="20px">
+                </div>
+            </a>
+        </div>
+
+        <div class="menu-content">
+            <div class="menu-content-mensagem">
+                <p id="welcome-msg">Bem-vindo, <?php echo $primeiroNome; ?>!</p>
+            </div>
+            <div class="menu-content-data" id="current-date"></div>
+            <div class="menu-content-time" id="current-time"></div>
+
+            <div class="menu-content-logout">
+                <a href="logout.php" class="logoutBtn">
+                    <button type="button">Sair</button>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <div class="second-menu">
+        <div class="menu-burger-icon">
+            <button class="btn-exb-left-main">
+                <i class="fas fa-bars" alt="Fechar display de navegação"></i>
+            </button>
+        </div>
+        <div class="menu-atalhos-iniciais">
+            <div class="menu-atalhos-iniciais-pagina-inicial">
+                <a href="index.php">Página Inicial</a>
+            </div>
+            <div class="menu-atalhos-iniciais-ajuda">
+                <a href="#">Ajuda</a>
+            </div>
+        </div>
+        <div class="menu-atalhos-pessoais">
+            <ul class="nav-icons">
+                <li>
+                    <button id="btn-mostrar-calendario-global" class="nav-icon-btn"><i
+                            class="fas fa-calendar-alt"></i></button>
+                </li>
+                <li>
+                    <a href="#"><i class="fas fa-bell"></i></a>
+                </li>
+                <li>
+                    <a href="#"><i class="fas fa-cog"></i></a>
+                </li>
+                <li>
+                    <a href="perfil.php"><i class="fas fa-user-circle"></i></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="perfil-page-content">
+        <?php
+        // Verifica se existe uma mensagem de sucesso na sessão
+        if (isset($_SESSION['mensagem_sucesso'])) {
+            // Exibe a mensagem
+            echo '<div class="success-message">' . $_SESSION['mensagem_sucesso'] . '</div>';
+            // Remove a mensagem da sessão para não exibi-la novamente
+            unset($_SESSION['mensagem_sucesso']);
+        }
+        ?>
+
+        <div class="profile-card">
+            <div class="image-container">
+                <img src="<?php echo $caminhoFoto; ?>" alt="imagem de usuário" class="profile-picture">
+                <form id="uploadForm" class="edit-icon-form" action="editaImagemUser.php" method="POST"
+                    enctype="multipart/form-data">
+                    <input type="file" name="imagemUser" class="file-upload-input" onchange="submitForm()">
+                    <span class="material-symbols-outlined">edit</span>
+                </form>
+            </div>
+            <div class="text-content">
+                <h1>Olá, <?php echo $primeiroNome; ?></h1>
+                <p class="tagline">"ACHE gerenciamento de tarefas. Seja o melhor que você pode ser. <br>Utilize o
+                    gerenciamento de tarefas para facilitar a sua vida!"</p>
+                <a href="logout.php" class="logout-link">Sair</a>
+            </div>
+        </div>
+
+        <div class="profile-details">
+            <h2>Detalhes da Conta</h2>
+
+            <div class="info-item">
+                <strong>Nome:</strong> <span><?php echo $primeiroNome; ?></span>
+            </div>
+            <div class="info-item">
+                <strong>Email:</strong> <span><?php echo $emailUsuario; ?></span>
+            </div>
+
+            <div class="actions-container">
+                <a href="editar-nome.php" class="action-button">Alterar Nome</a>
+                <a href="editar-senha.php" class="action-button">Alterar Senha</a>
+            </div>
+        </div>
+
+        <script>
+            // Função para o upload da imagem (continua aqui)
+            function submitForm() {
+                document.getElementById('uploadForm').submit();
+            }
+
+            // A lógica do botão de toggle foi removida!
+        </script>
+
+    </div>
+>>>>>>> Stashed changes
 </body>
 
 </html>
